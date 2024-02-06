@@ -1,0 +1,31 @@
+# directories
+spack
+spack-manager
+stage
+snapshots
+environments
+snapshots
+golds
+logs
+tmp
+views
+modules
+cache
+configs/user
+stage
+.bootstrap
+.jython_cache
+# file types
+Makefile
+__pycache__
+*.lock
+.spack-env/
+*.log
+.spack*
+*.code-workspace
+*.pyc
+.vscode
+.cache
+Configuring
+.tmp/
+*.swp

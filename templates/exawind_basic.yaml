@@ -1,0 +1,7 @@
+spack:
+  concretizer:
+    unify: false
+    reuse: false
+  view: false
+  specs:
+  - exawind+fsi

@@ -1,0 +1,18 @@
+modules:
+ default:
+   enable: [tcl]
+   roots:
+    tcl: $env/modules
+   arch_folder: false
+   tcl:
+    all:
+      autoload: direct
+    exawind:
+      autoload: all
+      environment:
+        prepend_path:
+            PATH: "{^mpi.prefix}/bin:{^nalu-wind.prefix}/bin:{^amr-wind.prefix}/bin:{^trilinos.prefix}/bin:{^openfast.prefix}/bin"
+    projections:
+        all: "{name}-{version}/{hash:4}"
+    hash_length: 0
+    exclude_implicits: true

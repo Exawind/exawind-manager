@@ -1,0 +1,75 @@
+packages:
+  all:
+    permissions:
+      read: group
+      group: wg-sierra-users
+    providers:
+      mpi:
+      - openmpi
+    variants: +mpi build_type=Release
+  boost:
+    version: [1.68.0]
+  pkg-config:
+    buildable: false
+    externals:
+    - spec: pkg-config@0.27.1
+      prefix: /usr/bin/pkg-config
+  ucx:
+    variants: +mlx5-dv+optimizations
+  cmake:
+    externals:
+    - spec: cmake@3.26.2~doc+ncurses+ownlibs~qt
+      prefix: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/tooling/install/linux-rhel7-x86_64/gcc-10.3.0/cmake-3.26.2-s57q5vi
+    buildable: false
+  openmpi:
+    externals:
+    - spec: openmpi@4.0.5
+      prefix: /opt/openmpi/4.0/intel
+    buildable: false
+  intel-oneapi-mkl:
+    externals:
+    - spec: intel-oneapi-mkl@2021.3.0 +shared
+      prefix: /projects/global/toss3/compilers/intel/intel_2021/oneapi
+    buildable: false
+  slurm:
+    externals:
+    - spec: slurm@20.02.6
+      prefix: /usr
+    buildable: false
+  openssl:
+    version: [1.0.2]
+    buildable: false
+    externals:
+    - spec: openssl@1.0.2
+      prefix: /usr
+  ncurses:
+    version: [5.9]
+    buildable: false
+    externals:
+    - spec: ncurses@5.9
+      prefix: /usr
+  ninja:
+    externals::
+    - spec: ninja@1.10.1
+      modules:
+      - cde/v2/ninja/1.10.1
+  binutils:
+    version: [2.29.1]
+  zlib:
+    version: [1.2.7]
+    buildable: false
+    externals:
+    - spec: zlib@1.2.7
+      prefix: /usr
+  bzip2:
+    version: [1.0.6]
+    buildable: false
+    externals:
+    - spec: bzip2@1.0.6
+      prefix: /usr
+  m4:
+    version: [1.4.16]
+    buildable: false
+    externals:
+    - spec: m4@1.4.16
+      prefix: /usr
