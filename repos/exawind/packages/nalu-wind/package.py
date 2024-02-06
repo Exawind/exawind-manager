@@ -10,7 +10,7 @@ from spack.pkg.builtin.nalu_wind import NaluWind as bNaluWind
 from spack.pkg.builtin.kokkos import Kokkos
 import os
 import importlib
-find_machine = importlib.import_module("find-exawind-configs")
+find_machine = importlib.import_module("find-exawind-manager")
 from spack.pkg.exawind.cmake_extension import *
 
 

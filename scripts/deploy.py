@@ -23,10 +23,9 @@ module = spack.main.SpackCommand("module")
 make = spack.util.executable.which("make")
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--fresh-stage",
-                    help=(
-                        "stage files inside the spack environment "
-                        "(helps with HPC using compute nodes to build)")
+parser.add_argument("--pre-fetch",
+                          help="fetch all the source code prior to install",
+                          action="store_true"
                     )
 parser.add_argument("--slurm-args",
                     help=(
@@ -37,7 +36,7 @@ parser.add_argument("--ranks", type=int)
 parser.add_argument("--tests", action="store_true")
 parser.add_argument("--cdash", action="store_true")
 
-def setup(args):
+def environment_setup(args):
     out=manager("find-machine")
     project, machine = out.strip().split()
     template = os.path.expandvars("$EXAWIND_MANAGER/templates/exawind_{}.yaml".format(machine))
@@ -52,11 +51,12 @@ def setup(args):
 
 def configure_env(args):
     with ev.read(daystr) as e:
-        module_projection = '{name}-{version}/'+'{}'.format(datestr)+'/{hash:4}'
-        config("add", "modules:default:tcl:projections:all:'{}'".format(module_projection})
+        module_projection = '{name}-{version}/'+'{}'.format(daystr)+'/{hash:4}'
+        config("add", "modules:default:tcl:projections:all:'{}'".format(module_projection))
         concretize("--force")
         env("depfile", "-o", os.path.join(e.path, "Makefile"))
-        fetch()
+        if args.pre_fetch:
+            fetch()
 
 def dependency_install_args(ranks):
     with ev.read(daystr) as e:
@@ -73,7 +73,7 @@ def dependency_install_args(ranks):
 def install_deps(args):
     with ev.read(daystr) as e:
         os.chdir(e.path)
-        dep_args = dependency_install_args(args)
+        dep_args = dependency_install_args(args.ranks)
         for make_args in dep_args:
             print("make",*make_args)
             make(*make_args)
@@ -143,9 +143,7 @@ def module_gen(args):
 
 
 args = parser.parse_args()
-print(args)
-print("setup")
-setup(args)
+environment_setup(args)
 print("configure args")
 configure_env(args)
 if args.slurm_args:

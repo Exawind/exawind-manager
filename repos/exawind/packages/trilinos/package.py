@@ -10,7 +10,7 @@ from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
 import os
 import importlib
 from spack.pkg.exawind.cmake_extension import *
-find_machine = importlib.import_module("find-exawind-configs")
+find_machine = importlib.import_module("find-exawind-manager")
 
 class Trilinos(bTrilinos, CmakeExtension):
     # Our custom release versions should be the latest release tag found on
