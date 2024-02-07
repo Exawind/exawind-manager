@@ -37,6 +37,7 @@ parser.add_argument("--ranks", type=int)
 parser.add_argument("--tests", action="store_true")
 parser.add_argument("--cdash", action="store_true")
 parser.add_argument("--overwrite", action="store_true")
+parser.add_argument("--depfile", action="store_true")
 
 
 def get_env_name(args):
@@ -68,7 +69,8 @@ def configure_env(args, env_name):
         module_projection = '{name}-{version}/'+'{}'.format(env_name)+'/{hash:4}'
         config("add", "modules:default:tcl:projections:all:'{}'".format(module_projection))
         concretize("--force")
-        env("depfile", "-o", os.path.join(e.path, "Makefile"))
+        if args.depfile:
+            env("depfile", "-o", os.path.join(e.path, "Makefile"))
         if args.pre_fetch:
             fetch()
 
@@ -77,7 +79,6 @@ def dependency_install_args(env, ranks):
     for root in env.concrete_roots():
         make_args = [
             "-j{}".format(ranks),
-            "--keep-going",
             "install-deps/{}".format(root.format("{name}-{version}-{hash}")),
             "SPACK_INSTALL_FLAGS={}".format("--show-log-on-error"),
         ]
@@ -87,12 +88,15 @@ def dependency_install_args(env, ranks):
 def install_deps(args, env_name):
     with ev.read(env_name) as e:
         os.chdir(e.path)
-        dep_args = dependency_install_args(e, args.ranks)
-        for make_args in dep_args:
-            print("make",*make_args)
-            make(*make_args)
+        if args.depfile:
+            dep_args = dependency_install_args(e, args.ranks)
+            for make_args in dep_args:
+                print("make",*make_args)
+                make(*make_args)
+        else:
+            install("--only", "dependencies")
 
-def root_install_args(env, ranks, tests=False, cdash=False):
+def root_install_args(env, tests=False, cdash=False):
     install_args = [
         "--keep-stage",
         "--only-concrete",
@@ -109,6 +113,10 @@ def root_install_args(env, ranks, tests=False, cdash=False):
             "--cdash-site", "dummy",
             "--cdash-track", "track",
         ])
+    return install_args
+
+def root_make_args(env, ranks, tests=False, cdash=False):
+    install_args = root_install_args(env, tests, cdash)
     all_args = []
     for root in env.concrete_roots():
         make_args = [
@@ -119,16 +127,15 @@ def root_install_args(env, ranks, tests=False, cdash=False):
         all_args.append(make_args)
     return all_args
 
-def install_roots(args, env_name):
-    root_arg_set = root_install_args(ev.read(env_name), args.ranks, args.test, args.cdash)
-    for arg_set in root_arg_set:
-        make(*arg_set)
-
 
 def install_roots(args, env_name):
-    with ev.read(env_name) as e:
-        os.chdir(e.path)
-        install(*install_args())
+    env = ev.read(env_name)
+    if args.depfile:
+        root_arg_set = root_install_args(env, args.ranks, args.tests, args.cdash)
+        for arg_set in root_arg_set:
+            make(*arg_set)
+    else:
+        install(*root_install_args(env, args.tests, args.cdash))
 
 
 def create_slurm_file(args, env_name):
@@ -141,13 +148,17 @@ def create_slurm_file(args, env_name):
             f.write(s)
         f.write("\n")
 
-        dep_arg_set = dependency_install_args(e, args.ranks)
-        for dep_args in dep_arg_set:
-            f.write("make " + " ".join(dep_args)+"\n")
+        if args.depfile:
+            dep_arg_set = dependency_install_args(e, args.ranks)
+            for dep_args in dep_arg_set:
+                f.write("make " + " ".join(dep_args)+"\n")
 
-        root_arg_set = root_install_args(e, args.ranks, args.tests, args.cdash)
-        for root_args in root_arg_set:
-            f.write("make " + " ".join(root_args)+"\n")
+            root_arg_set = root_make_args(e, args.ranks, args.tests, args.cdash)
+            for root_args in root_arg_set:
+                f.write("make " + " ".join(root_args)+"\n")
+        else:
+            f.write("srun -N $SLURM_JOB_NUM_NODES -n {} spack install --only dependencies".format(args.ranks))
+            f.write("srun -N $SLURM_JOB_NUM_NODES -n {} spack install ".format(args.ranks) + " ".join(root_args(e, args.tests, args.cdash)))
         f.write("spack module tcl refresh -y")
 
 
