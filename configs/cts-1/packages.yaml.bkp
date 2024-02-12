@@ -1,11 +1,4 @@
 packages:
-  openmpi:
-    externals:
-    - spec: openmpi@4.1.6~cuda~cxx~cxx_exceptions~java+lustre~memchecker+pmi~static~wrapper-rpath
-        fabrics=ofi,psm,psm2 schedulers=slurm
-      prefix: /projects/aue/hpc/builds/x86_64/rhel7/1822dd22/openmpi-4.1.6-intel-2021.5.0/install/linux-rhel7-x86_64/intel-2021.5.0/openmpi-4.1.6-cthhi7m
-      modules: [aue/openmpi/4.1.6-intel-2021.5.0]
-    buildable: false
   all:
     permissions:
       read: group
@@ -28,6 +21,11 @@ packages:
     - spec: cmake@3.26.2
       prefix: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/tooling/install/linux-rhel7-x86_64/gcc-10.3.0/cmake-3.26.2-s57q5vi
     buildable: false
+  openmpi:
+    externals:
+    - spec: openmpi@4.0.5
+      prefix: /opt/openmpi/4.0/intel
+    buildable: false
   intel-oneapi-mkl:
     externals:
     - spec: intel-oneapi-mkl@2021.3.0 +shared
@@ -41,19 +39,17 @@ packages:
   openssl:
     version: [1.0.2]
     buildable: false
-    variants: "certs=system"
     externals:
     - spec: openssl@1.0.2
       prefix: /usr
   ncurses:
-    version:
-    - '5.9'
+    version: [5.9]
     buildable: false
     externals:
     - spec: ncurses@5.9
       prefix: /usr
   ninja:
-    'externals:':
+    externals::
     - spec: ninja@1.10.1
       modules:
       - cde/v2/ninja/1.10.1
