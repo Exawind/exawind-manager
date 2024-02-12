@@ -1,7 +1,11 @@
 packages:
+  boost:
+    require: "@1.81.0"
   hypre:
     variants: +shared~fortran
   all:
     compiler: [apple-clang, gcc, clang]
     providers:
       mpi: [mpich, openmpi]
+      blas: [openblas]
+      lapack: [openblas]
