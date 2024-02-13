@@ -1,4 +1,10 @@
 packages:
+  all:
+    permissions:
+      read: group
+      group: wg-sierra-users
+    variants: +mpi build_type=Release cuda_arch=70
+    target: [x86_64]
   python:
     externals:
     - spec: python@3.11.6+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
