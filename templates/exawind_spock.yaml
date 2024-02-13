@@ -1,6 +1,4 @@
 spack:
-  include:
-  - include.yaml
   concretizer:
     unify: when_possible
   view: false
