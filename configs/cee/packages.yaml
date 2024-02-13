@@ -1,54 +1,31 @@
 packages:
-  all:
-    permissions:
-      read: group
-      group: wg-sierra-users
-    compiler: [gcc, clang, intel]
-    providers:
-      mpi: [openmpi]
-    variants: +mpi build_type=Release cuda_arch=70
-    target: [x86_64]
-  boost:
-    version: [1.80.0]
+  python:
+    externals:
+    - spec: python@3.11.6+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+      prefix: /projects/aue/cee/builds/x86_64/rhel7/e9a3ffaa/tooling-sprint-24.02/install/linux-rhel7-x86_64/gcc-10.3.0/python-3.11.6-3lcyd45
   cuda:
     externals:
-    - prefix: /projects/sierra/linux_rh7/SDK/compilers/nvidia/cuda_11.2.0
-      spec: cuda@11.2.0
-    buildable: false
- curl:
-   externals:
-   - prefix: /projects/cde/v3/cee/spack/opt/spack/linux-rhel7-x86_64/gcc-10.3.0/anaconda3-2021.05-hzr5w5v54sh3moi43gtl2fzdffebm2tf
-     spec: curl@7.71.1+gssapi
-   - prefix: /usr
-     spec: curl@7.29.0
-  pkg-config:
+    - spec: cuda@11.2.152
+      prefix: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/cuda-11.2.2/install/linux-rhel7-x86_64/gcc-12.1.0/cuda-11.2.2-y3xhorr
+  ninja:
     externals:
-    - spec: pkg-config@0.29.2
-      prefix: /usr/bin/pkg-config
-    buildable: false
-  zlib:
-    version: [1.2.5]
-    externals:
-    - spec: zlib@1.2.5
-      prefix: /usr/
-    buildable: false
-  bzip2:
-    version: [1.6.0]
-    externals:
-    - spec: bzip2@1.6.0
-      prefix: /usr/
-    buildable: false
+    - spec: ninja@1.11.1
+      prefix: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/tooling/install/linux-rhel7-x86_64/gcc-10.3.0/ninja-1.11.1-iar7zvw
   openmpi:
     externals:
+    - spec: openmpi@4.1.6~cuda~cxx~cxx_exceptions~java~memchecker+pmi~static~wrapper-rpath
+      prefix: /projects/aue/cee/builds/x86_64/rhel7/ae8943jk/openmpi-4.1.6-gcc-12.1.0/install/linux-rhel7-x86_64/gcc-12.1.0/openmpi-4.1.6-ynfiu7j
+    buildable: false
   cmake:
     externals:
     - spec: cmake@3.27.7
       prefix: /projects/aue/cee/builds/x86_64/rhel7/e9a3ffaa/tooling-sprint-24.02/install/linux-rhel7-x86_64/gcc-10.3.0/cmake-3.27.7-d7n6dlb
     buildable: false
-  openmpi:
+  curl:
     externals:
-    - spec: openmpi@4.0.5
-      prefix: /projects/sierra/linux_rh7/SDK/mpi/openmpi/4.0.5-nvidia-11.2.0-RHEL7
-    - spec: openmpi@4.1.4~cuda~cxx~cxx_exceptions~java~memchecker+pmi+static~wrapper-rpath
-      prefix: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/openmpi-4.1.4-gcc-12.1.0/install/linux-rhel7-x86_64/gcc-12.1.0/openmpi-4.1.4-nhs4bf3
-    buildable: false
+    - spec: curl@7.29.0+ldap
+      prefix: /usr
+  openssl:
+    externals:
+    - spec: openssl@1.0.2k-fips
+      prefix: /usr

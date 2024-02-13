@@ -1,74 +1,66 @@
 compilers:
 - compiler:
-    spec: gcc@10.2.0
+    spec: gcc@=12.1.0
     paths:
-      cc: /projects/cde/v2.1/spack/opt/spack/linux-rhel7-x86_64/gcc-8.4.0/gcc-10.2.0-fwnsolryzhrsu4k2f3gdwsr73rmap7qc/bin/gcc
-      cxx: /projects/cde/v2.1/spack/opt/spack/linux-rhel7-x86_64/gcc-8.4.0/gcc-10.2.0-fwnsolryzhrsu4k2f3gdwsr73rmap7qc/bin/g++
-      f77: /projects/cde/v2.1/spack/opt/spack/linux-rhel7-x86_64/gcc-8.4.0/gcc-10.2.0-fwnsolryzhrsu4k2f3gdwsr73rmap7qc/bin/gfortran
-      fc: /projects/cde/v2.1/spack/opt/spack/linux-rhel7-x86_64/gcc-8.4.0/gcc-10.2.0-fwnsolryzhrsu4k2f3gdwsr73rmap7qc/bin/gfortran
+      cc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/gcc-12.1.0/install/linux-rhel7-x86_64/gcc-10.3.0/gcc-12.1.0-6jxiora/bin/gcc
+      cxx: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/gcc-12.1.0/install/linux-rhel7-x86_64/gcc-10.3.0/gcc-12.1.0-6jxiora/bin/g++
+      f77: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/gcc-12.1.0/install/linux-rhel7-x86_64/gcc-10.3.0/gcc-12.1.0-6jxiora/bin/gfortran
+      fc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/gcc-12.1.0/install/linux-rhel7-x86_64/gcc-10.3.0/gcc-12.1.0-6jxiora/bin/gfortran
     flags: {}
     operating_system: rhel7
     target: x86_64
     modules: []
-    environment:
-     set:
-       OMPI_MCA_fs_ufs_lock_algorithm: 1
+    environment: {}
     extra_rpaths: []
 - compiler:
-    spec: clang@14.0.6
+    spec: dpcpp@=2023.2.0
     paths:
-      cc: /projects/sierra/linux_rh7/SDK/compilers/clang/14.0-RHEL7/bin/clang
-      cxx: /projects/sierra/linux_rh7/SDK/compilers/clang/14.0-RHEL7/bin/clang++
-      f77: /projects/cde/v2.1/spack/opt/spack/linux-rhel7-x86_64/gcc-8.4.0/gcc-10.2.0-fwnsolryzhrsu4k2f3gdwsr73rmap7qc/bin/gfortran
-      fc: /projects/cde/v2.1/spack/opt/spack/linux-rhel7-x86_64/gcc-8.4.0/gcc-10.2.0-fwnsolryzhrsu4k2f3gdwsr73rmap7qc/bin/gfortran
+      cc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/icx
+      cxx: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/dpcpp
+      f77: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/ifx
+      fc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/ifx
     flags: {}
     operating_system: rhel7
     target: x86_64
     modules: []
-    environment:
-     set:
-       OMPI_MCA_fs_ufs_lock_algorithm: 1
+    environment: {}
     extra_rpaths: []
- - compiler:
-   spec: oneapi@2023.1.0
-   paths:
-     cc: /projects/sierra/linux_rh7/SDK/compilers/intel/IntelOneAPI-2023.1.0/compiler/latest/linux/bin/icx
-     cxx: /projects/sierra/linux_rh7/SDK/compilers/intel/IntelOneAPI-2023.1.0/compiler/latest/linux/bin/icpx
-     f77: /projects/sierra/linux_rh7/SDK/compilers/intel/IntelOneAPI-2023.1.0/compiler/latest/linux/bin/ifx
-     fc: /projects/sierra/linux_rh7/SDK/compilers/intel/IntelOneAPI-2023.1.0/compiler/latest/linux/bin/ifx
-   flags:
-     cflags: -fp-model=precise 
-     cxxflags: -fp-model=precise
-     fflags: []
-     ldlibs: []
-   operating_system: rhel7
-   target: x86_64
-   modules: []
-   environment:
-     prepend_path:
-       LD_LIBRARY_PATH: /projects/sierra/linux_rh7/SDK/compilers/intel/IntelOneAPI-2023.1.0/compiler/latest/linux/compiler/lib/intel64
-       PATH: /projects/cde/v2.1/spack/opt/spack/linux-rhel7-x86_64/gcc-8.4.0/gcc-10.2.0-fwnsolryzhrsu4k2f3gdwsr73rmap7qc/bin:/projects/sierra/linux_rh7/SDK/compilers/intel/IntelOneAPI-2023.1.0/mpi/latest/bin
-       FI_PROVIDER_PATH: /sierra/sntools/SDK/compilers/intel/IntelOneAPI-2023.1.0/mpi/2021.9.0//libfabric/lib/prov:/usr/lib64/libfabric
-     set:
-       OMPI_MCA_fs_ufs_lock_algorithm: 1
-  extra_rpaths: [ /projects/cde/v2.1/spack/opt/spack/linux-rhel7-x86_64/gcc-8.4.0/gcc-10.2.0-fwnsolryzhrsu4k2f3gdwsr73rmap7qc/lib64 ]
 - compiler:
-  spec: gcc@8.3.0
-  paths:
-    cc: /projects/sierra/linux_rh7/SDK/compilers/gcc/8.3.0-RHEL7/bin/gcc
-    cxx: /projects/sierra/linux_rh7/SDK/compilers/gcc/8.3.0-RHEL7/bin/g++
-    f77: /projects/sierra/linux_rh7/SDK/compilers/gcc/8.3.0-RHEL7/bin/gfortran
-    fc: /projects/sierra/linux_rh7/SDK/compilers/gcc/8.3.0-RHEL7/bin/gfortran
-  flags: {}
-  operating_system: rhel7
-  target: x86_64
-  modules: []
-  environment:
-    prepend_path:
-      LD_LIBRARY_PATH: /projects/sierra/linux_rh7/SDK/compilers/nvidia/cuda_11.2.0/lib64:/projects/sierra/linux_rh7/SDK/compilers/nvidia/cuda_11.2.0/lib:/projects/sierra/linux_rh7/SDK/compilers/gcc/8.3.0-RHEL7/lib64:/projects/sierra/linux_rh7/SDK/compilers/gcc/8.3.0-RHEL7/lib
-  extra_rpaths:
-  - /projects/sierra/linux_rh7/SDK/compilers/nvidia/cuda_11.2.0/lib64
-  - /projects/sierra/linux_rh7/SDK/compilers/nvidia/cuda_11.2.0/lib
-  - /projects/sierra/linux_rh7/SDK/compilers/gcc/8.3.0-RHEL7/lib64
-  - /projects/sierra/linux_rh7/SDK/compilers/gcc/8.3.0-RHEL7/lib
-
+    spec: intel@=2021.10.0
+    paths:
+      cc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/intel64/icc
+      cxx: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/intel64/icpc
+      f77: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/intel64/ifort
+      fc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/intel64/ifort
+    flags: {}
+    operating_system: rhel7
+    target: x86_64
+    modules: []
+    environment: {}
+    extra_rpaths: []
+- compiler:
+    spec: oneapi@=2023.2.0
+    paths:
+      cc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/icx
+      cxx: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/icpx
+      f77: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/ifx
+      fc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/ifx
+    flags: {}
+    operating_system: rhel7
+    target: x86_64
+    modules: []
+    environment: {}
+    extra_rpaths: []
+- compiler:
+    spec: clang@=16.0.6
+    paths:
+      cc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/clang-16.0.6/install/linux-rhel7-x86_64/clang-16.0.6/llvm-16.0.6-fjygaap/bin/clang
+      cxx: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/clang-16.0.6/install/linux-rhel7-x86_64/clang-16.0.6/llvm-16.0.6-fjygaap/bin/clang++
+      f77: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/gcc-12.1.0/install/linux-rhel7-x86_64/gcc-10.3.0/gcc-12.1.0-6jxiora/bin/gfortran
+      fc: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/gcc-12.1.0/install/linux-rhel7-x86_64/gcc-10.3.0/gcc-12.1.0-6jxiora/bin/gfortran
+    flags: {}
+    operating_system: rhel7
+    target: x86_64
+    modules: []
+    environment: {}
+    extra_rpaths: []
