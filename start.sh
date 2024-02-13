@@ -84,6 +84,10 @@ function spack-start() {
       fi
     fi
 
+    if [[ "${EXAWIND_MANAGER_MACHINE}" == "darwin" ]]; then
+      spack compiler find
+    fi
+
     source ${EXAWIND_MANAGER}/spack-manager/scripts/quick_commands.sh
     export PATH=${PATH}:${EXAWIND_MANAGER}/scripts
     # needed for package imports
