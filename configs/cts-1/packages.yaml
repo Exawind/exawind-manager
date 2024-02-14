@@ -1,4 +1,8 @@
 packages:
+  bzip2:
+    externals:
+    - spec: bzip2@1.0.6
+      prefix: /usr
   python:
     externals:
     - spec: python@3.11.6+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
