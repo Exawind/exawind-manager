@@ -1,0 +1,10 @@
+spack:
+  concretizer:
+    unify: false
+    reuse: false
+  view: false
+  specs:
+  - exawind+fsi%intel ^openfast@develop
+  modules:
+    default:
+      arch_folder: true

@@ -48,7 +48,7 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
     depends_on("hypre+umpire", when="+umpire")
     depends_on("trilinos gotype=long")
-    depends_on("openfast@fsi+netcdf+cxx", when="+fsi")
+    depends_on("openfast@develop+netcdf+cxx", when="+fsi")
 
     for _arch in ROCmPackage.amdgpu_targets:
         depends_on("trilinos@13.4.0.2022.10.27: ~shared+exodus+tpetra+zoltan+stk+boost~superlu-dist~superlu+hdf5+shards~hypre+gtest+rocm amdgpu_target={0}".format(_arch),
