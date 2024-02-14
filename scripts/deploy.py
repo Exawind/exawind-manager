@@ -78,13 +78,13 @@ def configure_env(args, env_name):
         if args.pre_fetch:
             fetch()
 
-def dependency_install_args(env, ranks):
+def dependency_make_args(env, ranks):
     dep_args = []
     for root in env.concrete_roots():
         make_args = [
             "-j{}".format(ranks),
             "install-deps/{}".format(root.format("{name}-{version}-{hash}")),
-            "SPACK_INSTALL_FLAGS={}".format("--show-log-on-error"),
+            "SPACK_INSTALL_FLAGS='{}'".format("--show-log-on-error"),
         ]
         dep_args.append(make_args)
     return dep_args
@@ -93,7 +93,7 @@ def install_deps(args, env_name):
     with ev.read(env_name) as e:
         os.chdir(e.path)
         if args.depfile:
-            dep_args = dependency_install_args(e, args.ranks)
+            dep_args = dependency_make_args(e, args.ranks)
             for make_args in dep_args:
                 print("make",*make_args)
                 make(*make_args)
@@ -126,7 +126,7 @@ def root_make_args(env, ranks, tests=False, cdash=False):
         make_args = [
             "-j{}".format(ranks),
             "install/{}".format(root.format("{name}-{version}-{hash}")),
-            "SPACK_INSTALL_FLAGS={}".format(" ".join(install_args)),
+            "SPACK_INSTALL_FLAGS='{}'".format(" ".join(install_args)),
         ]
         all_args.append(make_args)
     return all_args
@@ -153,7 +153,7 @@ def create_slurm_file(args, env_name):
         f.write("\n")
 
         if args.depfile:
-            dep_arg_set = dependency_install_args(e, args.ranks)
+            dep_arg_set = dependency_make_args(e, args.ranks)
             for dep_args in dep_arg_set:
                 f.write("make " + " ".join(dep_args)+"\n")
 
