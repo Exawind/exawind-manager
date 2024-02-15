@@ -1,4 +1,8 @@
 packages:
+  autoconf:
+    externals:
+    - spec: autoconf@2.69
+      prefix: /usr
   bzip2:
     externals:
     - spec: bzip2@1.0.6

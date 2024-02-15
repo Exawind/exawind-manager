@@ -1,11 +1,13 @@
 externals:
-  # using local certs is easier with external/sys curl and openssl
-  # intel compiler has trouble building diffutils which m4 and bzip2 depend on
-  # https://github.com/spack/spack/issues/31418
+  # - using local certs is easier with external/sys curl and openssl
+  # - intel compiler has trouble building diffutils which m4 and bzip2 depend on
+  #   https://github.com/spack/spack/issues/31418
+  # - externalizing autoconf allows a modern version of perl to build
   - openssl
   - curl
   - m4
   - bzip2
+  - autoconf
 compilers:
   - aue/intel-oneapi-compilers/2023.2.0
 modules:
