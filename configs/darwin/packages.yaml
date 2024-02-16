@@ -1,4 +1,6 @@
 packages:
+  boost:
+    require: "@1.81.0"
   hypre:
     variants: +shared~fortran
   all:

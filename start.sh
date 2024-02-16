@@ -84,6 +84,11 @@ function spack-start() {
       fi
     fi
 
+    if [[ "${EXAWIND_MANAGER_MACHINE}" == "darwin" && ! -f ${SPACK_CONFIG_USER_PATH}/darwin/compilers.yaml ]]; then
+      spack compiler find
+      ${EXAWIND_MANAGER}/scripts/admin-system-setup/mixed_compiler_creator.py ${SPACK_CONFIG_USER_PATH}/darwin/compilers.yaml
+    fi
+
     source ${EXAWIND_MANAGER}/spack-manager/scripts/quick_commands.sh
     export PATH=${PATH}:${EXAWIND_MANAGER}/scripts
     # needed for package imports

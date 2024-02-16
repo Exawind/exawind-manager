@@ -131,7 +131,7 @@ def root_make_args(env, ranks, tests=False, cdash=False):
 def install_roots(args, env_name):
     env = ev.read(env_name)
     if args.depfile:
-        root_arg_set = root_install_args(env, args.ranks, args.tests, args.cdash)
+        root_arg_set = root_make_args(env, args.ranks, args.tests, args.cdash)
         for arg_set in root_arg_set:
             make(*arg_set)
     else:

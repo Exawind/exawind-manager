@@ -1,6 +1,4 @@
 spack:
-  include:
-  - include.yaml
   concretizer:
     unify: false
     reuse: false 
