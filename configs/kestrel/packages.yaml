@@ -14,7 +14,7 @@ packages:
     require: "%gcc"
   trilinos:
     require:
-      - any_of: ["@=13.4.0.2023.02.28", "@develop"]
+      - any_of: ["@=14.1.0.2023.02.28", "@develop"]
   nalu-wind:
     variants: ~trilinos-solvers
   openssl:
