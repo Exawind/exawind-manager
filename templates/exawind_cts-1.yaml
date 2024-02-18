@@ -4,7 +4,9 @@ spack:
     reuse: false
   view: false
   specs:
-  - exawind+fsi%intel ^openfast@develop
+  - exawind+fsi%oneapi ^openfast@develop
   modules:
     default:
       arch_folder: true
+      roots:
+        tcl: /projects/wind/modules
