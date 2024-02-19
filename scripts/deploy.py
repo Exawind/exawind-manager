@@ -54,7 +54,7 @@ def environment_setup(args, env_name):
     template = os.path.expandvars("$EXAWIND_MANAGER/configs/{}/template.yaml".format(machine))
 
     if not os.path.isfile(template):
-        template = os.path.expandvars("$EXAWIND_MANAGER/templates/exawind_basic.yaml")
+        template = os.path.expandvars("$EXAWIND_MANAGER/configs/base/template.yaml")
 
     if args.overwrite and ev.exists(env_name):
         env("rm", env_name, "-y")
@@ -68,7 +68,9 @@ def environment_setup(args, env_name):
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
         module_projection = '{name}-{version}/'+'{}'.format(env_name)+'/{hash:4}'
-        config("add", "config:install_tree:{}".format(spack_path_resolve("$EXAWIND_MANAGER/cached_installs/$arch/{}".format(e.name))
+        config("add", "config:install_tree:{}".format(
+               spack_path_resolve("$EXAWIND_MANAGER/cached_installs/$arch/{}".format(e.name))
+               ))
         config("add", "modules:default:tcl:projections:all:'{}'".format(module_projection))
         concretize("--force")
         if args.depfile:

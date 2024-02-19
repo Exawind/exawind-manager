@@ -1,4 +1,5 @@
 # directories
+cached_installs
 spack
 spack-manager
 stage
