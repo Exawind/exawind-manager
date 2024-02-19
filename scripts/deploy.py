@@ -5,6 +5,7 @@ import os
 import time
 import spack.main
 import spack.util.executable
+from spack.util.path import canonicalize_path as spack_path_resolve
 
 from datetime import date
 
@@ -50,16 +51,16 @@ def get_env_name(args):
 def environment_setup(args, env_name):
     out=manager("find-machine")
     project, machine = out.strip().split()
-    template = os.path.expandvars("$EXAWIND_MANAGER/templates/exawind_{}.yaml".format(machine))
+    template = os.path.expandvars("$EXAWIND_MANAGER/configs/{}/template.yaml".format(machine))
 
     if not os.path.isfile(template):
-        template = os.path.expandvars("$EXAWIND_MANAGER/templates/exawind_basic.yaml")
+        template = os.path.expandvars("$EXAWIND_MANAGER/configs/base/template.yaml")
 
     if args.overwrite and ev.exists(env_name):
         env("rm", env_name, "-y")
 
     if not ev.exists(env_name):
-        manager("create-env", "-l", "-n", env_name, "-y", template)
+        manager("create-env", "-n", env_name, "-y", template)
 
     print("Using env:", ev.read(env_name).path)
 
@@ -67,6 +68,9 @@ def environment_setup(args, env_name):
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
         module_projection = '{name}-{version}/'+'{}'.format(env_name)+'/{hash:4}'
+        config("add", "config:install_tree:{}".format(
+               spack_path_resolve("$EXAWIND_MANAGER/cached_installs/$arch/{}".format(e.name))
+               ))
         config("add", "modules:default:tcl:projections:all:'{}'".format(module_projection))
         concretize("--force")
         if args.depfile:
