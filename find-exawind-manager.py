@@ -35,14 +35,6 @@ def is_cts_1(hostname):
     return False
 
 
-def is_jlse(hostname):
-    known_hosts = ("arcticus",)
-    for k in known_hosts:
-        if k in hostname:
-            return True
-    return False
-
-
 def is_azure():
     if "CYCLECLOUD_HOME" in os.environ:
         return True
@@ -84,11 +76,9 @@ machine_list = {
     "frontier": MachineData(
         lambda: os.environ["LMOD_SYSTEM_NAME"] == "frontier", "frontier.olcf.ornl.gov"
     ),
-    # ANL
-    "arcticus": MachineData(lambda: is_jlse(socket.gethostname()), "arcticus.alcf.anl.gov"),
-    "sunspot": MachineData(
-        lambda: os.environ["AURORA_BASE_ENV"] == "2023.0", "sunspot.alcf.anl.gov"
-    ),
+    # ALCF
+    "aurora": MachineData(lambda: "aurora" in socket.gethostname(), "aurora.alcf.anl.gov"),
+    "sunspot": MachineData(lambda: "sunspot" in socket.gethostname(), "sunspot.alcf.anl.gov"),
     # E4S
     "e4s": MachineData(lambda: is_e4s(), "e4s.nodomain.gov"),
     # Azure

@@ -1,0 +1,33 @@
+packages:
+  mpich:
+    require: "@52.2"
+    buildable: false
+    externals:
+      - spec: "mpich@52.2"
+        prefix: /soft/restricted/CNDA/updates/mpich/52.2/mpich-ofi-all-icc-default-pmix-gpu-drop52
+        modules:
+          - mpich/52.2/icc-all-pmix-gpu 
+  nalu-wind:
+    require: "~trilinos-solvers"
+  amr-wind:
+    variants: +tiny_profile build_type=Release
+  trilinos:
+    require: "+tpetra+kokkos"
+  boost:
+    version: [1.78.0]
+    variants: ~shared+pic
+  perl:
+    require: "@5.26.2"
+  openssl:
+    require: "@1.1.1u"
+    buildable: false
+    externals:
+      - spec: "openssl@1.1.1u"
+        prefix: /usr
+  all:
+    compiler: [oneapi]
+    variants: build_type=Release
+    providers:
+      mpi: [mpich]
+      blas: [openblas]
+      lapack: [openblas]

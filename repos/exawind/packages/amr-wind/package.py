@@ -32,8 +32,8 @@ class AmrWind(CmakeExtension, bAmrWind):
     depends_on("hdf5+mpi", when="+hdf5+mpi")
     depends_on("h5z-zfp", when="+hdf5")
     depends_on("zfp", when="+hdf5")
-    depends_on("hypre+umpire", when="+umpire")
-    depends_on("hypre+sycl", when="+sycl")
+    depends_on("hypre+umpire", when="+hypre+umpire")
+    depends_on("hypre+sycl", when="+hypre+sycl")
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
 
     def setup_build_environment(self, env):

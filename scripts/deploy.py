@@ -69,7 +69,7 @@ def configure_env(args, env_name):
     with ev.read(env_name) as e:
         module_projection = '{name}-{version}/'+'{}'.format(env_name)+'/{hash:4}'
         config("add", "config:install_tree:{}".format(
-               spack_path_resolve("$EXAWIND_MANAGER/cached_installs/$arch/{}".format(e.name))
+               spack_path_resolve("$EXAWIND_MANAGER/opt/$arch/{}".format(e.name))
                ))
         config("add", "modules:default:tcl:projections:all:'{}'".format(module_projection))
         concretize("--force")
