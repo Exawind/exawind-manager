@@ -17,7 +17,7 @@ packages:
     version: [1.78.0]
     variants: ~shared+pic
   perl:
-    require: "@5.26.2"
+    require: "@5.38.0"
   openssl:
     require: "@1.1.1u"
     buildable: false
