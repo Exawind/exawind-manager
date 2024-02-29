@@ -67,11 +67,10 @@ def environment_setup(args, env_name):
 
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
-        module_projection = '{name}-{version}/'+'{}'.format(env_name)+'/{hash:4}'
         config("add", "config:install_tree:{}".format(
                spack_path_resolve("$EXAWIND_MANAGER/cached_installs/$arch/{}".format(e.name))
                ))
-        config("add", "modules:default:tcl:projections:all:'{}'".format(module_projection))
+        config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
         concretize("--force")
         if args.depfile:
             env("depfile", "-o", os.path.join(e.path, "Makefile"))
@@ -161,9 +160,9 @@ def create_slurm_file(args, env_name):
             for root_args in root_arg_set:
                 f.write("make " + " ".join(root_args)+"\n")
         else:
-            f.write("srun -N $SLURM_JOB_NUM_NODES -n {} spack install --only dependencies".format(args.ranks))
-            f.write("srun -N $SLURM_JOB_NUM_NODES -n {} spack install ".format(args.ranks) + " ".join(root_args(e, args.tests, args.cdash)))
-        f.write("spack module tcl refresh -y")
+            f.write("\nsrun -N $SLURM_JOB_NUM_NODES -n {} spack -e {} install --only dependencies".format(args.ranks, env_name))
+            f.write("\nsrun -N $SLURM_JOB_NUM_NODES -n {} spack -e {} install ".format(args.ranks, env_name) + " ".join(root_install_args(e, args.tests, args.cdash)))
+        f.write("\nspack -e {} module tcl refresh -y".format(env_name))
 
 
 def module_gen(args, env_name):

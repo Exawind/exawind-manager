@@ -5,8 +5,12 @@ spack:
   view: false
   specs:
   - exawind+fsi%intel ^openfast@develop
+  - exawind~fsi%intel ^amr-wind+openfast ^nalu-wind+openfast+boost
   modules:
     default:
       arch_folder: true
       roots:
         tcl: /projects/wind/modules
+  packages:
+    all:
+      target: [x86_64]
