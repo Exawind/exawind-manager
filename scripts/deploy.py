@@ -113,8 +113,9 @@ def root_install_args(env, tests=False, cdash=False):
         install_args.extend([
             "--log-format", "cdash",
             "--log-file", os.path.join(env.path, "cdash_results"),
-            "--cdash-site", "dummy",
+            "--cdash-site", "darwin",
             "--cdash-track", "track",
+            "--cdash-build", "test",
         ])
     return install_args
 

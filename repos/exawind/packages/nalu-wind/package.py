@@ -10,6 +10,8 @@ from spack.pkg.builtin.nalu_wind import NaluWind as bNaluWind
 from spack.pkg.builtin.kokkos import Kokkos
 import os
 import importlib
+import inspect
+import time
 find_machine = importlib.import_module("find-exawind-manager")
 from spack.pkg.exawind.cmake_extension import *
 
@@ -83,7 +85,9 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(NaluWind, self).cmake_args()
+
+        cmake_options = super(CmakeExtension, self).cmake_args()
+        cmake_options.extend(super(NaluWind, self).cmake_args())
         cmake_options.append(self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"))
         cmake_options.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
 
