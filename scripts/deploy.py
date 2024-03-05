@@ -67,24 +67,23 @@ def environment_setup(args, env_name):
 
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
-        module_projection = '{name}-{version}/'+'{}'.format(env_name)+'/{hash:4}'
         config("add", "config:install_tree:{}".format(
                spack_path_resolve("$EXAWIND_MANAGER/cached_installs/$arch/{}".format(e.name))
                ))
-        config("add", "modules:default:tcl:projections:all:'{}'".format(module_projection))
+        config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
         concretize("--force")
         if args.depfile:
             env("depfile", "-o", os.path.join(e.path, "Makefile"))
         if args.pre_fetch:
             fetch()
 
-def dependency_install_args(env, ranks):
+def dependency_make_args(env, ranks):
     dep_args = []
     for root in env.concrete_roots():
         make_args = [
             "-j{}".format(ranks),
             "install-deps/{}".format(root.format("{name}-{version}-{hash}")),
-            "SPACK_INSTALL_FLAGS={}".format("--show-log-on-error"),
+            "SPACK_INSTALL_FLAGS='{}'".format("--show-log-on-error"),
         ]
         dep_args.append(make_args)
     return dep_args
@@ -93,7 +92,7 @@ def install_deps(args, env_name):
     with ev.read(env_name) as e:
         os.chdir(e.path)
         if args.depfile:
-            dep_args = dependency_install_args(e, args.ranks)
+            dep_args = dependency_make_args(e, args.ranks)
             for make_args in dep_args:
                 print("make",*make_args)
                 make(*make_args)
@@ -126,7 +125,7 @@ def root_make_args(env, ranks, tests=False, cdash=False):
         make_args = [
             "-j{}".format(ranks),
             "install/{}".format(root.format("{name}-{version}-{hash}")),
-            "SPACK_INSTALL_FLAGS={}".format(" ".join(install_args)),
+            "SPACK_INSTALL_FLAGS='{}'".format(" ".join(install_args)),
         ]
         all_args.append(make_args)
     return all_args
@@ -153,7 +152,7 @@ def create_slurm_file(args, env_name):
         f.write("\n")
 
         if args.depfile:
-            dep_arg_set = dependency_install_args(e, args.ranks)
+            dep_arg_set = dependency_make_args(e, args.ranks)
             for dep_args in dep_arg_set:
                 f.write("make " + " ".join(dep_args)+"\n")
 
@@ -161,9 +160,9 @@ def create_slurm_file(args, env_name):
             for root_args in root_arg_set:
                 f.write("make " + " ".join(root_args)+"\n")
         else:
-            f.write("srun -N $SLURM_JOB_NUM_NODES -n {} spack install --only dependencies".format(args.ranks))
-            f.write("srun -N $SLURM_JOB_NUM_NODES -n {} spack install ".format(args.ranks) + " ".join(root_args(e, args.tests, args.cdash)))
-        f.write("spack module tcl refresh -y")
+            f.write("\nsrun -N $SLURM_JOB_NUM_NODES -n {} spack -e {} install --only dependencies".format(args.ranks, env_name))
+            f.write("\nsrun -N $SLURM_JOB_NUM_NODES -n {} spack -e {} install ".format(args.ranks, env_name) + " ".join(root_install_args(e, args.tests, args.cdash)))
+        f.write("\nspack -e {} module tcl refresh -y".format(env_name))
 
 
 def module_gen(args, env_name):
