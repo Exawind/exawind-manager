@@ -12,7 +12,7 @@ packages:
     require:
       - any_of: ["@=14.1.0.2023.02.28", "@develop"]
   nalu-wind:
-    variants: ~trilinos-solvers
+    require: "~trilinos-solvers"
   mpi:
     require: "mpich@52.2"
   blas:
