@@ -12,12 +12,12 @@ packages:
       - any_of: ["@=14.1.0.2023.02.28", "@develop"]
   nalu-wind:
     variants: ~trilinos-solvers
-  openssl:
-    version: [1.1.1b]
-    buildable: false
-    externals:
-      - spec: "openssl@1.1.1b%oneapi@2023.2.0"
-        prefix: /usr
+    #  openssl:
+    #    version: [1.1.1b]
+    #    buildable: false
+    #    externals:
+    #      - spec: "openssl@1.1.1b%oneapi@2023.2.0"
+    #        prefix: /usr
   mpi:
     require: "cray-mpich@8.1.23"
   blas:
