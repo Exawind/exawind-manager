@@ -14,7 +14,7 @@ packages:
   masa:
     require: "~fortran~python"
   netcdf-c:
-    require: "@4.9.2 +parallel-netcdf maxdims=65536 maxvars=524288"
+    require: "@4.9.2 +parallel-netcdf"
   openfast:
     require: "@master +cxx"
   parallel-netcdf:
