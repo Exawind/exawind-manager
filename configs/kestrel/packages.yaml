@@ -6,12 +6,7 @@ packages:
       - spec: "cray-mpich@=8.1.23%oneapi@2023.2.0"
         prefix: /opt/cray/pe/mpich/8.1.23/ofi/intel/19.0
         modules:
-          - cray-mpich/8.1.23
-          - craype-network-ofi
-  boost:
-    require: "@=1.78.0 cxxstd=17 %gcc"
-  cmake:
-    require: "%gcc"
+          - libfabric/1.15.2.0
   trilinos:
     require:
       - any_of: ["@=14.1.0.2023.02.28", "@develop"]
@@ -23,12 +18,13 @@ packages:
     externals:
       - spec: "openssl@1.1.1b%oneapi@2023.2.0"
         prefix: /usr
+  mpi:
+    require: "cray-mpich@8.1.23"
+  blas:
+    require: "openblas"
+  lapack:
+    require: "lapack"
   all:
-    compiler:
-      - oneapi@2023.2.0
-      - gcc@8.5.0
-    providers:
-      mpi: [cray-mpich@8.1.23]
-      blas: [openblas]
-      lapack: [openblas]
-    variants: build_type=Release cuda_arch=80
+    require:
+      - "%oneapi@2023.2.0"
+      - "build_type=Release"
