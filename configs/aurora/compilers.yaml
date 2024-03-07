@@ -8,15 +8,8 @@ compilers:
         fc: /soft/compilers/oneapi/2023.12.15.001/oneapi/compiler/2024.0/bin/ifx
       flags: {}
       operating_system: sles15
-      target: any
-      modules: 
-        - oneapi/release/2023.12.15.001
-        - intel_compute_runtime/release/stable-736.25
-        - cray-pals/1.2.12
-        - mpich/52.2/icc-all-pmix-gpu
-        - gcc/12.2.0
-        - cray-libpals/1.2.12
-        - libfabric
+      target: x86_64
+      modules: []
       environment: {}
         #  set:
         #  DPLROOT: /lus/gecko/projects/CSC249ADSE13_CNDA/$user/exawind/oneDPL
