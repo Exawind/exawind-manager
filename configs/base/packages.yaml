@@ -10,22 +10,19 @@ packages:
     variants: +tiny_profile
   conduit:
     variants: ~fortran~hdf5_compat
-  boost:
-    version: [1.78.0]
-    variants: cxxstd=17
   hdf5:
-    version: [1.10.7]
+    version: [1.14.3]
     variants: +cxx+hl
   masa:
     variants: ~fortran~python
   netcdf-c:
-    require: "@4.7.4"
+    require: "@4.9.2"
     variants: +parallel-netcdf maxdims=65536 maxvars=524288
   openfast:
     version: [master]
     variants: +cxx
   parallel-netcdf:
-    version: [1.12.2]
+    version: [1.12.3]
     variants: ~fortran
   perl:
     require: "@5.34.1"
