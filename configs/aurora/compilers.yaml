@@ -9,7 +9,8 @@ compilers:
       flags: {}
       operating_system: sles15
       target: x86_64
-      modules: []
+      modules:
+        - oneapi/release/2023.12.15.001
       environment: {}
         #  set:
         #  DPLROOT: /lus/gecko/projects/CSC249ADSE13_CNDA/$user/exawind/oneDPL
