@@ -16,7 +16,7 @@ packages:
   netcdf-c:
     require: "@4.9.2 +parallel-netcdf"
   openfast:
-    require: "@master +cxx"
+    require: "@fsi +cxx"
   parallel-netcdf:
     require: "@1.12.3 ~fortran"
   tioga:
