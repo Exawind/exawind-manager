@@ -19,8 +19,6 @@ packages:
     require: "@master +cxx"
   parallel-netcdf:
     require: "@1.12.3 ~fortran"
-  perl:
-    require: "@5.34.1"
   tioga:
     require: "@develop"
   hypre:
