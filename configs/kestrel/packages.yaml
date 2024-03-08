@@ -17,7 +17,7 @@ packages:
   blas:
     require: "openblas"
   lapack:
-    require: "lapack"
+    require: "openblas"
   all:
     require:
       - "%oneapi@2023.2.0"
