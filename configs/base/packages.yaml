@@ -1,35 +1,33 @@
 packages:
   ascent:
-    require: "~fortran~openmp"
+    variants: ~fortran~openmp
   exawind:
-    require: "@master"
+    version: [master]
   nalu-wind:
-    require: "@master ~trilinos-solvers"
+    version: [master]
+    variants: ~trilinos-solvers
   amr-wind:
-    require: "@main +tiny_profile"
+    version: [main]
+    variants: +tiny_profile
   conduit:
-    require: "~fortran~hdf5_compat"
+    variants: ~fortran~hdf5_compat
   hdf5:
-    require: "+cxx+hl"
+    variants: +cxx+hl
   masa:
-    require: "~fortran~python"
+    variants: ~fortran~python
   netcdf-c:
-    require: "+parallel-netcdf"
+    variants: +parallel-netcdf
   openfast:
-    require: "+cxx"
+    variants: +cxx
   parallel-netcdf:
-    require: "~fortran"
+    variants: ~fortran
   tioga:
-    require: "@develop"
+    version: [develop]
   hypre:
-    require: "@develop ~fortran"
-  trilinos:
-    require:
-      - any_of: ["@=14.1.0.2023.02.28", "@develop"]
-  blas:
-    require: "netlib-lapack"
-  lapack:
-    require: "netlib-lapack"
+    version: [develop]
+    variants: ~fortran
   all:
-    require:
-      - "build_type=Release"
+    variants: build_type=Release
+    providers:
+      blas: [netlib-lapack]
+      lapack: [netlib-lapack]
