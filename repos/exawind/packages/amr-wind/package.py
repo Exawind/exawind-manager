@@ -11,6 +11,7 @@ import os
 from spack.pkg.exawind.cmake_extension import *
 
 class AmrWind(CmakeExtension, bAmrWind):
+    version("main", branch="main", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
     
     variant("asan", default=False,
