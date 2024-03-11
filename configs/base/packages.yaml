@@ -4,32 +4,33 @@ packages:
   exawind:
     require: "@master"
   nalu-wind:
-    require: "@master"
+    require: "@master ~trilinos-solvers"
   amr-wind:
     require: "@main +tiny_profile"
   conduit:
     require: "~fortran~hdf5_compat"
   hdf5:
-    require: "@1.14.3 +cxx+hl"
+    require: "+cxx+hl"
   masa:
     require: "~fortran~python"
   netcdf-c:
-    require: "@4.9.2 +parallel-netcdf"
+    require: "+parallel-netcdf"
   openfast:
-    require: "@fsi +cxx"
+    require: "+cxx"
   parallel-netcdf:
-    require: "@1.12.3 ~fortran"
+    require: "~fortran"
   tioga:
     require: "@develop"
   hypre:
     require: "@develop ~fortran"
-  yaml-cpp:
-    require: "@0.6.3"
   trilinos:
-    version: [14.1.0.2023.02.28, develop]
-    variants: ~adios2~alloptpkgs~amesos~anasazi~aztec~boost~chaco~complex~debug~dtk~epetra~epetraext+exodus+explicit_template_instantiation~float~fortran~fortrilinos+glm+gtest+hdf5~hypre~ifpack~intrepid~intrepid2~isorropia+kokkos~mesquite+metis~minitensor~ml+mpi~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~sacado+shards~shylu+stk~stratimikos~suite-sparse~superlu~superlu-dist~teko~tempus+teuchos+tpetra+uvm~x11~xsdkflags+zlib+zoltan+zoltan2 gotype=long cxxstd=17 build_type=Release
+    require:
+      - any_of: ["@=14.1.0.2023.02.28", "@develop"]
+      - "~adios2~alloptpkgs~amesos~anasazi~aztec~boost~chaco~complex~debug~dtk~epetra~epetraext+exodus+explicit_template_instantiation~float~fortran~fortrilinos+glm+gtest+hdf5~hypre~ifpack~intrepid~intrepid2~isorropia+kokkos~mesquite+metis~minitensor~ml+mpi~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~sacado+shards~shylu+stk~stratimikos~suite-sparse~superlu~superlu-dist~teko~tempus+teuchos+tpetra+uvm~x11~xsdkflags+zlib+zoltan+zoltan2 gotype=long cxxstd=17"
+  blas:
+    require: "netlib-lapack"
+  lapack:
+    require: "netlib-lapack"
   all:
-    variants: build_type=Release +mpi
-    providers:
-      blas: [netlib-lapack]
-      lapack: [netlib-lapack]
+    require:
+      - "build_type=Release"

@@ -7,11 +7,6 @@ packages:
         prefix: /opt/cray/pe/mpich/8.1.23/ofi/intel/19.0
         modules:
           - libfabric/1.15.2.0
-  trilinos:
-    require:
-      - any_of: ["@=14.1.0.2023.02.28", "@develop"]
-  nalu-wind:
-    variants: ~trilinos-solvers
   mpi:
     require: "cray-mpich@8.1.23"
   blas:
@@ -21,4 +16,3 @@ packages:
   all:
     require:
       - "%oneapi@2023.2.0"
-      - "build_type=Release"

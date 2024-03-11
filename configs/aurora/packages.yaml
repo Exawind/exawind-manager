@@ -8,11 +8,6 @@ packages:
         modules:
           - mpich/52.2/icc-all-pmix-gpu 
           - libfabric/1.15.2.0
-  trilinos:
-    require:
-      - any_of: ["@=14.1.0.2023.02.28", "@develop"]
-  nalu-wind:
-    require: "~trilinos-solvers"
   mpi:
     require: "mpich@52.2"
   blas:
@@ -22,4 +17,3 @@ packages:
   all:
     require:
       - "%oneapi@2024.0"
-      - "build_type=Release"
