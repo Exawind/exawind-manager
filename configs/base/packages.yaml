@@ -26,7 +26,7 @@ packages:
   trilinos:
     require:
       - any_of: ["@=14.1.0.2023.02.28", "@develop"]
-      - "~adios2~alloptpkgs~amesos~anasazi~aztec~boost~chaco~complex~debug~dtk~epetra~epetraext+exodus+explicit_template_instantiation~float~fortran~fortrilinos+glm+gtest+hdf5~hypre~ifpack~intrepid~intrepid2~isorropia+kokkos~mesquite+metis~minitensor~ml+mpi~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~sacado+shards~shylu+stk~stratimikos~suite-sparse~superlu~superlu-dist~teko~tempus+teuchos+tpetra+uvm~x11~xsdkflags+zlib+zoltan+zoltan2 gotype=long cxxstd=17"
+      - "~adios2~amesos~anasazi~aztec~boost~chaco~complex~debug~dtk~epetra~epetraext+exodus+explicit_template_instantiation~float~fortran~fortrilinos+glm+gtest+hdf5~hypre~ifpack~intrepid~intrepid2~isorropia+kokkos~mesquite+metis~minitensor~ml+mpi~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~sacado+shards~shylu+stk~stratimikos~suite-sparse~superlu~superlu-dist~teko~tempus+teuchos+tpetra+uvm~x11~xsdkflags+zlib+zoltan+zoltan2 gotype=long cxxstd=17"
   blas:
     require: "netlib-lapack"
   lapack:
