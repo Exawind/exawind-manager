@@ -13,8 +13,6 @@ packages:
     variants: ~fortran~python
   netcdf-c:
     variants: +parallel-netcdf
-  openfast:
-    variants: +cxx
   parallel-netcdf:
     variants: ~fortran
   tioga:
