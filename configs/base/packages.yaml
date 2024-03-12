@@ -20,6 +20,8 @@ packages:
   hypre:
     version: [develop]
     variants: ~fortran
+  trilinos:
+    variants: ~adios2~amesos~anasazi~aztec~boost~chaco~complex~debug~dtk~epetra~epetraext~float~fortran~hypre~ifpack~intrepid~intrepid2~isorropia~mesquite~minitensor~ml~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~sacado~shylu~stratimikos~suite-sparse~superlu~superlu-dist~teko~tempus~x11
   all:
     variants: build_type=Release
     providers:
