@@ -93,7 +93,7 @@ function spack-start() {
       fi
     fi
 
-    if [[ "${EXAWIND_MANAGER_MACHINE}" == "darwin" && ! -f ${SPACK_CONFIG_USER_PATH}/darwin/compilers.yaml ]]; then
+    if [[ "${EXAWIND_MANAGER_MACHINE}" == "darwin" && ! -f ${SPACK_USER_CONFIG_PATH}/darwin/compilers.yaml ]]; then
       spack -E compiler find --mixed-toolchain
     fi
 
