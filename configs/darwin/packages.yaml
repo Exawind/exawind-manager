@@ -1,9 +1,16 @@
 packages:
-  boost:
-    require: "@1.81.0"
-  hypre:
-    variants: +shared~fortran
+  trilinos:
+    require:
+      - any_of: ["@=14.1.0.2023.02.28", "@develop"]
+      - "cxxflags='-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'"
+  nalu-wind:
+    require: "cxxflags='-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'"
+  mpi:
+    require: "mpich"
+  blas:
+    require: "openblas"
+  lapack:
+    require: "openblas"
   all:
-    compiler: [apple-clang, gcc, clang]
-    providers:
-      mpi: [mpich, openmpi]
+    require:
+      - "%apple-clang"
