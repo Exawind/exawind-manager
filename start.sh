@@ -85,6 +85,7 @@ function spack-start() {
     fi
 
     export EXAWIND_MANAGER_MACHINE=`spack manager find-machine | awk '{print $2}'`
+    echo "EXAWIND_MANAGER_MACHINE=${EXAWIND_MANAGER_MACHINE}"
 
     if [[ -z $(spack config --scope site blame bootstrap | grep spack-bootstrap-store) ]]; then
       if [[ "${EXAWIND_MANAGER_MACHINE}" == "cee" ]]; then
