@@ -11,6 +11,7 @@ import os
 from spack.pkg.exawind.cmake_extension import *
 
 class AmrWind(CmakeExtension, bAmrWind):
+    version("main", branch="main", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
     
     variant("asan", default=False,
@@ -32,8 +33,8 @@ class AmrWind(CmakeExtension, bAmrWind):
     depends_on("hdf5+mpi", when="+hdf5+mpi")
     depends_on("h5z-zfp", when="+hdf5")
     depends_on("zfp", when="+hdf5")
-    depends_on("hypre+umpire", when="+umpire")
-    depends_on("hypre+sycl", when="+sycl")
+    depends_on("hypre+umpire", when="+hypre+umpire")
+    depends_on("hypre+sycl", when="+hypre+sycl")
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
 
     def setup_build_environment(self, env):

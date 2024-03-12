@@ -24,7 +24,7 @@ class Exawind(CmakeExtension, CudaPackage, ROCmPackage):
 
     # Testing is currently always enabled, but should be optional in the future
     # to avoid cloning the mesh submodule
-    version("master", branch="main", submodules=True)
+    version("master", branch="main", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
 
     variant("asan", default=False,

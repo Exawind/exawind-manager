@@ -1,21 +1,22 @@
 packages:
-  cray-mpich:
-    require: "@=8.1.23"
+  mpich:
+    require: "@52.2"
     buildable: false
     externals:
-      - spec: "cray-mpich@=8.1.23%oneapi@2023.2.0"
-        prefix: /opt/cray/pe/mpich/8.1.23/ofi/intel/19.0
+      - spec: "mpich@52.2"
+        prefix: /soft/restricted/CNDA/updates/mpich/52.2/mpich-ofi-all-icc-default-pmix-gpu-drop52
         modules:
+          - mpich/52.2/icc-all-pmix-gpu 
           - libfabric/1.15.2.0
   trilinos:
     require:
       - any_of: ["@=14.1.0.2023.02.28", "@develop"]
   mpi:
-    require: "cray-mpich@8.1.23"
+    require: "mpich@52.2"
   blas:
     require: "openblas"
   lapack:
     require: "openblas"
   all:
     require:
-      - "%oneapi@2023.2.0"
+      - "%oneapi@2024.0"

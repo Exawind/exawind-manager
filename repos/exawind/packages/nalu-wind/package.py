@@ -22,7 +22,7 @@ def trilinos_version_filter(name):
         return "stable"
 
 class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
-    version("master", branch="master", submodules=True)
+    version("master", branch="master", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
 
     variant("asan", default=False,
@@ -51,7 +51,7 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
     depends_on("openfast@develop+netcdf+cxx", when="+fsi")
 
     for _arch in ROCmPackage.amdgpu_targets:
-        depends_on("trilinos@13.4.0.2022.10.27: ~shared+exodus+tpetra+zoltan+stk+boost~superlu-dist~superlu+hdf5+shards~hypre+gtest+rocm amdgpu_target={0}".format(_arch),
+        depends_on("trilinos@13.4.0.2022.10.27: ~shared+exodus+tpetra+zoltan+stk~superlu-dist~superlu+hdf5+shards~hypre+gtest+rocm amdgpu_target={0}".format(_arch),
                    when="+rocm amdgpu_target={0}".format(_arch))
         depends_on("hypre+rocm amdgpu_target={0}".format(_arch), when="+hypre+rocm amdgpu_target={0}".format(_arch))
 

@@ -68,7 +68,7 @@ def environment_setup(args, env_name):
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
         config("add", "config:install_tree:{}".format(
-               spack_path_resolve("$EXAWIND_MANAGER/cached_installs/$arch/{}".format(e.name))
+               spack_path_resolve("$EXAWIND_MANAGER/opt/$arch/{}".format(e.name))
                ))
         config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
         concretize("--force")
