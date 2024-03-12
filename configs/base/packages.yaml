@@ -13,8 +13,6 @@ packages:
     variants: ~fortran~python
   netcdf-c:
     variants: +parallel-netcdf
-  openfast:
-    variants: +cxx
   parallel-netcdf:
     variants: ~fortran
   tioga:
@@ -22,6 +20,8 @@ packages:
   hypre:
     version: [develop]
     variants: ~fortran
+  trilinos:
+    variants: ~adelus~adios2~amesos~amesos2~anasazi~asan+aztec~basker~belos~boost~chaco~complex~dtk~epetra~epetraext~epetraextbtf~epetraextexperimental~epetraextgraphreorderings~float~fortran~hypre~ifpack~ifpack2~intrepid~intrepid2~ipo~isorropia~mesquite~minitensor~ml~muelu~mumps~nox~openmp~panzer~phalanx~piro~python~rol~rythmos~sacado~scorec~shards~shylu~stk_simd~stk_unit_tests~stokhos~stratimikos~strumpack~suite-sparse~superlu~superlu-dist~teko~tempus~test~thyra~trilinoscouplings~x11~zoltan2
   all:
     variants: build_type=Release
     providers:

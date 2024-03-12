@@ -83,14 +83,14 @@ function spack-start() {
     if [[ -z $(spack repo list | awk '{print $1" "$2}' | grep "exawind $EXAWIND_MANAGER") ]]; then
       spack -E repo add ${EXAWIND_MANAGER}/repos/exawind
     fi
-    
+
     if [[ -z $(spack config --scope site blame bootstrap | grep spack-bootstrap-store) ]]; then
-      if [[ "${EXAWIND_MANAGER_MACHINE}" == "cee" ]]; then
+      if [[ "$(spack manager find-machine | awk '{print $2}')" == "cee" ]]; then
         spack -E bootstrap add --scope site --trust wind-binaries /projects/wind/spack-bootstrap-store/metadata/binaries
       fi
     fi
 
-    if [[ "${EXAWIND_MANAGER_MACHINE}" == "darwin" && ! -f ${SPACK_CONFIG_USER_PATH}/darwin/compilers.yaml ]]; then
+    if [[ "$(spack manager find-machine | awk '{print $2}')" == "darwin" && ! -f ${SPACK_USER_CONFIG_PATH}/darwin/compilers.yaml ]]; then
       spack -E compiler find --mixed-toolchain
     fi
 
