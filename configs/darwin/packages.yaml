@@ -5,6 +5,8 @@ packages:
       - "cxxflags='-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'"
   nalu-wind:
     require: "cxxflags='-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'"
+  hypre:
+    require: "+shared~fortran"
   mpi:
     require: "mpich"
   blas:
