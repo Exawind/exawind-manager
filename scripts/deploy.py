@@ -2,7 +2,6 @@
 
 import argparse
 import os
-import sys
 import time
 import spack.main
 import spack.util.executable
@@ -23,8 +22,6 @@ fetch = spack.main.SpackCommand("fetch")
 install = spack.main.SpackCommand("install")
 module = spack.main.SpackCommand("module")
 make = spack.util.executable.which("make")
-if sys.platform == "darwin":
-    make = spack.util.executable.which("gmake")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--name", help="name of env for installing")

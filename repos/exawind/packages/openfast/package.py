@@ -18,5 +18,5 @@ class Openfast(bOpenfast):
 
     depends_on("rosco", when="+rosco")
     depends_on("netcdf-c", when="@fsi")
-    depends_on("yaml-cpp@0.6.3", when="+cxx")
+    depends_on("yaml-cpp@0.6.0:0.6.3", when="+cxx")
 
