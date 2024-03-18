@@ -35,8 +35,7 @@ parser.add_argument("--slurm-args",
                         "and #SBATCH directives will be added before each argument")
                     )
 parser.add_argument("--ranks", type=int)
-parser.add_argument("--tests", action="store_true")
-parser.add_argument("--cdash", action="store_true")
+parser.add_argument("--cdash", nargs='+', default=[], help="packages to run tests and submit to cdash")
 parser.add_argument("--overwrite", action="store_true")
 parser.add_argument("--depfile", action="store_true")
 
@@ -71,6 +70,9 @@ def configure_env(args, env_name):
                spack_path_resolve("$EXAWIND_MANAGER/opt/$arch/{}".format(e.name))
                ))
         config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
+        if args.cdash:
+            for pkg in args.cdash:
+                config("add", "packages:{}:require:\"{}\"".format(pkg,"+cdash_submit"))
         concretize("--force")
         if args.depfile:
             env("depfile", "-o", os.path.join(e.path, "Makefile"))
@@ -99,28 +101,17 @@ def install_deps(args, env_name):
         else:
             install("--only", "dependencies")
 
-def root_install_args(env, tests=False, cdash=False):
+def root_install_args(env):
     install_args = [
         "--keep-stage",
         "--only-concrete",
         "--show-log-on-error",
         ]
-    if tests:
-        install_args.extend([
-            "--test=root",
-        ])
-    if cdash:
-        install_args.extend([
-            "--log-format", "cdash",
-            "--log-file", os.path.join(env.path, "cdash_results"),
-            "--cdash-site", "darwin",
-            "--cdash-track", "track",
-            "--cdash-build", "test",
-        ])
+
     return install_args
 
-def root_make_args(env, ranks, tests=False, cdash=False):
-    install_args = root_install_args(env, tests, cdash)
+def root_make_args(env, ranks):
+    install_args = root_install_args(env)
     all_args = []
     for root in env.concrete_roots():
         make_args = [
@@ -135,11 +126,11 @@ def root_make_args(env, ranks, tests=False, cdash=False):
 def install_roots(args, env_name):
     env = ev.read(env_name)
     if args.depfile:
-        root_arg_set = root_make_args(env, args.ranks, args.tests, args.cdash)
+        root_arg_set = root_make_args(env, args.ranks)
         for arg_set in root_arg_set:
             make(*arg_set)
     else:
-        install(*root_install_args(env, args.tests, args.cdash))
+        install(*root_install_args(env))
 
 
 def create_slurm_file(args, env_name):
@@ -157,12 +148,12 @@ def create_slurm_file(args, env_name):
             for dep_args in dep_arg_set:
                 f.write("make " + " ".join(dep_args)+"\n")
 
-            root_arg_set = root_make_args(e, args.ranks, args.tests, args.cdash)
+            root_arg_set = root_make_args(e, args.ranks)
             for root_args in root_arg_set:
                 f.write("make " + " ".join(root_args)+"\n")
         else:
             f.write("\nsrun -N $SLURM_JOB_NUM_NODES -n {} spack -e {} install --only dependencies".format(args.ranks, env_name))
-            f.write("\nsrun -N $SLURM_JOB_NUM_NODES -n {} spack -e {} install ".format(args.ranks, env_name) + " ".join(root_install_args(e, args.tests, args.cdash)))
+            f.write("\nsrun -N $SLURM_JOB_NUM_NODES -n {} spack -e {} install ".format(args.ranks, env_name) + " ".join(root_install_args(e)))
         f.write("\nspack -e {} module tcl refresh -y".format(env_name))
 
 

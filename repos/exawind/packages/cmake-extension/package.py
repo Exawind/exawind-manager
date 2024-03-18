@@ -4,9 +4,8 @@
 #
 # This software is released under the BSD 3-clause license. See LICENSE file
 # for more details.
-import argparse
-import inspect
 import llnl.util.tty as tty
+import importlib
 import glob
 import os
 import shutil
@@ -15,14 +14,17 @@ import time
 import llnl.util.filesystem as fs
 
 from spack.builder import run_after
-from spack.directives import depends_on, variant
+from spack.directives import depends_on, variant, requires
 from spack.package import CMakePackage
-import spack.cmd.common.arguments as arguments
+find_machine = importlib.import_module("find-exawind-manager")
 
 
 class CmakeExtension(CMakePackage):
 
     variant("cdash_submit", default=False, description="Submit results to cdash")
+    variant("ninja", default=False, description="Shortcut for generator=ninja")
+
+    requires("generator=ninja", when="+ninja")
 
     def do_clean(self):
         super().do_clean()
@@ -51,9 +53,9 @@ class CmakeExtension(CMakePackage):
         if "+cdash_submit" in self.spec:
             args.extend([
                         "-D",
-                        "BUILDNAME={}".format(self.spec.format("{name}@{compiler}")),
+                        "BUILDNAME={}".format(find_machine.cdash_build_name(self.spec)),
                         "-D",
-                        "SITE={}".format("darwin-test-phil"),
+                        "SITE={}".format(find_machine.cdash_host_name()),
             ])
         return args
 
@@ -70,6 +72,15 @@ class CmakeExtension(CMakePackage):
             super().build(spec, prefix)
 
 
+    def ctest_args(self):
+        args = ["-T", "Test"]
+        args.append("--stop-time")
+        overall_test_timeout=60*60*4 # 4 hours
+        args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
+        args.append("-VV")
+        return args
+
+
     @run_after("install")
     def test_regression(self):
         """
@@ -79,28 +90,15 @@ class CmakeExtension(CMakePackage):
         and auxilary python lib
         """ 
         spec = self.spec
-        test_env = os.environ.copy()
-
-        cdash_args = {
-            "site": "darwin",
-            "build": "test",
-            "track": "track",
-            "timeout": 5*60,
-            }
 
         with working_dir(self.builder.build_directory):
-            ctest_args = ["-T", "Test"]
-            ctest_args.append("--stop-time")
-            overall_test_timeout=60*60*4 # 4 hours
-            ctest_args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
-            ctest_args.extend(["-VV", "-R", "unit"])
+            args = self.ctest_args()
+            tty.debug("{} running CTest".format(spec.name))
+            tty.debug("Running:: ctest"+" ".join(args))
+            ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
             # We want the install to succeed even if some tests fail so pass
             # fail_on_error=False
-            tty.debug("{} running CTest".format(spec.name))
-            tty.debug("Running:: ctest"+" ".join(ctest_args))
-            print("Running:: ctest"+" ".join(ctest_args))
-            ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
-            # ctest(*ctest_args)
-            ctest(*ctest_args, fail_on_error=False)
-            ctest("-T", "Submit")
+            ctest(*args, fail_on_error=False)
+            # submit 
+            ctest("-T", "Submit", "-V")
 
