@@ -50,7 +50,7 @@ class CmakeExtension(CMakePackage):
 
     def cmake_args(self):
         args = []
-        if "+cdash_submit" in self.spec:
+        if self.spec.variants["cdash_submit"].value:
             args.extend([
                         "-D",
                         "BUILDNAME={}".format(find_machine.cdash_build_name(self.spec)),
@@ -64,7 +64,7 @@ class CmakeExtension(CMakePackage):
         """
         override spack's default build to run through ctest if needed
         """
-        if "+cdash_submit" in spec:
+        if self.spec.variants["cdash_submit"].value:
             with fs.working_dir(self.build_directory):
                 ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
                 ctest("-T", "Start", "-T", "Configure", "-T", "Build", "-V")
@@ -90,6 +90,8 @@ class CmakeExtension(CMakePackage):
         and auxilary python lib
         """ 
         spec = self.spec
+        if not self.spec.variants["cdash_submit"].value:
+            return
 
         with working_dir(self.builder.build_directory):
             args = self.ctest_args()

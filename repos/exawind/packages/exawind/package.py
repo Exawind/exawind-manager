@@ -99,7 +99,8 @@ class Exawind(CmakeExtension, CudaPackage, ROCmPackage):
     def cmake_args(self):
         spec = self.spec
 
-        args = super(Exawind, self).cmake_args()
+        args = super(CmakeExtension, self).cmake_args()
+        args.extend(super(Exawind, self).cmake_args())
 
         if spec.satisfies("dev_path=*"):
             args.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
