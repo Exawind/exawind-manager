@@ -72,7 +72,7 @@ def configure_env(args, env_name):
         config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
         if args.cdash:
             for pkg in args.cdash:
-                config("add", "packages:{}:require:\"{}\"".format(pkg,"+cdash_submit"))
+                config("add", "packages:{}:variants:\"{}\"".format(pkg,"+cdash_submit"))
         concretize("--force")
         if args.depfile:
             env("depfile", "-o", os.path.join(e.path, "Makefile"))
