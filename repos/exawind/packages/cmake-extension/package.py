@@ -67,6 +67,7 @@ class CmakeExtension(CMakePackage):
         if self.spec.variants["cdash_submit"].value:
             with fs.working_dir(self.build_directory):
                 ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
+                ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
                 ctest("-T", "Start", "-T", "Configure", "-T", "Build", "-V")
         else:
             super().build(spec, prefix)
@@ -93,14 +94,16 @@ class CmakeExtension(CMakePackage):
         if not self.spec.variants["cdash_submit"].value:
             return
 
+        test_env = os.environ.copy()
         with working_dir(self.builder.build_directory):
             args = self.ctest_args()
             tty.debug("{} running CTest".format(spec.name))
             tty.debug("Running:: ctest"+" ".join(args))
             ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
+            ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
             # We want the install to succeed even if some tests fail so pass
             # fail_on_error=False
-            ctest(*args, fail_on_error=False)
+            ctest(*args, env=test_env, fail_on_error=False)
             # submit 
             ctest("-T", "Submit", "-V")
 
