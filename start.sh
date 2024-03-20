@@ -48,6 +48,11 @@ function spack-start() {
   }
 
   if ! $(type '_spack_start_called' 2>/dev/null | grep -q 'function'); then
+    # The default python version on Kestrel does not work correctly
+    if [[ "${NREL_CLUSTER}" == 'kestrel' ]]; then
+      module load cray-python
+    fi
+
     export SPACK_ROOT=${EXAWIND_MANAGER}/spack
     export SPACK_USER_CACHE_PATH=${EXAWIND_MANAGER}/.cache
     export SPACK_USER_CONFIG_PATH=${EXAWIND_MANAGER}/.spack
