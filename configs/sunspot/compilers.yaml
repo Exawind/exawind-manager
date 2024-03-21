@@ -11,6 +11,7 @@ compilers:
       target: x86_64
       modules:
         - oneapi/release/2023.10.15.001
+        - intel_compute_runtime/release/agama-devel-647
       environment: {}
         #  set:
         #  DPLROOT: /lus/gecko/projects/CSC249ADSE13_CNDA/$user/exawind/oneDPL
