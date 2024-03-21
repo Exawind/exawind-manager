@@ -1,16 +1,16 @@
 compilers:
   - compiler:
-      spec: oneapi@2024.0
+      spec: oneapi@2023.2
       paths:
-        cc: /soft/compilers/oneapi/2023.12.15.001/oneapi/compiler/2024.0/bin/icx
-        cxx: /soft/compilers/oneapi/2023.12.15.001/oneapi/compiler/2024.0/bin/icpx
-        f77: /soft/compilers/oneapi/2023.12.15.001/oneapi/compiler/2024.0/bin/ifx
-        fc: /soft/compilers/oneapi/2023.12.15.001/oneapi/compiler/2024.0/bin/ifx
+        cc: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/icx
+        cxx: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/icpx
+        f77: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/ifx
+        fc: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/ifx
       flags: {}
       operating_system: sles15
       target: x86_64
       modules:
-        - oneapi/release/2023.12.15.001
+        - oneapi/release/2023.10.15.001
       environment: {}
         #  set:
         #  DPLROOT: /lus/gecko/projects/CSC249ADSE13_CNDA/$user/exawind/oneDPL

@@ -19,4 +19,4 @@ packages:
     require: "openblas"
   all:
     require:
-      - "%oneapi@2024.0"
+      - "%oneapi@2023.2"

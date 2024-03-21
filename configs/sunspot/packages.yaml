@@ -1,37 +1,22 @@
 packages:
   mpich:
-    require: "@51.2"
+    require: "@52.2"
     buildable: false
     externals:
-      - spec: "mpich@51.2"
-        prefix: /soft/restricted/CNDA/updates/mpich/51.2/mpich-ofi-all-icc-default-pmix-gpu-drop51
+      - spec: "mpich@52.2"
+        prefix: /soft/restricted/CNDA/updates/mpich/52.2/mpich-ofi-all-icc-default-pmix-gpu-drop52
         modules:
-          - mpich/51.2/icc-all-pmix-gpu
-  m4:
-    require: "@1.4.19"
-    buildable: false
-    externals:
-      - spec: "m4@1.4.19"
-        prefix: /usr
-  libffi:
-    require: "@3.2.1"
-    buildable: false
-    externals:
-      - spec: "libffi@3.2.1"
-        prefix: /usr
-  nalu-wind:
-    require: "~trilinos-solvers"
-  amr-wind:
-    variants: +tiny_profile build_type=Release
+          - mpich/52.2/icc-all-pmix-gpu 
+          - libfabric/1.15.2.0
   trilinos:
-    require: "+tpetra+kokkos"
-  boost:
-    version: [1.78.0]
-    variants: ~shared+pic
+    require:
+      - any_of: ["@=14.1.0.2023.02.28", "@develop"]
+  mpi:
+    require: "mpich@52.2"
+  blas:
+    require: "openblas"
+  lapack:
+    require: "openblas"
   all:
-    compiler: [intel]
-    variants: build_type=Release +mpi
-    providers:
-      mpi: [mpich]
-      blas: [netlib-lapack]
-      lapack: [netlib-lapack]
+    require:
+      - "%oneapi@2023.2"
