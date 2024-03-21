@@ -77,8 +77,8 @@ machine_list = {
         lambda: os.environ["LMOD_SYSTEM_NAME"] == "frontier", "frontier.olcf.ornl.gov"
     ),
     # ALCF
-    "aurora": MachineData(lambda: "aurora" in socket.gethostname(), "aurora.alcf.anl.gov"),
-    "sunspot": MachineData(lambda: "sunspot" in socket.gethostname(), "sunspot.alcf.anl.gov"),
+    "aurora": MachineData(lambda: "aurora" in socket.getfqdn(), "aurora.alcf.anl.gov"),
+    "sunspot": MachineData(lambda: "americas.sgi.com" in socket.getfqdn(), "sunspot.alcf.anl.gov"),
     # E4S
     "e4s": MachineData(lambda: is_e4s(), "e4s.nodomain.gov"),
     # Azure
