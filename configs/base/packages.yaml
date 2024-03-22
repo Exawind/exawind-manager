@@ -17,6 +17,8 @@ packages:
     variants: ~fortran
   tioga:
     version: [develop]
+  openfast:
+    version: [develop]
   hypre:
     version: [develop]
     variants: ~fortran

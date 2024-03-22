@@ -1,19 +1,18 @@
 compilers:
   - compiler:
-      spec: intel@2022.12.30
+      spec: oneapi@2023.2
       paths:
-        cc: /soft/restricted/CNDA/updates/2022.12.30.001/oneapi/compiler/trunk-20230201/compiler/linux/bin/icx
-        cxx: /soft/restricted/CNDA/updates/2022.12.30.001/oneapi/compiler/trunk-20230201/compiler/linux/bin/icpx
-        f77: /soft/restricted/CNDA/updates/2022.12.30.001/oneapi/compiler/trunk-20230201/compiler/linux/bin/ifx
-        fc: /soft/restricted/CNDA/updates/2022.12.30.001/oneapi/compiler/trunk-20230201/compiler/linux/bin/ifx
+        cc: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/icx
+        cxx: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/icpx
+        f77: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/ifx
+        fc: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/ifx
       flags: {}
       operating_system: sles15
       target: x86_64
-      modules: 
-        - gcc/11.2.0
-        - oneapi/eng-compiler/2022.12.30.003
-        - mpich/51.2/icc-all-pmix-gpu
-        - libfabric/1.15.2.0
-        - intel_compute_runtime/release/agama-devel-551
+      modules:
+        - oneapi/release/2023.10.15.001
+        - intel_compute_runtime/release/agama-devel-647
       environment: {}
+        #  set:
+        #  DPLROOT: /lus/gecko/projects/CSC249ADSE13_CNDA/$user/exawind/oneDPL
       extra_rpaths: []

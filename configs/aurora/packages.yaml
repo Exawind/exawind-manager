@@ -11,6 +11,9 @@ packages:
   trilinos:
     require:
       - any_of: ["@=14.1.0.2023.02.28", "@develop"]
+  #Intel OneAPI currently segfaults with openfast@develop
+  openfast:
+    require: "@fsi"
   mpi:
     require: "mpich@52.2"
   blas:
@@ -19,4 +22,4 @@ packages:
     require: "openblas"
   all:
     require:
-      - "%oneapi@2024.0"
+      - "%oneapi@2023.2"

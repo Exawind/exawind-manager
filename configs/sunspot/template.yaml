@@ -5,3 +5,4 @@ spack:
   view: false
   specs:
     - 'exawind+fsi+ninja+hypre+amr_wind_gpu~nalu_wind_gpu+sycl'
+    - 'exawind+fsi+ninja+hypre~amr_wind_gpu~nalu_wind_gpu~sycl'

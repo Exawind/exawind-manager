@@ -44,11 +44,10 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
 
     conflicts("+cuda", when="+rocm")
     conflicts("+rocm", when="+cuda")
-    conflicts("openfast@fsi", when="~fsi")
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
     depends_on("hypre+umpire", when="+umpire")
     depends_on("trilinos gotype=long")
-    depends_on("openfast@develop+netcdf+cxx", when="+fsi")
+    depends_on("openfast@develop,fsi+netcdf+cxx", when="+fsi")
     patch("fortran.patch", when="+fsi %apple-clang")
     patch("fortran.patch", when="+openfast %apple-clang")
 
