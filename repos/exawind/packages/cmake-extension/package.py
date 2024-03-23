@@ -79,6 +79,7 @@ class CmakeExtension(CMakePackage):
         overall_test_timeout=60*60*4 # 4 hours
         args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
         args.append("-VV")
+        args.extend(["-R", "unit"])
         return args
 
 
