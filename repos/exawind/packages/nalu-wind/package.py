@@ -10,6 +10,8 @@ from spack.pkg.builtin.nalu_wind import NaluWind as bNaluWind
 from spack.pkg.builtin.kokkos import Kokkos
 import os
 import importlib
+import inspect
+import time
 find_machine = importlib.import_module("find-exawind-manager")
 from spack.pkg.exawind.cmake_extension import *
 
@@ -82,7 +84,9 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(NaluWind, self).cmake_args()
+
+        cmake_options = super(CmakeExtension, self).cmake_args()
+        cmake_options.extend(super(NaluWind, self).cmake_args())
         cmake_options.append(self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"))
         cmake_options.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
 
@@ -125,6 +129,7 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
             current_golds = os.path.join(spack_manager_golds_dir, "current", "nalu-wind")
             os.makedirs(saved_golds, exist_ok=True)
             os.makedirs(current_golds, exist_ok=True)
+            cmake_options.append(self.define("ENABLE_TESTS", True))
             cmake_options.append(self.define("NALU_WIND_SAVE_GOLDS", True))
             cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", saved_golds))
             cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", current_golds))

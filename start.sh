@@ -16,11 +16,6 @@ cmd() {
 ########################################################
 # Tests
 ########################################################
-if [[ -z ${EXAWIND_MANAGER} ]]; then
-  echo "Env variable EXAWIND_MANAGER not set. You must set this variable."
-  return 125
-fi
-
 if [[ ! -x $(which python3) ]]; then
   echo "Warning: spack-manager is only designed to work with python 3."
   echo "You may use spack, but spack-manager specific commands will fail."
@@ -41,6 +36,10 @@ function spack-start() {
     echo "This function loads spack into your active shell"
     return
   fi
+  
+  # https://stackoverflow.com/questions/4774054/reliable-way-for-a-bash-script-to-get-the-full-path-to-itself
+  export EXAWIND_MANAGER="$( cd -- "$(dirname "$BASH_SOURCE")" >/dev/null 2>&1 ; pwd -P )"
+
   function install_spack_manager(){
     git clone --branch develop https://github.com/sandialabs/spack-manager $SPACK_ROOT/../spack-manager
     spack -E config --scope site add "config:extensions:[${EXAWIND_MANAGER}/spack-manager]"

@@ -116,3 +116,18 @@ def detector(name):
                 raise
     return False
 
+
+def cdash_host_name():
+    """get consistent hostnames for cdash"""
+    for name, machine in machine_list.items():
+        # wasteful look up but adds error checking
+        if detector(name):
+            return machine.full_machine_name
+    # if we get here we need to error
+    raise Exception("Unsupported machines can't upload to cdash")
+
+
+def cdash_build_name(spec):
+    return spec.format("{name}{@version}%{compiler}")
+   
+

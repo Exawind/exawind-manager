@@ -37,6 +37,8 @@ class AmrWind(CmakeExtension, bAmrWind):
     depends_on("hypre+sycl", when="+hypre+sycl")
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
 
+    requires("+tests", when="+cdash_submit")
+
     def setup_build_environment(self, env):
         if "+asan" in self.spec:
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
@@ -46,7 +48,8 @@ class AmrWind(CmakeExtension, bAmrWind):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(AmrWind, self).cmake_args()
+        cmake_options = super(CmakeExtension, self).cmake_args()
+        cmake_options.extend(super(AmrWind, self).cmake_args())
 
         if "+cppcheck" in spec:
             cmake_options.append(self.define("AMR_WIND_ENABLE_CPPCHECK", True))
