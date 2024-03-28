@@ -92,7 +92,7 @@ packages:
     require:
       - any_of: ["@14.1.0.2023.02.28", "@develop"]
   nalu-wind:
-    variants: ~trilinos-solvers
+    require: "~trilinos-solvers"
   libffi:
     require: "@3.4.2"
   mpi:
