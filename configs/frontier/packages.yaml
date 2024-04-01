@@ -8,6 +8,9 @@ packages:
         modules:
           - cray-mpich/8.1.23
           - craype-network-ofi
+          - libfabric/1.15.2.0
+          - cray-pmi/6.1.8
+          - xpmem/2.6.2-2.5_2.22__gd067c3f.shasta
   rocprim:
     require: "@5.4.3"
     buildable: false
@@ -71,22 +74,6 @@ packages:
         modules:
           - rocm/5.4.3
           - craype-accel-amd-gfx90a
-  cmake:
-    require: "@3.23.2"
-    buildable: false
-    externals:
-      - spec: cmake@3.23.2
-        prefix: /sw/frontier/spack-envs/base/opt/linux-sles15-x86_64/gcc-7.5.0/cmake-3.23.2-4r4mpiba7cwdw2hlakh5i7tchi64s3qd
-        modules:
-          - cmake/3.23.2
-  perl:
-    require: "@5.34.1"
-    buildable: false
-    externals:
-      - spec: perl@5.34.1
-        prefix: /sw/frontier/spack-envs/base/opt/linux-sles15-x86_64/gcc-7.5.0/perl-5.34.0-2f4kqqwg4xkrrapb5peh5m6fw2cargdl
-        modules:
-          - perl/5.34.0
   openblas:
     require: "@0.3.17"
     buildable: false
@@ -105,14 +92,16 @@ packages:
     require:
       - any_of: ["@14.1.0.2023.02.28", "@develop"]
   nalu-wind:
-    variants: ~trilinos-solvers
+    require: "~trilinos-solvers"
   libffi:
     require: "@3.4.2"
+  mpi:
+    require: "cray-mpich@8.1.23"
+  blas:
+    require: "openblas"
+  lapack:
+    require: "openblas"
   all:
-    compiler:
-      - clang@15.0.0
-    providers:
-      mpi: [cray-mpich@8.1.23]
-      blas: [openblas]
-      lapack: [openblas]
-    variants: build_type=Release amdgpu_target=gfx90a
+    require:
+      - "%clang@15.0.0"
+    variants: amdgpu_target=gfx90a
