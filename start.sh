@@ -38,7 +38,8 @@ function spack-start() {
   fi
   
   # https://stackoverflow.com/questions/4774054/reliable-way-for-a-bash-script-to-get-the-full-path-to-itself
-  export EXAWIND_MANAGER="$( cd -- "$(dirname "$BASH_SOURCE")" >/dev/null 2>&1 ; pwd -P )"
+  # for zsh we follow: https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
+  export EXAWIND_MANAGER="$( cd -- "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" >/dev/null 2>&1 ; pwd -P )"
 
   function install_spack_manager(){
     git clone --branch develop https://github.com/sandialabs/spack-manager $SPACK_ROOT/../spack-manager
