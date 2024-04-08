@@ -13,7 +13,7 @@ import importlib
 import inspect
 import time
 find_machine = importlib.import_module("find-exawind-manager")
-from spack.pkg.exawind.cmake_extension import *
+from spack.pkg.exawind.ctest_package import *
 
 
 def trilinos_version_filter(name):
@@ -23,7 +23,7 @@ def trilinos_version_filter(name):
     else:
         return "stable"
 
-class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
+class NaluWind(CTestPackage, bNaluWind, ROCmPackage):
     version("master", branch="master", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
 
@@ -85,7 +85,7 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
     def cmake_args(self):
         spec = self.spec
 
-        cmake_options = super(CmakeExtension, self).cmake_args()
+        cmake_options = super(CTestPackage, self).cmake_args()
         cmake_options.extend(super(NaluWind, self).cmake_args())
         cmake_options.append(self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"))
         cmake_options.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
@@ -120,18 +120,9 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
             cmake_options.append(self.define("ENABLE_OPENFAST", True))
 
         if spec.satisfies("+tests") or self.run_tests or spec.satisfies("dev_path=*"):
-            spack_manager_local_golds = os.path.join(os.getenv("EXAWIND_MANAGER"), "golds")
-            spack_manager_golds_dir = os.getenv("EXAWIND_MANAGER_GOLDS_DIR", default=spack_manager_local_golds)
-            if "+snl" in spec:
-                spack_manager_golds_dir = "{}-{}".format(spack_manager_golds_dir, trilinos_version_filter(spec["trilinos"].version))
-
-            saved_golds = os.path.join(spack_manager_golds_dir, "tmp", "nalu-wind")
-            current_golds = os.path.join(spack_manager_golds_dir, "current", "nalu-wind")
-            os.makedirs(saved_golds, exist_ok=True)
-            os.makedirs(current_golds, exist_ok=True)
             cmake_options.append(self.define("ENABLE_TESTS", True))
             cmake_options.append(self.define("NALU_WIND_SAVE_GOLDS", True))
-            cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", saved_golds))
-            cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", current_golds))
+            cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", self.saved_golds_dir))
+            cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", self.reference_golds_dir))
 
         return cmake_options

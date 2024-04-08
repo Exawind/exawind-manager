@@ -8,9 +8,9 @@
 from spack import *
 from spack.pkg.builtin.amr_wind import AmrWind as bAmrWind
 import os
-from spack.pkg.exawind.cmake_extension import *
+from spack.pkg.exawind.ctest_package import *
 
-class AmrWind(CmakeExtension, bAmrWind):
+class AmrWind(CTestPackage, bAmrWind):
     version("main", branch="main", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
     
@@ -48,7 +48,7 @@ class AmrWind(CmakeExtension, bAmrWind):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(CmakeExtension, self).cmake_args()
+        cmake_options = super(CTestPackage, self).cmake_args()
         cmake_options.extend(super(AmrWind, self).cmake_args())
 
         if "+cppcheck" in spec:
@@ -97,15 +97,9 @@ class AmrWind(CmakeExtension, bAmrWind):
                 )
 
         if "+tests" in spec:
-            spack_manager_local_golds = os.path.join(os.getenv("EXAWIND_MANAGER"), "golds")
-            spack_manager_golds_dir = os.getenv("EXAWIND_MANAGER_GOLDS_DIR", default=spack_manager_local_golds)
-            saved_golds = os.path.join(spack_manager_golds_dir, "tmp", "amr-wind")
-            current_golds = os.path.join(spack_manager_golds_dir, "current", "amr-wind")
-            os.makedirs(saved_golds, exist_ok=True)
-            os.makedirs(current_golds, exist_ok=True)
             cmake_options.append(self.define("AMR_WIND_TEST_WITH_FCOMPARE", True))
             cmake_options.append(self.define("AMR_WIND_SAVE_GOLDS", True))
-            cmake_options.append(self.define("AMR_WIND_SAVED_GOLDS_DIRECTORY", saved_golds))
-            cmake_options.append(self.define("AMR_WIND_REFERENCE_GOLDS_DIRECTORY", current_golds))
+            cmake_options.append(self.define("AMR_WIND_SAVED_GOLDS_DIRECTORY", self.saved_golds_dir))
+            cmake_options.append(self.define("AMR_WIND_REFERENCE_GOLDS_DIRECTORY", self.reference_golds_dir))
 
         return cmake_options

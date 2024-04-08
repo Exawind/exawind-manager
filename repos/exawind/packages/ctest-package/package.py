@@ -19,10 +19,11 @@ from spack.package import CMakePackage
 find_machine = importlib.import_module("find-exawind-manager")
 
 
-class CmakeExtension(CMakePackage):
+class CTestPackage(CMakePackage):
 
     variant("cdash_submit", default=False, description="Submit results to cdash")
     variant("ninja", default=False, description="Shortcut for generator=ninja")
+    variant("reference_golds", default="none", description="gold directories to compare against")
 
     requires("generator=ninja", when="+ninja")
 
@@ -56,6 +57,8 @@ class CmakeExtension(CMakePackage):
                         "BUILDNAME={}".format(find_machine.cdash_build_name(self.spec)),
                         "-D",
                         "SITE={}".format(find_machine.cdash_host_name()),
+                        "--group", 
+                        "{}".format(self.spec.name),
             ])
         return args
 
@@ -71,6 +74,28 @@ class CmakeExtension(CMakePackage):
                 ctest("-T", "Start", "-T", "Configure", "-T", "Build", "-V")
         else:
             super().build(spec, prefix)
+
+
+    @property
+    def saved_golds_dir(self):
+        """
+        Save golds in the install directory if they are generated
+        """
+        saved_golds = os.path.join(self.prefix, "golds")
+        os.makedirs(saved_golds, exist_ok=True)
+        return saved_golds
+
+    @property
+    def reference_golds_dir(self):
+        if self.spec.variants["reference_golds"]:
+            if not os.isdir(self.spec.variants["reference_golds"].value):
+                tty.die("Supplied referenced golds path is not valid: {}".format(
+                        self.spec.variants["reference_golds"].value)
+                        )
+            return self.spec.variants["reference_golds"].value
+        else:
+            return find_machine.reference_golds_default(self.spec)
+            
 
 
     def ctest_args(self):

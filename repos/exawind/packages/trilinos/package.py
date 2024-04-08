@@ -9,10 +9,10 @@ from spack import *
 from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
 import os
 import importlib
-from spack.pkg.exawind.cmake_extension import *
+from spack.pkg.exawind.ctest_extension import *
 find_machine = importlib.import_module("find-exawind-manager")
 
-class Trilinos(bTrilinos, CmakeExtension):
+class Trilinos(bTrilinos, CTestPackage):
     # Our custom release versions should be the latest release tag found on
     # the trilinos github page appended with the date of the commit.
     # this preserves the Trilinos versioning scheme and will allow for valid
