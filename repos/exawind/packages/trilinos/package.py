@@ -9,7 +9,7 @@ from spack import *
 from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
 import os
 import importlib
-from spack.pkg.exawind.ctest_extension import *
+from spack.pkg.exawind.ctest_package import *
 find_machine = importlib.import_module("find-exawind-manager")
 
 class Trilinos(bTrilinos, CTestPackage):
