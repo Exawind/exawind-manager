@@ -9,6 +9,7 @@
 #
 # Set golds in user config path from spec in current active environment
 USER_CONFIGS=${EXAWIND_MANAGER}/configs/user
+SPEC=$1
 mkdir -p ${USER_CONFIGS}
-SPACK_USER_CONFIG_PATH=${USER_CONFIGS} spack config --scope user add "packages:${1}:reference_golds:$(spack location -i ${1})/golds"
+SPACK_USER_CONFIG_PATH=${USER_CONFIGS} spack config --scope user add "packages:${SPEC}:variants:reference_golds=$(spack location -i ${SPEC})/golds"
 
