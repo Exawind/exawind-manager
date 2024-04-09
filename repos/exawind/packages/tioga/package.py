@@ -10,7 +10,7 @@ from spack.pkg.builtin.tioga import Tioga as bTioga
 import os
 from spack.pkg.exawind.ctest_package import *
 
-class Tioga(bTioga, CTestPackage):
+class Tioga(bTioga, CtestPackage):
     git = "https://github.com/Exawind/tioga.git"
 
     variant("asan", default=False,

@@ -1,5 +1,5 @@
 # Copyright (c) 2022, National Technology & Engineering Solutions of Sandia,
-# LLC (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
+
 # Government retains certain rights in this software.
 #
 # This software is released under the BSD 3-clause license. See LICENSE file
@@ -23,7 +23,7 @@ def trilinos_version_filter(name):
     else:
         return "stable"
 
-class NaluWind(CTestPackage, bNaluWind, ROCmPackage):
+class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
     version("master", branch="master", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
 
@@ -85,7 +85,7 @@ class NaluWind(CTestPackage, bNaluWind, ROCmPackage):
     def cmake_args(self):
         spec = self.spec
 
-        cmake_options = super(CTestPackage, self).cmake_args()
+        cmake_options = super(CtestPackage, self).cmake_args()
         cmake_options.extend(super(NaluWind, self).cmake_args())
         cmake_options.append(self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"))
         cmake_options.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
@@ -122,7 +122,7 @@ class NaluWind(CTestPackage, bNaluWind, ROCmPackage):
         if spec.satisfies("+tests") or self.run_tests or spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("ENABLE_TESTS", True))
             cmake_options.append(self.define("NALU_WIND_SAVE_GOLDS", True))
-            cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", self.saved_golds_dir))
-            cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", self.reference_golds_dir))
+            cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", super().saved_golds_dir))
+            cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", super().reference_golds_dir))
 
         return cmake_options

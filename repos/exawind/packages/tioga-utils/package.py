@@ -9,7 +9,7 @@ from spack import *
 import os
 from spack.pkg.exawind.ctest_package import *
 
-class TiogaUtils(CTestPackage):
+class TiogaUtils(CtestPackage):
     git = "https://github.com/Exawind/tioga_utils.git"
 
     version("exawind", branch="exawind")

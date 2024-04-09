@@ -19,11 +19,12 @@ from spack.package import CMakePackage
 find_machine = importlib.import_module("find-exawind-manager")
 
 
-class CTestPackage(CMakePackage):
+class CtestPackage(CMakePackage):
 
     variant("cdash_submit", default=False, description="Submit results to cdash")
     variant("ninja", default=False, description="Shortcut for generator=ninja")
-    variant("reference_golds", default="none", description="gold directories to compare against")
+    variant("reference_golds", default='default', description="gold directories to compare against")
+    variant("ctest_args", default="-R unit", description="quoted string of arguments to send to ctest, default is run unit tests")
 
     requires("generator=ninja", when="+ninja")
 
@@ -87,8 +88,8 @@ class CTestPackage(CMakePackage):
 
     @property
     def reference_golds_dir(self):
-        if self.spec.variants["reference_golds"]:
-            if not os.isdir(self.spec.variants["reference_golds"].value):
+        if self.spec.variants["reference_golds"].value != "default":
+            if not os.path.isdir(self.spec.variants["reference_golds"].value):
                 tty.die("Supplied referenced golds path is not valid: {}".format(
                         self.spec.variants["reference_golds"].value)
                         )
@@ -104,7 +105,9 @@ class CTestPackage(CMakePackage):
         overall_test_timeout=60*60*4 # 4 hours
         args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
         args.append("-VV")
-        args.extend(["-R", "unit"])
+        extra_args = self.spec.variants["ctest_args"].value
+        if extra_args:
+            args.extend(extra_args.split())
         return args
 
 
@@ -117,8 +120,6 @@ class CTestPackage(CMakePackage):
         and auxilary python lib
         """ 
         spec = self.spec
-        if not self.spec.variants["cdash_submit"].value:
-            return
 
         test_env = os.environ.copy()
         with working_dir(self.builder.build_directory):
@@ -130,6 +131,7 @@ class CTestPackage(CMakePackage):
             # We want the install to succeed even if some tests fail so pass
             # fail_on_error=False
             ctest(*args, env=test_env, fail_on_error=False)
-            # submit 
-            ctest("-T", "Submit", "-V")
+
+            if self.spec.variants["cdash_submit"].value:
+                ctest("-T", "Submit", "-V")
 

@@ -137,5 +137,5 @@ def reference_golds_default(spec):
     and spec to give predetermined golds directories
     """
     gold_dir = os.path.join(os.environ["EXAWIND_MANAGER"], "golds", "current", spec.name)
-    os.mkdirs(gold_dir, exist_ok=True)
+    os.makedirs(gold_dir, exist_ok=True)
     return gold_dir
