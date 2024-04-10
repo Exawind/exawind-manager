@@ -85,7 +85,7 @@ def make_args(env, ranks):
     ]
     return args
 
-def install(args, env_name):
+def local_install(args, env_name):
     with ev.read(env_name) as e:
         os.chdir(e.path)
         if args.depfile:
@@ -127,6 +127,6 @@ if __name__ == "__main__":
         create_slurm_file(args, env_name)
     else:
         print("install")
-        install(args, env_name)
+        local_install(args, env_name)
         module_gen(args, env_name)
 

@@ -58,8 +58,6 @@ class CtestPackage(CMakePackage):
                         "BUILDNAME={}".format(find_machine.cdash_build_name(self.spec)),
                         "-D",
                         "SITE={}".format(find_machine.cdash_host_name()),
-                        "--group", 
-                        "{}".format(self.spec.name),
             ])
         return args
 
@@ -100,7 +98,7 @@ class CtestPackage(CMakePackage):
 
 
     def ctest_args(self):
-        args = ["-T", "Test"]
+        args = ["-T", "Test", "--group", self.spec.name]
         args.append("--stop-time")
         overall_test_timeout=60*60*4 # 4 hours
         args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
