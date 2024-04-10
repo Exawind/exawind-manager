@@ -127,5 +127,5 @@ if args.slurm_args:
     create_slurm_file(args, env_name)
 else:
     print("spack install")
-    spack_install(args, env_name)
+    install(args, env_name)
     module_gen(args, env_name)
