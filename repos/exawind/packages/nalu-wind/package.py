@@ -49,7 +49,7 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
     depends_on("hypre+umpire", when="+umpire")
     depends_on("trilinos gotype=long")
-    depends_on("openfast@3.5.3+netcdf+cxx", when="+fsi")
+    depends_on("openfast@develop+netcdf+cxx", when="+fsi")
 
     patch("rocm1.patch")
 
