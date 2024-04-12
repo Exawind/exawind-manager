@@ -12,12 +12,13 @@ from spack.pkg.exawind.ctest_package import *
 class TiogaUtils(CtestPackage):
     git = "https://github.com/Exawind/tioga_utils.git"
 
-    version("exawind", branch="exawind")
+    version("exawind", branch="exawind", submodules=True)
 
     depends_on("trilinos")
     depends_on("yaml-cpp")
     depends_on("tioga~nodegid")
     depends_on("nalu-wind")
+    depends_on("yaml-cpp@0.6.0:0.6.3")
  
     def cmake_args(self):
         spec = self.spec

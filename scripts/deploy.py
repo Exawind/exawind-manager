@@ -16,7 +16,7 @@ env = spack.main.SpackCommand("env")
 config = spack.main.SpackCommand("config")
 concretize = spack.main.SpackCommand("concretize")
 fetch = spack.main.SpackCommand("fetch")
-install = spack.main.SpackCommand("install")
+spack_install = spack.main.SpackCommand("install")
 module = spack.main.SpackCommand("module")
 make = spack.util.executable.which("make")
 
@@ -92,7 +92,7 @@ def local_install(args, env_name):
             print("make",*make_args(e, args.ranks))
             make(*make_args(e, args.ranks))
         else:
-            install()
+            spack_install()
 
 def create_slurm_file(args, env_name):
     e = ev.read(env_name)
@@ -129,4 +129,3 @@ if __name__ == "__main__":
         print("install")
         local_install(args, env_name)
         module_gen(args, env_name)
-
