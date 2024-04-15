@@ -24,7 +24,7 @@ def trilinos_version_filter(name):
         return "stable"
 
 class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
-    version("master", branch="master", submodules=True, preferred=True)
+    version("master", git="https://github.com/jrood-nrel/nalu-wind.git", branch="jrood/update-stk-throw", submodules=False, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
 
     variant("asan", default=False,
@@ -50,8 +50,6 @@ class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
     depends_on("hypre+umpire", when="+umpire")
     depends_on("trilinos gotype=long")
     depends_on("openfast@develop,fsi+netcdf+cxx", when="+fsi")
-
-    patch("rocm1.patch")
 
     for _arch in ROCmPackage.amdgpu_targets:
         depends_on("trilinos@13.4.0.2022.10.27: ~shared+exodus+tpetra+zoltan+stk~superlu-dist~superlu+hdf5+shards~hypre+gtest+rocm amdgpu_target={0}".format(_arch),
