@@ -24,7 +24,7 @@ def trilinos_version_filter(name):
         return "stable"
 
 class NaluWind(CmakeExtension, bNaluWind, ROCmPackage):
-    version("master", git="https://github.com/jrood-nrel/nalu-wind.git", branch="jrood/update-stk-throw", submodules=False, preferred=True)
+    version("master", branch="master", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
 
     variant("asan", default=False,
