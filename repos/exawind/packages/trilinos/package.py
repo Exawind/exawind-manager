@@ -18,7 +18,7 @@ class Trilinos(bTrilinos, CmakeExtension):
     # this preserves the Trilinos versioning scheme and will allow for valid
     # version comparisons in spack's internals.
     version("15.1.1", tag="trilinos-release-15-1-1")
-    version("14.1.0.2023.02.28", commit="8b3e2e1db4c7e07db13225c73057230c4814706f")
+    version("13.4.1.2023.02.28", commit="8b3e2e1db4c7e07db13225c73057230c4814706f")
     version("13.4.0.2022.10.27", commit="da54d929ea62e78ba8e19c7d5aa83dc1e1f767c1")
     version("13.2.0.2022.06.05", commit="7498bcb9b0392c830b83787f3fb0c17079431f06")
     variant("stk_unit_tests", default=False,
