@@ -80,9 +80,6 @@ packages:
     require: "@6.0.0"
   python:
     require: "~ssl"
-  trilinos:
-    require:
-      - any_of: ["@14.1.0.2023.02.28", "@develop"]
   nalu-wind:
     require: "~trilinos-solvers"
   libffi:
