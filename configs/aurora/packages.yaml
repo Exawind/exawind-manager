@@ -8,12 +8,6 @@ packages:
         modules:
           - mpich/52.2/icc-all-pmix-gpu 
           - libfabric/1.15.2.0
-  trilinos:
-    require:
-      - any_of: ["@=14.1.0.2023.02.28", "@develop"]
-  #Intel OneAPI currently segfaults with openfast@develop
-  openfast:
-    require: "@fsi"
   mpi:
     require: "mpich@52.2"
   blas:

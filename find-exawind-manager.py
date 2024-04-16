@@ -69,10 +69,6 @@ machine_list = {
     "summit": MachineData(
         lambda: os.environ["LMOD_SYSTEM_NAME"] == "summit", "summit.olcf.ornl.gov"
     ),
-    "spock": MachineData(lambda: os.environ["LMOD_SYSTEM_NAME"] == "spock", "spock.olcf.ornl.gov"),
-    "crusher": MachineData(
-        lambda: os.environ["LMOD_SYSTEM_NAME"] == "crusher", "crusher.olcf.ornl.gov"
-    ),
     "frontier": MachineData(
         lambda: os.environ["LMOD_SYSTEM_NAME"] == "frontier", "frontier.olcf.ornl.gov"
     ),
