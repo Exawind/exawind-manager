@@ -1,18 +1,16 @@
 compilers:
   - compiler:
-      spec: oneapi@2023.2
+      spec: oneapi@2024.1
       paths:
-        cc: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/icx
-        cxx: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/icpx
-        f77: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/ifx
-        fc: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/ifx
+        cc: /opt/aurora/23.275.2/CNDA/oneapi/compiler/eng-20231130/bin/icx
+        cxx: /opt/aurora/23.275.2/CNDA/oneapi/compiler/eng-20231130/bin/icpx
+        f77: /opt/aurora/23.275.2/CNDA/oneapi/compiler/eng-20231130/bin/ifx
+        fc: /opt/aurora/23.275.2/CNDA/oneapi/compiler/eng-20231130/bin/ifx
       flags: {}
       operating_system: sles15
       target: x86_64
       modules:
-        - oneapi/release/2023.10.15.001
-        - intel_compute_runtime/release/agama-devel-647
+        - oneapi/eng-compiler/2023.12.15.002
+        - intel_compute_runtime/release/agama-devel-736.25
       environment: {}
-        #  set:
-        #  DPLROOT: /lus/gecko/projects/CSC249ADSE13_CNDA/$user/exawind/oneDPL
       extra_rpaths: []
