@@ -16,9 +16,21 @@ cmd() {
 ########################################################
 # Tests
 ########################################################
-if [[ ! -x $(which python3) ]]; then
-  echo "Warning: spack-manager is only designed to work with python 3."
+if [ ! -x $(which python3) ]; then
+  echo "ERROR: spack-manager is only designed to work with python >3.8"
   echo "You may use spack, but spack-manager specific commands will fail."
+  echo "Failing to continue loading exawind-manger"
+  return
+else
+    py3vm=$(python3 -c 'import sys; print(sys.version_info[1])')
+    if [[ "$py3vm" -lt "8" ]]; then
+      echo "ERROR: spack-manager is only designed to work with python >3.8. You are using version 3.${py3vm}."
+      echo "You may use spack, but spack-manager specific commands will fail."
+      echo "Failing to continue loading exawind-manger"
+      return
+    else
+      echo "ExaWind-Manager using Python 3.${py3vm}"
+    fi
 fi
 
 # convenience function for getting to the spack-manager directory
