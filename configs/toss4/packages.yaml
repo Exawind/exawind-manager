@@ -1,0 +1,44 @@
+packages:
+  all:
+    permissions:
+      read: group
+      group: wg-sierra-users
+    variants: +mpi build_type=Release cuda_arch=70
+    target: [x86_64]
+    providers:
+      mpi: [openmpi]
+  python:
+    externals:
+    - spec: python@3.11.6+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/f6a36cb8/tooling-sprint-24.02/install/linux-rhel8-x86_64/gcc-10.3.0/python-3.11.6-qvlrkva
+  cuda:
+    externals:
+    - spec: cuda@11.2.152
+      prefix: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/cuda-11.2.2/install/linux-rhel7-x86_64/gcc-12.1.0/cuda-11.2.2-y3xhorr
+  ninja:
+    externals:
+    - spec: ninja@1.11.1
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/tooling/install/linux-rhel8-x86_64/gcc-10.3.0/ninja-1.11.1-cjf3fb5
+  openmpi:
+    externals:
+    - spec: openmpi@4.1.6%gcc@12.1.0
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/openmpi-4.1.6-gcc-12.1.0/install/linux-rhel8-x86_64/gcc-12.1.0/openmpi-4.1.6-7vf2ucr
+    buildable: false
+  cmake:
+    externals:
+    - spec: cmake@3.27.7
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/f6a36cb8/tooling-sprint-24.02/install/linux-rhel8-x86_64/gcc-10.3.0/cmake-3.27.7-f3bfcza
+    buildable: false
+  curl:
+    externals:
+    - spec: curl@7.29.0+ldap
+      prefix: /usr
+  openssl:
+    externals:
+    - spec: openssl@1.0.2k-fips
+      prefix: /usr
+  boost:
+    externals:
+    - spec: boost@1.83.0
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/c8f7ebb0/tpls-gcc-12.1.0-openmpi-4.1.6/install/linux-rhel8-x86_64/gcc-12.1.0/boost-1.83.0-em7p3wm
+    buildable: false
