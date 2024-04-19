@@ -127,3 +127,11 @@ def cdash_build_name(spec):
     return spec.format("{name}{@version}%{compiler}")
    
 
+def reference_golds_default(spec):
+    """
+    This can eventually provide check on the machine
+    and spec to give predetermined golds directories
+    """
+    gold_dir = os.path.join(os.environ["EXAWIND_MANAGER"], "golds", "current", spec.name)
+    os.makedirs(gold_dir, exist_ok=True)
+    return gold_dir

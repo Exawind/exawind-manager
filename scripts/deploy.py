@@ -11,9 +11,6 @@ from datetime import date
 
 import spack.environment as ev
 
-today = date.today()
-daystr = today.isoformat()
-
 manager = spack.main.SpackCommand("manager")
 env = spack.main.SpackCommand("env")
 config = spack.main.SpackCommand("config")
@@ -39,6 +36,8 @@ parser.add_argument("--cdash", nargs='+', default=[], help="packages to run test
 parser.add_argument("--overwrite", action="store_true")
 parser.add_argument("--depfile", action="store_true")
 
+today = date.today()
+daystr = today.isoformat()
 
 def get_env_name(args):
     _env_name = daystr
@@ -86,7 +85,7 @@ def make_args(env, ranks):
     ]
     return args
 
-def install(args, env_name):
+def local_install(args, env_name):
     with ev.read(env_name) as e:
         os.chdir(e.path)
         if args.depfile:
@@ -117,15 +116,16 @@ def module_gen(args, env_name):
         module("tcl", "refresh", "-y")
 
 
-args = parser.parse_args()
-env_name = get_env_name(args)
-environment_setup(args, env_name)
-print("configure args")
-configure_env(args, env_name)
-if args.slurm_args:
-    print("create slurm args")
-    create_slurm_file(args, env_name)
-else:
-    print("spack install")
-    install(args, env_name)
-    module_gen(args, env_name)
+if __name__ == "__main__":
+    args = parser.parse_args()
+    env_name = get_env_name(args)
+    environment_setup(args, env_name)
+    print("configure args")
+    configure_env(args, env_name)
+    if args.slurm_args:
+        print("create slurm args")
+        create_slurm_file(args, env_name)
+    else:
+        print("install")
+        local_install(args, env_name)
+        module_gen(args, env_name)

@@ -6,13 +6,13 @@
 # for more details.
 
 from spack import *
-#from spack.pkg.builtin.exawind import Exawind as bExawind
+from spack.pkg.builtin.exawind import Exawind as bExawind
 from shutil import copyfile
 import os
-from spack.pkg.exawind.cmake_extension import *
+from spack.pkg.exawind.ctest_package import *
 
 
-class Exawind(CmakeExtension, CudaPackage, ROCmPackage):
+class Exawind(bExawind, CtestPackage, CudaPackage, ROCmPackage):
     """Multi-application driver for Exawind project."""
 
     homepage = "https://github.com/Exawind/exawind-driver"
@@ -99,7 +99,7 @@ class Exawind(CmakeExtension, CudaPackage, ROCmPackage):
     def cmake_args(self):
         spec = self.spec
 
-        args = super(CmakeExtension, self).cmake_args()
+        args = super(CtestPackage, self).cmake_args()
         args.extend(super(Exawind, self).cmake_args())
 
         if spec.satisfies("dev_path=*"):

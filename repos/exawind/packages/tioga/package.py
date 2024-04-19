@@ -8,9 +8,9 @@
 from spack import *
 from spack.pkg.builtin.tioga import Tioga as bTioga
 import os
-from spack.pkg.exawind.cmake_extension import *
+from spack.pkg.exawind.ctest_package import *
 
-class Tioga(bTioga, CmakeExtension):
+class Tioga(bTioga, CtestPackage):
     git = "https://github.com/Exawind/tioga.git"
 
     variant("asan", default=False,
