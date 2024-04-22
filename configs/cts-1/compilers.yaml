@@ -1,41 +1,41 @@
 compilers:
-- compiler:
-    spec: dpcpp@=2023.2.0
-    paths:
-      cc: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/icx
-      cxx: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/dpcpp
-      f77: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/ifx
-      fc: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/ifx
-    flags: {}
-    operating_system: rhel7
-    target: x86_64
-    modules: [aue/gcc/12.1.0, aue/intel-oneapi-compilers/2023.2.0]
-    environment: {}
-    extra_rpaths: []
-- compiler:
-    spec: intel@=2021.10.0
-    paths:
-      cc: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/intel64/icc
-      cxx: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/intel64/icpc
-      f77: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/intel64/ifort
-      fc: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/intel64/ifort
-    flags: 
-      cxxflags: "-diag-disable=10441"
-    operating_system: rhel7
-    target: x86_64
-    modules: [aue/gcc/12.1.0, aue/intel-oneapi-compilers/2023.2.0]
-    environment: {}
-    extra_rpaths: []
-- compiler:
-    spec: oneapi@=2023.2.0
-    paths:
-      cc: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/icx
-      cxx: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/icpx
-      f77: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/ifx
-      fc: /projects/aue/hpc/builds/x86_64/rhel7/ba17d7f2/intel-23.2.0/install/linux-rhel7-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-pvkpgec/compiler/2023.2.0/linux/bin/ifx
-    flags: {}
-    operating_system: rhel7
-    target: x86_64
-    modules: [aue/gcc/12.1.0, aue/intel-oneapi-compilers/2023.2.0]
-    environment: {}
-    extra_rpaths: []
+  - compiler:
+      spec: oneapi@2023.2.0
+      paths:
+        cc: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/icx
+        cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/icpx
+        f77: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/ifx
+        fc: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/ifx
+      flags:
+        cflags: '-fp-model=precise -fPIC '
+        cxxflags: '-fp-model=precise -fPIC '
+        fflags: '-fPIC -cpp '
+        ldlibs: -lm -lz -ldl
+        ldflags: -Wl,--undefined-version
+      operating_system: rhel8
+      target: x86_64
+      modules:
+      - aue/intel-oneapi-compilers/2023.2.0
+      - aue/gcc/12.1.0
+      environment: {}
+      extra_rpaths:
+      - /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/lib64
+  - compiler:
+      spec: gcc@12.1.0
+      paths:
+        cc: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gcc
+        cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/g++
+        f77: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
+        fc: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
+      flags:
+        cflags: -fPIC
+        cxxflags: -fPIC
+        fflags: -fPIC -fallow-argument-mismatch
+        ldlibs: -lm -lz -ldl
+      operating_system: rhel8
+      target: x86_64
+      modules:
+      - aue/gcc/12.1.0
+      environment: {}
+      extra_rpaths: []
+
