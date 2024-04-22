@@ -23,6 +23,8 @@ packages:
      externals:
      - spec: openmpi@4.1.6%gcc@12.1.0
        prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/openmpi-4.1.6-gcc-12.1.0/install/linux-rhel8-x86_64/gcc-12.1.0/openmpi-4.1.6-7vf2ucr
+     - spec: openmpi@4.1.6%gcc@oneapi@2023.2.0
+       prefix: /projects/aue/hpc/builds/x86_64/rhel8/ompiflux/openmpi-4.1.6-intel-2021.10.0/install/linux-rhel8-x86_64/intel-2021.10.0/openmpi-4.1.6-qdvgpqu
      buildable: false
    cmake:
      externals:
