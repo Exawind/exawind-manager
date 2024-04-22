@@ -15,4 +15,5 @@ packages:
     require: "openblas"
   all:
     require:
-      - "%oneapi@2023.2.0"
+      # strong preference for oneapi, allow gcc for gcc-runtime
+      - any_of: ["%oneapi@2023.2.0", "@:"]
