@@ -42,3 +42,13 @@ packages:
      - spec: boost@1.83.0
        prefix: /projects/aue/hpc/builds/x86_64/rhel8/c8f7ebb0/tpls-gcc-12.1.0-openmpi-4.1.6/install/linux-rhel8-x86_64/gcc-12.1.0/boost-1.83.0-em7p3wm
      buildable: false
+   perl:
+     externals:
+     - spec: perl@5.16.3
+       prefix: /usr
+     buildable: false
+   m4:
+     externals:
+     - spec: m4@1.4.16
+       prefix: /usr
+     buildable: false
