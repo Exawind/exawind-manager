@@ -28,8 +28,6 @@ else
       echo "You may use spack, but spack-manager specific commands will fail."
       echo "Failing to continue loading exawind-manger"
       return
-    else
-      echo "ExaWind-Manager using Python 3.${py3vm}"
     fi
 fi
 
