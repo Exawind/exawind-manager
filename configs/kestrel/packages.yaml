@@ -14,5 +14,5 @@ packages:
   lapack:
     require: "openblas"
   all:
-    require:
+    prefer:
       - "%oneapi@2023.2.0"
