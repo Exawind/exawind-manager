@@ -16,4 +16,6 @@ packages:
   all:
     require:
       # strong preference for oneapi, allow gcc for gcc-runtime
-      - any_of: ["%oneapi@2023.2.0", "@:"]
+      # concretizer should always pick oneapi unless something can't use it
+      # due to ordering of requires
+      - any_of: ["%oneapi@2023.2.0", "@gcc"]
