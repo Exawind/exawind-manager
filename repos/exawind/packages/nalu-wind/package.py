@@ -66,6 +66,7 @@ class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
         depends_on("trilinos cxxstd=%s" % std, when="cxxstd=%s" % std)
 
     def setup_build_environment(self, env):
+        super().setup_build_environment(env)
         if "~stk_simd" in self.spec:
             env.append_flags("CXXFLAGS", "-DUSE_STK_SIMD_NONE")
         if "+asan" in self.spec:

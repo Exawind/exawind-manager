@@ -39,6 +39,7 @@ class Trilinos(bTrilinos, CtestPackage):
         patch("stk-coupling-versions-func-overload.patch", when="@13.3.0:13.4.0.2022.12.15")
 
     def setup_build_environment(self, env):
+        super().setup_build_environment(env)
         spec = self.spec
         if "+cuda" in spec and "+wrapper" in spec:
             if spec.variants["build_type"].value == "RelWithDebInfo" or spec.variants["build_type"].value == "Debug":
