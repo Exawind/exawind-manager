@@ -85,6 +85,7 @@ class Exawind(bExawind, CtestPackage, CudaPackage, ROCmPackage):
     depends_on("amr-wind+sycl", when="+amr_wind_gpu+sycl")
     depends_on("nalu-wind@multiphase", when="@multiphase")
     depends_on("amr-wind@multiphase", when="@multiphase")
+    depends_on("kokkos-nvcc-wrapper", type="build", when="+cuda")
     # not required but added so these get picked up as a
     # direct dependency when creating snapshots
     depends_on("trilinos")
@@ -102,16 +103,18 @@ class Exawind(bExawind, CtestPackage, CudaPackage, ROCmPackage):
         args = super(CtestPackage, self).cmake_args()
         args.extend(super(Exawind, self).cmake_args())
 
+        args.append(self.define("MPI_HOME", spec["mpi"].prefix))
+
         if spec.satisfies("dev_path=*"):
             args.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
 
-        args.append(self.define("MPI_HOME", spec["mpi"].prefix))
-
-        if "+umpire" in self.spec:
+        if spec.satisfies("+umpire"):
             args.append(self.define_from_variant("EXAWIND_ENABLE_UMPIRE", "umpire"))
             args.append(self.define("UMPIRE_DIR", self.spec["umpire"].prefix))
 
         if spec.satisfies("+cuda"):
+            args.append(self.define("CMAKE_CXX_COMPILER", spec["mpi"].mpicxx))
+            args.append(self.define("CMAKE_C_COMPILER", spec["mpi"].mpicc))
             args.append(self.define("EXAWIND_ENABLE_CUDA", True))
             args.append(self.define("CUDAToolkit_ROOT", self.spec["cuda"].prefix))
             args.append(self.define("EXAWIND_CUDA_ARCH", self.spec.variants["cuda_arch"].value))
@@ -144,6 +147,13 @@ class Exawind(bExawind, CtestPackage, CudaPackage, ROCmPackage):
         if "+rocm+amr_wind_gpu~nalu_wind_gpu" in self.spec:
             # Manually turn off device self.defines to solve Kokkos issues in Nalu-Wind headers
             env.append_flags("CXXFLAGS", "-U__HIP_DEVICE_COMPILE__ -DDESUL_HIP_RDC")
+        if "+cuda" in self.spec:
+            env.set("OMPI_CXX", self.spec["kokkos-nvcc-wrapper"].kokkos_cxx)
+            env.set("MPICH_CXX", self.spec["kokkos-nvcc-wrapper"].kokkos_cxx)
+            env.set("MPICXX_CXX", self.spec["kokkos-nvcc-wrapper"].kokkos_cxx)
+            if "+nalu_wind_gpu" in self.spec:
+                env.set("CUDA_LAUNCH_BLOCKING", "1") 
+                env.set("CUDA_MANAGED_FORCE_DEVICE_ALLOC", "1")
         if "+rocm" in self.spec:
             env.set("OMPI_CXX", self.spec["hip"].hipcc)
             env.set("MPICH_CXX", self.spec["hip"].hipcc)

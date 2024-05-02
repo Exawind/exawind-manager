@@ -4,5 +4,5 @@ spack:
     reuse: false 
   view: false
   specs:
-    - 'exawind+hypre+ninja~amr_wind_gpu~nalu_wind_gpu+fsi'
-      #- 'exawind+hypre+ninja+amr_wind_gpu+nalu_wind_gpu+fsi+cuda %nvhpc'
+    - 'exawind+hypre+ninja~amr_wind_gpu~nalu_wind_gpu+fsi %oneapi' #Kestrel CPU
+    #- 'exawind+hypre+ninja+amr_wind_gpu+nalu_wind_gpu+fsi+cuda %gcc' #Kestrel GPU

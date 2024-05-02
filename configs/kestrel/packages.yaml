@@ -11,10 +11,6 @@ packages:
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/10.3
         modules:
           - libfabric/1.15.2.0
-      - spec: "cray-mpich@=8.1.28%nvhpc@23.5"
-        prefix: /opt/cray/pe/mpich/8.1.28/ofi/nvidia/23.3
-        modules:
-          - libfabric/1.15.2.0
   mpi:
     require: "cray-mpich@8.1.28"
   blas:
@@ -23,5 +19,4 @@ packages:
     require: "openblas"
   all:
     prefer:
-      - "%oneapi@2023.2.0"
       - "cuda_arch=90"
