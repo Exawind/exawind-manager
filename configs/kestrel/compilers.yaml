@@ -13,6 +13,20 @@ compilers:
       extra_rpaths: []
       environment: {}
   - compiler:
+      spec: nvhpc@23.5
+      paths:
+        cc: /nopt/nvidia/hpc_sdk/Linux_x86_64/23.5/compilers/bin/nvcc
+        cxx: /nopt/nvidia/hpc_sdk/Linux_x86_64/23.5/compilers/bin/nvc++
+        f77: /nopt/nvidia/hpc_sdk/Linux_x86_64/23.5/compilers/bin/nvfortran
+        fc: /nopt/nvidia/hpc_sdk/Linux_x86_64/23.5/compilers/bin/nvfortran
+      flags: {}
+      operating_system: rhel8
+      target: x86_64
+      modules:
+        - craype-accel-nvidia90
+      extra_rpaths: []
+      environment: {}
+  - compiler:
       spec: gcc@12.2.0
       paths:
         cc: /opt/cray/pe/gcc/12.2.0/bin/gcc
