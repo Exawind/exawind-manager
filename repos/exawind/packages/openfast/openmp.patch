@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 02fd410..7a14135 100644
+index 2989bfe57..5fed42b44 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -110,7 +110,7 @@ include(${CMAKE_SOURCE_DIR}/cmake/set_rpath.cmake)
@@ -8,6 +8,6 @@ index 02fd410..7a14135 100644
  
 -if (OPENMP OR BUILD_FASTFARM OR BUILD_OPENFAST_CPP_API)
 +if (OPENMP)
-   FIND_PACKAGE(OpenMP REQUIRED)
-   if (OpenMP_Fortran_FOUND)
-     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${OpenMP_Fortran_FLAGS}")
+   if (OPENMP)
+     FIND_PACKAGE(OpenMP REQUIRED)
+   else()
