@@ -37,18 +37,6 @@ class AmrWind(CtestPackage, bAmrWind):
         if "+clangtidy" in spec:
             cmake_options.append(self.define("AMR_WIND_ENABLE_CLANG_TIDY", True))
 
-        if "+umpire" in self.spec:
-            cmake_options.append(self.define_from_variant("AMR_WIND_ENABLE_UMPIRE", "umpire"))
-            cmake_options.append(self.define("UMPIRE_DIR", self.spec["umpire"].prefix))
-
-        #if "+rocm" in self.spec:
-        #    # Used as an optimization to only list the single specified
-        #    # arch in the offload-arch compile line, but not explicitly necessary
-        #    targets = self.spec.variants["amdgpu_target"].value
-        #    cmake_options.append("-DCMAKE_HIP_ARCHITECTURES=" + ";".join(str(x) for x in targets))
-        #    cmake_options.append("-DAMDGPU_TARGETS=" + ";".join(str(x) for x in targets))
-        #    cmake_options.append("-DGPU_TARGETS=" + ";".join(str(x) for x in targets))
-
         if "+tests" in spec:
             cmake_options.append(self.define("AMR_WIND_TEST_WITH_FCOMPARE", True))
             cmake_options.append(self.define("AMR_WIND_SAVE_GOLDS", True))
