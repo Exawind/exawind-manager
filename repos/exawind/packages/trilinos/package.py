@@ -36,6 +36,7 @@ class Trilinos(bTrilinos, CtestPackage):
     patch("kokkos_hip_subview.patch", when="@develop+rocm")
 
     conflicts("^kokkos+cuda", when="~cuda")
+    conflicts("^kokkos+rocm", when="~rocm")
 
     if find_machine.detector("eagle"):
         patch("stk-coupling-versions-func-overload.patch", when="@13.3.0:13.4.0.2022.12.15")
