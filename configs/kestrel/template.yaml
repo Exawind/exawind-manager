@@ -4,6 +4,8 @@ spack:
     reuse: false 
   view: false
   specs:
-    - 'exawind~amr_wind_gpu~nalu_wind_gpu %oneapi' #Kestrel CPU
-    #- 'exawind+amr_wind_gpu~nalu_wind_gpu+cuda %gcc' #Kestrel GPU
-    #- 'exawind+amr_wind_gpu+nalu_wind_gpu+cuda %gcc' #Kestrel GPU
+    - 'exawind~amr_wind_gpu~nalu_wind_gpu %oneapi'
+      #- 'exawind~amr_wind_gpu~nalu_wind_gpu %gcc'
+      #- 'exawind+amr_wind_gpu~nalu_wind_gpu+cuda %gcc'
+      #- 'exawind~amr_wind_gpu+nalu_wind_gpu+cuda %gcc'
+      #- 'exawind+amr_wind_gpu+nalu_wind_gpu+cuda %gcc'
