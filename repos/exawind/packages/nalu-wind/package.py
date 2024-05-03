@@ -59,6 +59,8 @@ class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
     conflicts("+cuda", when="+rocm")
     conflicts("^hypre+cuda", when="~cuda")
     conflicts("^hypre+rocm", when="~rocm")
+    conflicts("^trilinos+cuda", when="~cuda")
+    conflicts("^trilinos+rocm", when="~rocm")
 
     cxxstd=["14", "17"]
     variant("cxxstd", default="17", values=cxxstd,  multi=False)
