@@ -12,16 +12,8 @@ import os
 import importlib
 import inspect
 import time
-find_machine = importlib.import_module("find-exawind-manager")
 from spack.pkg.exawind.ctest_package import *
 
-
-def trilinos_version_filter(name):
-    local = str(name)
-    if "develop" in local:
-        return local
-    else:
-        return "stable"
 
 class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
     version("master", branch="master", submodules=True, preferred=True)
@@ -31,25 +23,21 @@ class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
             description="Turn on address sanitizer")
     variant("fsi", default=False,
             description="Use FSI branch of openfast")
-    variant("stk_simd", default=False,
-            description="Enable SIMD in STK")
     variant("shared", default=True,
             description="Build shared libraries")
     variant("umpire", default=False,
             description="Enable Umpire")
-    conflicts("+shared", when="+cuda",
-             msg="invalid device functions are generated with shared libs and cuda")
-    conflicts("+shared", when="+rocm",
-             msg="invalid device functions are generated with shared libs and rocm")
     variant("gpu-aware-mpi", default=False,
             description="gpu-aware-mpi")
+    variant("tests", default=True, description="Activate regression tests")
+    variant("unit-tests", default=True, description="Activate unit tests")
 
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
     depends_on("hypre+umpire", when="+umpire")
-    depends_on("trilinos gotype=long")
+    depends_on("trilinos gotype=long cxxstd=17")
     depends_on("trilinos~shared", when="+trilinos-solvers")
     depends_on("trilinos+wrapper", when="+cuda")
-    depends_on("openfast@develop,fsi+netcdf+cxx", when="+fsi")
+    depends_on("openfast@develop+netcdf+cxx", when="+fsi")
 
     for _arch in ROCmPackage.amdgpu_targets:
         depends_on("trilinos@13.4.0.2022.10.27: ~shared+exodus+tpetra+zoltan+stk~superlu-dist~superlu+hdf5+shards~hypre+gtest+rocm amdgpu_target={0}".format(_arch),
@@ -61,19 +49,14 @@ class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
     conflicts("^hypre+rocm", when="~rocm")
     conflicts("^trilinos+cuda", when="~cuda")
     conflicts("^trilinos+rocm", when="~rocm")
-
-    cxxstd=["14", "17"]
-    variant("cxxstd", default="17", values=cxxstd,  multi=False)
-    variant("tests", default=True, description="Activate regression tests")
-    variant("unit-tests", default=True, description="Activate unit tests")
-
-    for std in cxxstd:
-        depends_on("trilinos cxxstd=%s" % std, when="cxxstd=%s" % std)
+    conflicts("+shared", when="+cuda",
+             msg="invalid device functions are generated with shared libs and cuda")
+    conflicts("+shared", when="+rocm",
+             msg="invalid device functions are generated with shared libs and rocm")
 
     def setup_build_environment(self, env):
         super().setup_build_environment(env)
-        if "~stk_simd" in self.spec:
-            env.append_flags("CXXFLAGS", "-DUSE_STK_SIMD_NONE")
+        env.append_flags("CXXFLAGS", "-DUSE_STK_SIMD_NONE")
         if "+asan" in self.spec:
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer -fsanitize-blacklist={0}".format(join_path(self.package_dir, "blacklist.asan")))
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
@@ -92,15 +75,8 @@ class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
 
         cmake_options = super(CtestPackage, self).cmake_args()
         cmake_options.extend(super(NaluWind, self).cmake_args())
-        cmake_options.append(self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"))
+        cmake_options.append(self.define_from_variant("CMAKE_CXX_STANDARD", "17"))
         cmake_options.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
-
-        if find_machine.detector("eagle") and "%intel" in spec:
-            cmake_options.append(self.define("ENABLE_UNIT_TESTS", False))
-
-        if find_machine.detector("crusher"):
-            cmake_options.append(self.define("MPIEXEC_EXECUTABLE", "srun"))
-            cmake_options.append(self.define("MPIEXEC_NUMPROC_FLAG", "--ntasks"))
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
@@ -115,9 +91,6 @@ class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
             cmake_options.append(self.define("ENABLE_ROCM", True))
             targets = spec.variants["amdgpu_target"].value
             cmake_options.append(self.define("GPU_TARGETS", ";".join(str(x) for x in targets)))
-
-        if spec["mpi"].name == "openmpi":
-            cmake_options.append(self.define("MPIEXEC_PREFLAGS", "--oversubscribe"))
 
         cmake_options.append(self.define_from_variant("ENABLE_OPENFAST_FSI", "fsi"))
         if "+fsi" in spec:

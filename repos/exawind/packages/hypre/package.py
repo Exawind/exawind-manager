@@ -10,26 +10,23 @@ class Hypre(bHypre):
 
     phases = ["autoreconf", "distclean", "configure", "clean", "build", "install"]
 
-    variant("gpu-aware-mpi", default=False, description="Use gpu-aware mpi")
     variant("rocblas", default=False, description="use rocblas")
     variant("cublas", default=False, description="use cublas")
-    conflicts("+cublas", when="~cuda", msg="cublas requires cuda to be enabled")
-    conflicts("+rocblas", when="~rocm", msg="rocblas requires rocm to be enabled")
-    variant("umpire", default=False, description="Use Umpire")
-    depends_on("umpire", when="+umpire")
+
     depends_on("umpire+rocm", when="+umpire+rocm")
     depends_on("umpire+cuda", when="+umpire+cuda")
     depends_on("rocprim", when="+rocm")
 
+    conflicts("+cublas", when="~cuda", msg="cublas requires cuda to be enabled")
+    conflicts("+rocblas", when="~rocm", msg="rocblas requires rocm to be enabled")
+
     def distclean(self, spec, prefix):
         with working_dir("src"):
-            if "EXAWIND_MANAGER_CLEAN_HYPRE" in os.environ:
-                make("distclean")
+            make("distclean")
 
     def clean(self, spec, prefix):
         with working_dir("src"):
-            if "EXAWIND_MANAGER_CLEAN_HYPRE" in os.environ:
-                make("clean")
+            make("clean")
 
     def do_clean(self):
         super().do_clean()
@@ -48,9 +45,6 @@ class Hypre(bHypre):
     def configure_args(self):
         spec = self.spec
         options = super(Hypre, self).configure_args()
-
-        if "+gpu-aware-mpi" in spec:
-            options.append("--enable-gpu-aware-mpi")
 
         if "+rocblas" in spec:
             options.append("--enable-rocblas")
