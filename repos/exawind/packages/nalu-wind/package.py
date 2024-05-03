@@ -44,18 +44,21 @@ class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
     variant("gpu-aware-mpi", default=False,
             description="gpu-aware-mpi")
 
-    conflicts("+cuda", when="+rocm")
-    conflicts("+rocm", when="+cuda")
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
     depends_on("hypre+umpire", when="+umpire")
     depends_on("trilinos gotype=long")
     depends_on("trilinos~shared", when="+trilinos-solvers")
+    depends_on("trilinos+wrapper", when="+cuda")
     depends_on("openfast@develop,fsi+netcdf+cxx", when="+fsi")
 
     for _arch in ROCmPackage.amdgpu_targets:
         depends_on("trilinos@13.4.0.2022.10.27: ~shared+exodus+tpetra+zoltan+stk~superlu-dist~superlu+hdf5+shards~hypre+gtest+rocm amdgpu_target={0}".format(_arch),
                    when="+rocm amdgpu_target={0}".format(_arch))
         depends_on("hypre+rocm amdgpu_target={0}".format(_arch), when="+hypre+rocm amdgpu_target={0}".format(_arch))
+
+    conflicts("+cuda", when="+rocm")
+    conflicts("^hypre+cuda", when="~cuda")
+    conflicts("^hypre+rocm", when="~rocm")
 
     cxxstd=["14", "17"]
     variant("cxxstd", default="17", values=cxxstd,  multi=False)

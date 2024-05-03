@@ -6,13 +6,12 @@
 # for more details.
 
 from spack import *
-from spack.pkg.builtin.exawind import Exawind as bExawind
 from shutil import copyfile
 import os
 from spack.pkg.exawind.ctest_package import *
 
 
-class Exawind(bExawind, CtestPackage, CudaPackage, ROCmPackage):
+class Exawind(CtestPackage, CudaPackage, ROCmPackage):
     """Multi-application driver for Exawind project."""
 
     homepage = "https://github.com/Exawind/exawind-driver"
@@ -22,37 +21,24 @@ class Exawind(bExawind, CtestPackage, CudaPackage, ROCmPackage):
 
     tags = ["ecp", "ecp-apps"]
 
-    # Testing is currently always enabled, but should be optional in the future
-    # to avoid cloning the mesh submodule
+    license("Apache-2.0")
+
     version("master", branch="main", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
+    version("1.0.0", tag="v1.0.0", submodules=True)
 
     variant("asan", default=False,
             description="turn on address sanitizer")
-    variant("openfast", default=False,
-            description="Enable OpenFAST integration")
-    variant("fsi", default=False,
-            description="Enable OpenFAST FSI integration")
-    variant("hypre", default=True,
-            description="Enable hypre solver")
     variant("amr_wind_gpu", default=False,
             description="Enable AMR-Wind on the GPU")
     variant("nalu_wind_gpu", default=False,
             description="Enable Nalu-Wind on the GPU")
-    variant("stk_simd", default=False,
-            description="Enable SIMD in STK")
     variant("umpire", default=False,
             description="Enable Umpire")
-    variant("tiny_profile", default=False,
-            description="Turn on AMR-wind with tiny profile")
     variant("sycl", default=False,
             description="Enable SYCL backend for AMR-Wind")
     variant("gpu-aware-mpi", default=False,
             description="gpu-aware-mpi")
-
-    conflicts("+amr_wind_gpu", when="~cuda~rocm~sycl")
-    conflicts("+nalu_wind_gpu", when="~cuda~rocm")
-    conflicts("+nalu_wind_gpu", when="+sycl")
 
     for arch in CudaPackage.cuda_arch_values:
         depends_on("amr-wind+cuda cuda_arch=%s" % arch, when="+amr_wind_gpu+cuda cuda_arch=%s" % arch)
@@ -64,46 +50,40 @@ class Exawind(bExawind, CtestPackage, CudaPackage, ROCmPackage):
         depends_on("nalu-wind+rocm amdgpu_target=%s" % arch, when="+nalu_wind_gpu+rocm amdgpu_target=%s" % arch)
         depends_on("trilinos+rocm amdgpu_target=%s" % arch, when="+nalu_wind_gpu+rocm amdgpu_target=%s" % arch)
 
-    depends_on("nalu-wind+tioga")
-    depends_on("amr-wind+netcdf+mpi")
-    depends_on("tioga~nodegid")
+    depends_on("nalu-wind+ninja+hypre+fsi+openfast+tioga")
+    depends_on("amr-wind+ninja~hypre+netcdf+mpi+tiny_profile")
+    depends_on("trilinos+ninja")
     depends_on("yaml-cpp@0.6:")
-    depends_on("nalu-wind+openfast", when="+openfast")
-    depends_on("nalu-wind+fsi", when="+fsi")
-    depends_on("openfast+cxx@2.6.0:", when="+openfast")
-    depends_on("openfast+cxx@2.6.0:", when="^nalu-wind+openfast")
-    depends_on("openfast+cxx@2.6.0:", when="^amr-wind+openfast")
-    depends_on("nalu-wind+hypre", when="+hypre")
-    depends_on("nalu-wind~hypre", when="~hypre")
-    depends_on("amr-wind~hypre", when="+hypre+amr_wind_gpu~nalu_wind_gpu")
-    depends_on("amr-wind~hypre", when="+hypre~amr_wind_gpu+nalu_wind_gpu")
-    depends_on("amr-wind+hypre", when="+hypre+amr_wind_gpu+nalu_wind_gpu")
-    depends_on("amr-wind+hypre", when="+hypre~amr_wind_gpu~nalu_wind_gpu")
-    depends_on("trilinos+ninja", when="+ninja")
-    depends_on("nalu-wind+ninja", when="+ninja")
-    depends_on("amr-wind+ninja", when="+ninja")
+    depends_on("tioga~nodegid")
+    depends_on("openfast+cxx@2.6.0:")
     depends_on("amr-wind+sycl", when="+amr_wind_gpu+sycl")
     depends_on("nalu-wind@multiphase", when="@multiphase")
     depends_on("amr-wind@multiphase", when="@multiphase")
     depends_on("kokkos-nvcc-wrapper", type="build", when="+cuda")
-    # not required but added so these get picked up as a
-    # direct dependency when creating snapshots
-    depends_on("trilinos")
-    depends_on("cmake")
     depends_on("mpi")
     depends_on("nalu-wind+umpire", when="+umpire")
     depends_on("amr-wind+umpire", when="+umpire")
-    depends_on("amr-wind+tiny_profile", when="+tiny_profile")
     depends_on("nalu-wind+gpu-aware-mpi", when="+gpu-aware-mpi")
     depends_on("amr-wind+gpu-aware-mpi", when="+gpu-aware-mpi")
+    depends_on("nalu-wind@2.0.0:", when="@1.0.0:")
+    depends_on("amr-wind@0.9.0:", when="@1.0.0:")
+    depends_on("tioga@1.0.0:", when="@1.0.0:")
+
+    conflicts("+amr_wind_gpu", when="~cuda~rocm~sycl")
+    conflicts("+nalu_wind_gpu", when="~cuda~rocm")
+    conflicts("^nalu-wind+cuda", when="~nalu_wind_gpu+cuda")
+    conflicts("^nalu-wind+rocm", when="~nalu_wind_gpu+rocm")
+    conflicts("^amr-wind+cuda", when="~amr_wind_gpu+cuda")
+    conflicts("^amr-wind+rocm", when="~amr_wind_gpu+rocm")
+    conflicts("+nalu_wind_gpu", when="+sycl")
+    conflicts("+sycl", when="+cuda")
+    conflicts("+rocm", when="+cuda")
+    conflicts("+sycl", when="+rocm")
 
     def cmake_args(self):
         spec = self.spec
 
-        args = super(CtestPackage, self).cmake_args()
-        args.extend(super(Exawind, self).cmake_args())
-
-        args.append(self.define("MPI_HOME", spec["mpi"].prefix))
+        args = [self.define("MPI_HOME", spec["mpi"].prefix)]
 
         if spec.satisfies("dev_path=*"):
             args.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
@@ -130,16 +110,10 @@ class Exawind(bExawind, CtestPackage, CudaPackage, ROCmPackage):
         if spec.satisfies("^amr-wind+hdf5"):
             args.append(self.define("H5Z_ZFP_USE_STATIC_LIBS", True))
 
-        if spec.satisfies("^amr-wind+ascent"):
-            # Necessary on Crusher to successfully find OpenMP
-            args.append(self.define("CMAKE_EXE_LINKER_FLAGS", self.compiler.openmp_flag))
-
         return args
 
     def setup_build_environment(self, env):
-        super().setup_build_environment(env)
-        if "~stk_simd" in self.spec:
-            env.append_flags("CXXFLAGS", "-DUSE_STK_SIMD_NONE")
+        env.append_flags("CXXFLAGS", "-DUSE_STK_SIMD_NONE")
         if "+asan" in self.spec:
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer -fsanitize-blacklist={0}".format(join_path(self.package_dir, "blacklist.asan")))
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
