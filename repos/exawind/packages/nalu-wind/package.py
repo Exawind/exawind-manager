@@ -75,7 +75,7 @@ class NaluWind(CtestPackage, bNaluWind, ROCmPackage):
 
         cmake_options = super(CtestPackage, self).cmake_args()
         cmake_options.extend(super(NaluWind, self).cmake_args())
-        cmake_options.append(self.define_from_variant("CMAKE_CXX_STANDARD", "17"))
+        cmake_options.append(self.define("CMAKE_CXX_STANDARD", "17"))
         cmake_options.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
 
         if spec.satisfies("dev_path=*"):
