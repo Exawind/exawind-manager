@@ -8,8 +8,6 @@ import spack.util
 
 class Hypre(bHypre):
 
-    phases = ["autoreconf", "distclean", "configure", "clean", "build", "install"]
-
     variant("rocblas", default=False, description="use rocblas")
     variant("cublas", default=False, description="use cublas")
 
@@ -19,28 +17,6 @@ class Hypre(bHypre):
 
     conflicts("+cublas", when="~cuda", msg="cublas requires cuda to be enabled")
     conflicts("+rocblas", when="~rocm", msg="rocblas requires rocm to be enabled")
-
-    def distclean(self, spec, prefix):
-        with working_dir("src"):
-            make("distclean")
-
-    def clean(self, spec, prefix):
-        with working_dir("src"):
-            make("clean")
-
-    def do_clean(self):
-        super().do_clean()
-        if not self.stage.managed_by_spack:
-            build_artifacts = glob.glob(os.path.join(self.stage.source_path, "spack-build-*"))
-            for f in build_artifacts:
-                if os.path.isfile(f):
-                    os.remove(f)
-                if os.path.isdir(f):
-                    shutil.rmtree(f)
-            with working_dir(os.path.join(self.stage.source_path, "src")):
-                make = spack.util.executable.which("make")
-                make("clean")
-                make("distclean")
 
     def configure_args(self):
         spec = self.spec
