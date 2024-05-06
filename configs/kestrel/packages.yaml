@@ -1,18 +1,22 @@
 packages:
   cray-mpich:
-    require: "@=8.1.23"
+    require: "@=8.1.28"
     buildable: false
     externals:
-      - spec: "cray-mpich@=8.1.23%oneapi@2023.2.0"
-        prefix: /opt/cray/pe/mpich/8.1.23/ofi/intel/19.0
+      - spec: "cray-mpich@=8.1.28%oneapi@2023.2.0"
+        prefix: /opt/cray/pe/mpich/8.1.28/ofi/intel/2022.1
+        modules:
+          - libfabric/1.15.2.0
+      - spec: "cray-mpich@=8.1.28%gcc@12.2.0"
+        prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/10.3
         modules:
           - libfabric/1.15.2.0
   mpi:
-    require: "cray-mpich@8.1.23"
+    require: "cray-mpich@8.1.28"
   blas:
     require: "openblas"
   lapack:
     require: "openblas"
   all:
-    require:
-      - "%oneapi@2023.2.0"
+    prefer:
+      - "cuda_arch=90"

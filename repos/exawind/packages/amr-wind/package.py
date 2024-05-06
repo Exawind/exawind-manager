@@ -11,90 +11,31 @@ import os
 from spack.pkg.exawind.ctest_package import *
 
 class AmrWind(CtestPackage, bAmrWind):
-    version("main", branch="main", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
     
     variant("asan", default=False,
             description="Turn on address sanitizer")
-    variant("cppcheck", default=False,
-            description="Turn on cppcheck")
     variant("clangtidy", default=False,
             description="Turn on clang-tidy")
-    variant("hdf5", default=False,
-            description="Enable HDF5 plots with ZFP compression")
-    variant("umpire", default=False,
-            description="Enable Umpire")
-    variant("sycl", default=False,
-            description="Enable SYCL backend")
-    variant("gpu-aware-mpi", default=False,
-            description="gpu-aware-mpi")
-
-    depends_on("hdf5~mpi", when="+hdf5~mpi")
-    depends_on("hdf5+mpi", when="+hdf5+mpi")
-    depends_on("h5z-zfp", when="+hdf5")
-    depends_on("zfp", when="+hdf5")
-    depends_on("hypre+umpire", when="+hypre+umpire")
-    depends_on("hypre+sycl", when="+hypre+sycl")
-    depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
 
     requires("+tests", when="+cdash_submit")
 
     def setup_build_environment(self, env):
+        super().setup_build_environment(env)
         if "+asan" in self.spec:
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
-        if "%intel" in self.spec:
-            env.append_flags("CXXFLAGS", "-no-ipo")
 
     def cmake_args(self):
         spec = self.spec
         cmake_options = super(CtestPackage, self).cmake_args()
         cmake_options.extend(super(AmrWind, self).cmake_args())
 
-        if "+cppcheck" in spec:
-            cmake_options.append(self.define("AMR_WIND_ENABLE_CPPCHECK", True))
-
-        if "+clangtidy" in spec:
-            cmake_options.append(self.define("AMR_WIND_ENABLE_CLANG_TIDY", True))
-
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
 
-        if "+umpire" in self.spec:
-            cmake_options.append(self.define_from_variant("AMR_WIND_ENABLE_UMPIRE", "umpire"))
-            cmake_options.append(self.define("UMPIRE_DIR", self.spec["umpire"].prefix))
-
-        if "+cuda" in self.spec:
-            targets = self.spec.variants["cuda_arch"].value
-            cmake_options.append("-DCMAKE_CUDA_ARCHITECTURES=" + ";".join(str(x) for x in targets))
-
-        if "+hdf5" in spec:
-            cmake_options.append(self.define("AMR_WIND_ENABLE_HDF5", True))
-            cmake_options.append(self.define("AMR_WIND_ENABLE_HDF5_ZFP", True))
-            # Help AMReX understand if HDF5 is parallel or not.
-            # Building HDF5 with CMake as Spack does, causes this inspection to break.
-            if "+mpi" in spec:
-                cmake_options.append(self.define("HDF5_IS_PARALLEL", True))
-            else:
-                cmake_options.append(self.define("HDF5_IS_PARALLEL", False))
-
-        if "+rocm" in self.spec:
-            # Used as an optimization to only list the single specified
-            # arch in the offload-arch compile line, but not explicitly necessary
-            targets = self.spec.variants["amdgpu_target"].value
-            cmake_options.append("-DCMAKE_HIP_ARCHITECTURES=" + ";".join(str(x) for x in targets))
-            cmake_options.append("-DAMDGPU_TARGETS=" + ";".join(str(x) for x in targets))
-            cmake_options.append("-DGPU_TARGETS=" + ";".join(str(x) for x in targets))
-
-        if "+sycl" in self.spec:
-            cmake_options.append(self.define("AMR_WIND_ENABLE_SYCL", True))
-            # SYCL GPU backend only supported with Intel's oneAPI or DPC++ compilers
-            sycl_compatible_compilers = ["dpcpp", "icpx"]
-            if not (os.path.basename(self.compiler.cxx) in sycl_compatible_compilers):
-                raise InstallError(
-                    "AMReX's SYCL GPU Backend requires DPC++ (dpcpp)"
-                    + " or the oneAPI CXX (icpx) compiler."
-                )
+        if "+clangtidy" in spec:
+            cmake_options.append(self.define("AMR_WIND_ENABLE_CLANG_TIDY", True))
 
         if "+tests" in spec:
             cmake_options.append(self.define("AMR_WIND_TEST_WITH_FCOMPARE", True))

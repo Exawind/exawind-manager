@@ -11,7 +11,6 @@ import os
 from spack.pkg.exawind.ctest_package import *
 
 class Tioga(bTioga, CtestPackage):
-    git = "https://github.com/Exawind/tioga.git"
 
     variant("asan", default=False,
             description="turn on address sanitizer")
@@ -26,5 +25,6 @@ class Tioga(bTioga, CtestPackage):
         return options
 
     def setup_build_environment(self, env):
+        super().setup_build_environment(env)
         if "+asan" in self.spec:
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer -fsanitize-blacklist={0}".format(join_path(self.package_dir, "sup.asan")))
