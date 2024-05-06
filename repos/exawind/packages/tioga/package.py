@@ -11,7 +11,6 @@ import os
 from spack.pkg.exawind.ctest_package import *
 
 class Tioga(bTioga, CtestPackage):
-    git = "https://github.com/Exawind/tioga.git"
 
     variant("asan", default=False,
             description="turn on address sanitizer")

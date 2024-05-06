@@ -14,3 +14,16 @@ compilers:
         - intel_compute_runtime/release/agama-devel-736.25
       environment: {}
       extra_rpaths: []
+  - compiler:
+      spec: gcc@12.2.0
+      paths:
+        cc: /opt/aurora/23.275.2/spack/gcc/0.6.1/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gcc
+        cxx: /opt/aurora/23.275.2/spack/gcc/0.6.1/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/g++
+        f77: /opt/aurora/23.275.2/spack/gcc/0.6.1/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gfortran
+        fc: /opt/aurora/23.275.2/spack/gcc/0.6.1/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gfortran
+      flags: {}
+      operating_system: sles15
+      target: x86_64
+      modules: []
+      environment: {}
+      extra_rpaths: []

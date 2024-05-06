@@ -19,4 +19,4 @@ packages:
     require: "openblas"
   all:
     prefer:
-      - "%oneapi@2023.2.0"
+      - "cuda_arch=90"
