@@ -10,7 +10,7 @@ from spack.pkg.builtin.exawind import Exawind as bExawind
 from spack.pkg.exawind.ctest_package import *
 
 
-class Exawind(bExawind, CtestPackage):
+class Exawind(CtestPackage,bExawind):
     version("multiphase", branch="multiphase_dev", submodules=True)
 
     variant("asan", default=False, description="Turn on address sanitizer")

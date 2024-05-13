@@ -20,20 +20,11 @@ class HypreMiniApp(CMakePackage, CudaPackage, ROCmPackage):
 
     version("master", branch="master", submodules=True)
 
-    variant("umpire", default=False,
-            description="Enable Umpire")
-
-    variant("unified-memory", default=False,
-            description="Enable Unified Memory in hypre")
-
-    variant("gpu-aware-mpi", default=False,
-            description="gpu-aware-mpi")
-
-    variant("rocblas", default=False,
-            description="use rocblas")
-
-    variant("cublas", default=False,
-            description="use cublas")
+    variant("umpire", default=False, description="Enable Umpire")
+    variant("unified-memory", default=False, description="Enable Unified Memory in hypre")
+    variant("gpu-aware-mpi", default=False, description="gpu-aware-mpi")
+    variant("rocblas", default=False, description="use rocblas")
+    variant("cublas", default=False, description="use cublas")
 
     depends_on("mpi")
     depends_on("hypre+mpi@2.20.0:")
@@ -51,6 +42,7 @@ class HypreMiniApp(CMakePackage, CudaPackage, ROCmPackage):
                    when="+rocm amdgpu_target=%s" % arch)
 
     def cmake_args(self):
+        spec = self.spec
         args = [
             self.define("HYPRE_DIR", self.spec["hypre"].prefix),
             self.define("YAML_ROOT_DIR", self.spec["yaml-cpp"].prefix),
@@ -59,10 +51,10 @@ class HypreMiniApp(CMakePackage, CudaPackage, ROCmPackage):
         ]
 
         args.append(self.define_from_variant("ENABLE_UMPIRE", "umpire"))
-        if "+umpire" in self.spec:
+        if spec.satisfies("+umpire"):
             args.append(self.define("UMPIRE_DIR", self.spec["umpire"].prefix))
 
-        if "+rocm" in self.spec:
+        if spec.satisfies("+rocm"):
             args.append(self.define("CMAKE_CXX_COMPILER", self.spec["hip"].hipcc))
 
         return args

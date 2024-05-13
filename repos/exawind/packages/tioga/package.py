@@ -7,13 +7,11 @@
 
 from spack import *
 from spack.pkg.builtin.tioga import Tioga as bTioga
-import os
 from spack.pkg.exawind.ctest_package import *
 
-class Tioga(bTioga, CtestPackage):
+class Tioga(CtestPackage, bTioga):
 
-    variant("asan", default=False,
-            description="turn on address sanitizer")
+    variant("asan", default=False, description="turn on address sanitizer")
 
     def cmake_args(self):
         spec = self.spec
@@ -25,6 +23,7 @@ class Tioga(bTioga, CtestPackage):
         return options
 
     def setup_build_environment(self, env):
+        spec = self.spec
         super().setup_build_environment(env)
-        if "+asan" in self.spec:
+        if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer -fsanitize-blacklist={0}".format(join_path(self.package_dir, "sup.asan")))

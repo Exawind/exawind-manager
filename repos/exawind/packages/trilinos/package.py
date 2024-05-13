@@ -7,11 +7,9 @@
 
 from spack import *
 from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
-import os
-import importlib
 from spack.pkg.exawind.ctest_package import *
 
-class Trilinos(bTrilinos, CtestPackage):
+class Trilinos(CtestPackage, bTrilinos):
     # Our custom release versions should be the latest release tag found on
     # the trilinos github page appended with the date of the commit.
     # this preserves the Trilinos versioning scheme and will allow for valid
@@ -21,8 +19,7 @@ class Trilinos(bTrilinos, CtestPackage):
     version("13.4.0.2022.10.27", commit="da54d929ea62e78ba8e19c7d5aa83dc1e1f767c1")
     version("13.2.0.2022.06.05", commit="7498bcb9b0392c830b83787f3fb0c17079431f06")
 
-    variant("asan", default=False,
-            description="Turn on address sanitizer")
+    variant("asan", default=False, description="Turn on address sanitizer")
 
     patch("kokkos_zero_length_team.patch", when="@:13.3.0")
 
@@ -33,6 +30,6 @@ class Trilinos(bTrilinos, CtestPackage):
         super().setup_build_environment(env)
         spec = self.spec
 
-        if "+asan" in self.spec:
+        if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
