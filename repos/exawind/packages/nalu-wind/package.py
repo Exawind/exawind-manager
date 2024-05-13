@@ -15,11 +15,10 @@ class NaluWind(CtestPackage, bNaluWind):
     version("multiphase", branch="multiphase_dev", submodules=True)
 
     variant("asan", default=False, description="Turn on address sanitizer")
-    variant("fsi", default=False, description="Use FSI branch of openfast")
     variant("tests", default=True, description="Activate regression tests")
     variant("unit-tests", default=True, description="Activate unit tests")
 
-    depends_on("openfast@develop+netcdf+cxx", when="+fsi")
+    depends_on("openfast@develop", when="+fsi")
 
     def setup_build_environment(self, env):
         spec = self.spec
@@ -34,8 +33,6 @@ class NaluWind(CtestPackage, bNaluWind):
 
         cmake_options = super(CtestPackage, self).cmake_args()
         cmake_options.extend(super(NaluWind, self).cmake_args())
-        cmake_options.append(self.define("CMAKE_CXX_STANDARD", "17"))
-        cmake_options.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
