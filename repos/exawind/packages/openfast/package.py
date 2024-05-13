@@ -8,5 +8,4 @@
 from spack.pkg.builtin.openfast import Openfast as bOpenfast
 
 class Openfast(bOpenfast):
-    patch("openmp.patch", when="@develop")
-    patch("openmp.patch", when="@3.5.3: %oneapi")
+    patch("openmp.patch", when="@3.5.3:")
