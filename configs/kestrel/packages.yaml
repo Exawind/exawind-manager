@@ -18,5 +18,4 @@ packages:
   lapack:
     require: "openblas"
   all:
-    prefer:
-      - "cuda_arch=90"
+    variants: cuda_arch=90
