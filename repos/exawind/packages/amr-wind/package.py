@@ -7,22 +7,20 @@
 
 from spack import *
 from spack.pkg.builtin.amr_wind import AmrWind as bAmrWind
-import os
 from spack.pkg.exawind.ctest_package import *
 
 class AmrWind(CtestPackage, bAmrWind):
     version("multiphase", branch="multiphase_dev", submodules=True)
     
-    variant("asan", default=False,
-            description="Turn on address sanitizer")
-    variant("clangtidy", default=False,
-            description="Turn on clang-tidy")
+    variant("asan", default=False, description="Turn on address sanitizer")
+    variant("clangtidy", default=False, description="Turn on clang-tidy")
 
     requires("+tests", when="+cdash_submit")
 
     def setup_build_environment(self, env):
+        spec = self.spec
         super().setup_build_environment(env)
-        if "+asan" in self.spec:
+        if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
 
@@ -34,10 +32,10 @@ class AmrWind(CtestPackage, bAmrWind):
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
 
-        if "+clangtidy" in spec:
+        if spec.satisfies("+clangtidy"):
             cmake_options.append(self.define("AMR_WIND_ENABLE_CLANG_TIDY", True))
 
-        if "+tests" in spec:
+        if spec.satisfies("+tests"):
             cmake_options.append(self.define("AMR_WIND_TEST_WITH_FCOMPARE", True))
             cmake_options.append(self.define("AMR_WIND_SAVE_GOLDS", True))
             cmake_options.append(self.define("AMR_WIND_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))

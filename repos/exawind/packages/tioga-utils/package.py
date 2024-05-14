@@ -6,7 +6,6 @@
 # for more details.
 
 from spack import *
-import os
 from spack.pkg.exawind.ctest_package import *
 
 class TiogaUtils(CtestPackage):
