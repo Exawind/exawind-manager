@@ -26,6 +26,11 @@ class Trilinos(CtestPackage, bTrilinos):
     conflicts("^kokkos+cuda", when="~cuda")
     conflicts("^kokkos+rocm", when="~rocm")
 
+    def cmake_args(self):
+        args = super(CtestPackage, self).cmake_args()
+        args.extend(super(Trilinos, self).cmake_args())
+        return args
+
     def setup_build_environment(self, env):
         super().setup_build_environment(env)
         spec = self.spec
