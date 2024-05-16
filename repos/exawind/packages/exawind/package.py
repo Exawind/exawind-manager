@@ -23,8 +23,7 @@ class Exawind(bExawind):
     def cmake_args(self):
         spec = self.spec
 
-        args = super(CtestPackage, self).cmake_args()
-        args.extend(super(Exawind, self).cmake_args())
+        args = super(Exawind, self).cmake_args()
 
         if spec.satisfies("dev_path=*"):
             args.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))

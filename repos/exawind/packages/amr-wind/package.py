@@ -25,8 +25,7 @@ class AmrWind(bAmrWind):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(CtestPackage, self).cmake_args()
-        cmake_options.extend(super(AmrWind, self).cmake_args())
+        cmake_options = super(AmrWind, self).cmake_args()
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
