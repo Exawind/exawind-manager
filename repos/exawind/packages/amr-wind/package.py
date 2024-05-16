@@ -36,7 +36,7 @@ class AmrWind(bAmrWind):
         if spec.satisfies("+tests"):
             cmake_options.append(self.define("AMR_WIND_TEST_WITH_FCOMPARE", True))
             cmake_options.append(self.define("AMR_WIND_SAVE_GOLDS", True))
-            cmake_options.append(self.define("AMR_WIND_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
-            cmake_options.append(self.define("AMR_WIND_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
+            #cmake_options.append(self.define("AMR_WIND_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
+            #cmake_options.append(self.define("AMR_WIND_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
 
         return cmake_options
