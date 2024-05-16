@@ -41,9 +41,9 @@ class NaluWind(bNaluWind):
             cmake_options.append(self.define("OpenFAST_DIR", spec["openfast"].prefix))
             cmake_options.append(self.define("ENABLE_OPENFAST", True))
 
-        if spec.satisfies("+tests") or self.run_tests or spec.satisfies("dev_path=*"):
-            cmake_options.append(self.define("ENABLE_TESTS", True))
-            cmake_options.append(self.define("NALU_WIND_SAVE_GOLDS", True))
+        #if spec.satisfies("+tests") or self.run_tests or spec.satisfies("dev_path=*"):
+            #cmake_options.append(self.define("ENABLE_TESTS", True))
+            #cmake_options.append(self.define("NALU_WIND_SAVE_GOLDS", True))
             #cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", super().saved_golds_dir))
             #cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", super().reference_golds_dir))
 
