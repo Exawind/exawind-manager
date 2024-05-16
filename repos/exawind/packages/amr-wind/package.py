@@ -14,7 +14,7 @@ class AmrWind(bAmrWind):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
 
-    requires("+tests", when="+cdash_submit")
+    #requires("+tests", when="+cdash_submit")
 
     def setup_build_environment(self, env):
         spec = self.spec
