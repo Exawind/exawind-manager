@@ -18,6 +18,8 @@ class NaluWind(bNaluWind):
     variant("unit-tests", default=True, description="Activate unit tests")
 
     depends_on("openfast@develop", when="+fsi")
+    depends_on("trilinos+rocm_rdc", when="+rocm")
+    depends_on("trilinos+cuda_rdc", when="+cuda")
 
     def setup_build_environment(self, env):
         spec = self.spec
