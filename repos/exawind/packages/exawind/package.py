@@ -7,17 +7,16 @@
 
 from spack import *
 from spack.pkg.builtin.exawind import Exawind as bExawind
-from spack.pkg.exawind.ctest_package import *
 
 
-class Exawind(CtestPackage,bExawind):
+class Exawind(bExawind):
     version("multiphase", branch="multiphase_dev", submodules=True)
 
     variant("asan", default=False, description="Turn on address sanitizer")
 
-    depends_on("amr-wind+ninja")
-    depends_on("nalu-wind+ninja")
-    depends_on("trilinos+ninja")
+    #depends_on("amr-wind+ninja")
+    #depends_on("nalu-wind+ninja")
+    #depends_on("trilinos+ninja")
     depends_on("nalu-wind@multiphase", when="@multiphase")
     depends_on("amr-wind@multiphase", when="@multiphase")
 

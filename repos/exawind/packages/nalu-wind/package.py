@@ -7,10 +7,9 @@
 
 from spack import *
 from spack.pkg.builtin.nalu_wind import NaluWind as bNaluWind
-from spack.pkg.exawind.ctest_package import *
 
 
-class NaluWind(CtestPackage, bNaluWind):
+class NaluWind(bNaluWind):
     version("master", branch="master", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
 
