@@ -9,7 +9,7 @@ from spack import *
 from spack.pkg.builtin.tioga import Tioga as bTioga
 from spack.pkg.exawind.ctest_package import *
 
-class Tioga(CtestPackage, bTioga):
+class Tioga(bTioga, CtestPackage):
 
     variant("asan", default=False, description="turn on address sanitizer")
 
