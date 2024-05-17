@@ -23,7 +23,7 @@ class NaluWind(CtestPackage, bNaluWind):
 
     def setup_dependent_run_environment(self, env, dependent_spec):
         spec = self.spec
-        super().setup_build_environment(env, dependent_spec)
+        super().setup_dependent_run_environment(env, dependent_spec)
 
     def setup_build_environment(self, env):
         spec = self.spec
