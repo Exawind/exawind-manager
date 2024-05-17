@@ -17,7 +17,6 @@ class Exawind(CtestPackage,bExawind):
 
     depends_on("amr-wind+ninja")
     depends_on("nalu-wind+ninja")
-    depends_on("trilinos+ninja")
     depends_on("nalu-wind@multiphase", when="@multiphase")
     depends_on("amr-wind@multiphase", when="@multiphase")
 
