@@ -7,9 +7,8 @@
 
 from spack import *
 from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
-from spack.pkg.exawind.ctest_package import *
 
-class Trilinos(CtestPackage, bTrilinos):
+class Trilinos(bTrilinos):
     # Our custom release versions should be the latest release tag found on
     # the trilinos github page appended with the date of the commit.
     # this preserves the Trilinos versioning scheme and will allow for valid
@@ -26,14 +25,9 @@ class Trilinos(CtestPackage, bTrilinos):
     conflicts("^kokkos+cuda", when="~cuda")
     conflicts("^kokkos+rocm", when="~rocm")
 
-    def cmake_args(self):
-        args = super(CtestPackage, self).cmake_args()
-        args.extend(super(Trilinos, self).cmake_args())
-        return args
-
     def setup_build_environment(self, env):
-        super().setup_build_environment(env)
         spec = self.spec
+        super().setup_build_environment(env)
 
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
