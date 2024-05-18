@@ -10,13 +10,14 @@ from spack.pkg.builtin.exawind import Exawind as bExawind
 from spack.pkg.exawind.ctest_package import *
 
 
-class Exawind(bExawind, CtestPackage):
+class Exawind(CtestPackage,bExawind):
     version("multiphase", branch="multiphase_dev", submodules=True)
 
     variant("asan", default=False, description="Turn on address sanitizer")
 
     depends_on("amr-wind+ninja")
     depends_on("nalu-wind+ninja")
+    depends_on("trilinos+ninja")
     depends_on("nalu-wind@multiphase", when="@multiphase")
     depends_on("amr-wind@multiphase", when="@multiphase")
 
@@ -33,7 +34,6 @@ class Exawind(bExawind, CtestPackage):
 
     def setup_build_environment(self, env):
         spec = self.spec
-        super().setup_build_environment(env)
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer -fsanitize-blacklist={0}".format(join_path(self.package_dir, "blacklist.asan")))
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))

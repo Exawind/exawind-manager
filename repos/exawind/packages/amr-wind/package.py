@@ -9,7 +9,7 @@ from spack import *
 from spack.pkg.builtin.amr_wind import AmrWind as bAmrWind
 from spack.pkg.exawind.ctest_package import *
 
-class AmrWind(bAmrWind, CtestPackage):
+class AmrWind(CtestPackage, bAmrWind):
     version("multiphase", branch="multiphase_dev", submodules=True)
     
     variant("asan", default=False, description="Turn on address sanitizer")
