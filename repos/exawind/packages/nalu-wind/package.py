@@ -10,7 +10,7 @@ from spack.pkg.builtin.nalu_wind import NaluWind as bNaluWind
 from spack.pkg.exawind.ctest_package import *
 
 
-class NaluWind(bNaluWind, CtestPackage):
+class NaluWind(CtestPackage, bNaluWind):
     version("master", branch="master", submodules=True, preferred=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
 
@@ -19,10 +19,6 @@ class NaluWind(bNaluWind, CtestPackage):
     variant("unit-tests", default=True, description="Activate unit tests")
 
     depends_on("openfast@develop", when="+fsi")
-
-    def setup_dependent_run_environment(self, env, dependent_spec):
-        spec = self.spec
-        super().setup_dependent_run_environment(env, dependent_spec)
 
     def setup_build_environment(self, env):
         spec = self.spec
