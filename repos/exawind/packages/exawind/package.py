@@ -15,8 +15,6 @@ class Exawind(bExawind, CtestPackage):
 
     variant("asan", default=False, description="Turn on address sanitizer")
 
-    depends_on("amr-wind+ninja")
-    depends_on("nalu-wind+ninja")
     depends_on("nalu-wind@multiphase", when="@multiphase")
     depends_on("amr-wind@multiphase", when="@multiphase")
 
