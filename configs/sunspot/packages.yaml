@@ -10,10 +10,6 @@ packages:
           - libfabric/1.15.2.0
   mpi:
     require: "mpich@52.2"
-  blas:
-    require: "openblas"
-  lapack:
-    require: "openblas"
   all:
     prefer:
       - "%oneapi"
