@@ -1,19 +1,16 @@
 compilers:
   - compiler:
-      spec: clang@15.0.0
+      spec: clang@17.0.0
       paths:
-        cc: /opt/rocm-5.7.1/bin/amdclang
-        cxx: /opt/rocm-5.7.1/bin/amdclang++
-        f77: /opt/rocm-5.7.1/bin/amdflang
-        fc: /opt/rocm-5.7.1/bin/amdflang
+        cc: /opt/rocm-6.0.0/bin/amdclang
+        cxx: /opt/rocm-6.0.0/bin/amdclang++
+        f77: /opt/rocm-6.0.0/bin/amdflang
+        fc: /opt/rocm-6.0.0/bin/amdflang
       flags: {}
       operating_system: sles15
       target: any
-      modules:
-      - PrgEnv-amd/8.5.0
-      - amd/5.7.1
-      - craype-x86-trento
+      modules: []
       extra_rpaths: []
-      environment:
-        prepend_path:
-          PKG_CONFIG_PATH: /opt/cray/xpmem/2.6.2-2.5_2.22__gd067c3f.shasta/lib64/pkgconfig:/sw/frontier/spack-envs/base/opt/linux-sles15-x86_64/gcc-7.5.0/zlib-1.2.11-zuyclcfig4tizmb2bm2h4roqsp3rwn2y/lib/pkgconfig
+      environment: {}
+      #  prepend_path:
+      #    PKG_CONFIG_PATH: /opt/cray/xpmem/2.6.2-2.5_2.22__gd067c3f.shasta/lib64/pkgconfig:/sw/frontier/spack-envs/base/opt/linux-sles15-x86_64/gcc-7.5.0/zlib-1.2.11-zuyclcfig4tizmb2bm2h4roqsp3rwn2y/lib/pkgconfig
