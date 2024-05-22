@@ -13,24 +13,6 @@ cmd() {
   eval "$@"
 }
 
-########################################################
-# Tests
-########################################################
-if [ ! -x $(which python3) ]; then
-  echo "ERROR: spack-manager is only designed to work with python >3.8"
-  echo "You may use spack, but spack-manager specific commands will fail."
-  echo "Failing to continue loading exawind-manger"
-  return
-else
-    py3vm=$(python3 -c 'import sys; print(sys.version_info[1])')
-    if [[ "$py3vm" -lt "8" ]]; then
-      echo "ERROR: spack-manager is only designed to work with python >3.8. You are using version 3.${py3vm}."
-      echo "You may use spack, but spack-manager specific commands will fail."
-      echo "Failing to continue loading exawind-manger"
-      return
-    fi
-fi
-
 # convenience function for getting to the spack-manager directory
 function cd-sm(){
   if [[ "$1" == "-h" || "$1" == "--help" ]]; then
@@ -52,7 +34,7 @@ function spack-start() {
   export EXAWIND_MANAGER="$( cd -- "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" >/dev/null 2>&1 ; pwd -P )"
 
   function install_spack_manager(){
-    git clone --branch develop https://github.com/sandialabs/spack-manager $SPACK_ROOT/../spack-manager
+    git clone https://github.com/sandialabs/spack-manager $SPACK_ROOT/../spack-manager
     spack -E config --scope site add "config:extensions:[${EXAWIND_MANAGER}/spack-manager]"
     spack -E manager add ${EXAWIND_MANAGER}
   }

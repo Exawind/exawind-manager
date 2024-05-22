@@ -4,4 +4,4 @@ spack:
     reuse: false
   view: false
   specs:
-  - exawind+fsi
+  - exawind
