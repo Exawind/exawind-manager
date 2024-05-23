@@ -9,7 +9,10 @@ compilers:
       flags: {}
       operating_system: sles15
       target: any
-      modules: []
+      modules:
+        - PrgEnv-amd/8.5.0
+        - amd/6.0.0
+        - craype-x86-trento
       extra_rpaths: []
       environment: {}
       #  prepend_path:
