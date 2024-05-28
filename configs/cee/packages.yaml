@@ -1,26 +1,22 @@
 packages:
-  all:
-    permissions:
-      read: group
-      group: wg-sierra-users
-    variants: +mpi build_type=Release cuda_arch=70
-    target: [x86_64]
+  mpi:
+    require: "openmpi"
   python:
     externals:
-    - spec: python@3.11.6+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
-      prefix: /projects/aue/cee/builds/x86_64/rhel7/e9a3ffaa/tooling-sprint-24.02/install/linux-rhel7-x86_64/gcc-10.3.0/python-3.11.6-3lcyd45
-  cuda:
-    externals:
-    - spec: cuda@11.2.152
-      prefix: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/cuda-11.2.2/install/linux-rhel7-x86_64/gcc-12.1.0/cuda-11.2.2-y3xhorr
+    - spec: python@3.11.6+bz2+crypt+ctypes+dbm+lzma~nis+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+      prefix: /projects/aue/cee/builds/x86_64/rhel8/33ebcb7e/tooling-sprint-24.02/install/linux-rhel8-x86_64/gcc-10.3.0/python-3.11.6-2uwim3d
   ninja:
     externals:
     - spec: ninja@1.11.1
       prefix: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/tooling/install/linux-rhel7-x86_64/gcc-10.3.0/ninja-1.11.1-iar7zvw
   openmpi:
     externals:
-    - spec: openmpi@4.1.6~cuda~cxx~cxx_exceptions~java~memchecker+pmi~static~wrapper-rpath
-      prefix: /projects/aue/cee/builds/x86_64/rhel7/ae8943jk/openmpi-4.1.6-gcc-12.1.0/install/linux-rhel7-x86_64/gcc-12.1.0/openmpi-4.1.6-ynfiu7j
+    - spec: openmpi@4.1.6%gcc~cuda~cxx~cxx_exceptions~java~memchecker+pmi+static~wrapper-rpath
+      prefix: /projects/aue/cee/builds/x86_64/rhel8/3b40855e/openmpi-4.1.6-gcc-12.1.0/install/linux-rhel8-x86_64/gcc-12.1.0/openmpi-4.1.6-cwth5vp
+    - spec: openmpi@4.1.6%oneapi~cuda~cxx~cxx_exceptions~java~memchecker+pmi+static~wrapper-rpath
+      prefix: /projects/aue/cee/builds/x86_64/rhel8/d5996d6e/openmpi-4.1.6-intel-2021.10.0/install/linux-rhel8-x86_64/intel-2021.10.0/openmpi-4.1.6-esfk7lo/
+    - spec: openmpi@4.1.6%clang~cuda~cxx~cxx_exceptions~java~memchecker+pmi+static~wrapper-rpath
+      prefix: /projects/aue/cee/builds/x86_64/rhel8/47b749b2//openmpi-4.1.6-clang-16.0.6/install/linux-rhel8-x86_64/clang-16.0.6/openmpi-4.1.6-wcpv2ou/
     buildable: false
   cmake:
     externals:
@@ -33,5 +29,15 @@ packages:
       prefix: /usr
   openssl:
     externals:
-    - spec: openssl@1.0.2k-fips
+    - spec: openssl@1.1.1k
       prefix: /usr
+  all:
+    permissions:
+      read: group
+      group: wg-sierra-users
+    variants: +mpi build_type=Release cuda_arch=70
+    target: [x86_64]
+  cuda:
+    externals:
+    - spec: cuda@11.2.152
+      prefix: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/cuda-11.2.2/install/linux-rhel7-x86_64/gcc-12.1.0/cuda-11.2.2-y3xhorr

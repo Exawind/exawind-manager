@@ -1,0 +1,3 @@
+concretizer:
+  os_compatible:
+    rhel8: [rhel7]

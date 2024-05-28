@@ -1,0 +1,19 @@
+externals:
+  - curl
+  - openssl
+compilers:
+  - aue/gcc/12.1.0
+  - aue/intel-oneapi-compilers/2023.2.0
+  - aue/clang/16.0.6
+modules:
+  - module: aue/cmake/3.27.7
+    packages: [cmake]
+  - module: aue/openmpi/4.1.6-gcc-12.1.0
+    packages: [openmpi]
+  - module: aue/ninja/1.11.1
+    packages: [ninja]
+  - module: aue/cuda/11.2.2-gcc-12.1.0
+    packages: [cuda]
+  - module: aue/python/3.11.6
+    packages: [python]
+
