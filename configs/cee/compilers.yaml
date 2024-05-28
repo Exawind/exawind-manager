@@ -10,7 +10,9 @@ compilers:
     operating_system: rhel8
     target: x86_64
     modules: [aue/binutils]
-    environment: {}
+    environment:
+      set:
+        OMPI_MCA_fs_ufs_lock_algorithm: 1
     extra_rpaths: []
 - compiler:
     spec: oneapi@=2023.2.0
@@ -19,12 +21,24 @@ compilers:
       cxx: /projects/aue/cee/builds/x86_64/rhel8/e081b0f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-2ixvnj4/compiler/2023.2.0/linux/bin/icpx
       f77: /projects/aue/cee/builds/x86_64/rhel8/e081b0f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-2ixvnj4/compiler/2023.2.0/linux/bin/ifx
       fc: /projects/aue/cee/builds/x86_64/rhel8/e081b0f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-2ixvnj4/compiler/2023.2.0/linux/bin/ifx
-    flags: {}
+    flags: 
+      cflags: -fp-model=precise
+      cxxflags: -fp-model=precise
+      fflags: -fpp
     operating_system: rhel8
     target: x86_64
-    modules: [aue/binutils, aue/gcc-12.1.0]
-    environment: {}
-    extra_rpaths: []
+    modules:
+    - aue/intel-oneapi-compilers/2023.2.0
+    - aue/gcc/12.1.0
+    - aue/binutils/2.41
+    environment:
+      prepend_path:
+        PATH: /projects/sierra/linux_rh7/SDK/compilers/intel/IntelOneAPI-2023.1.0/mpi/latest/bin
+        FI_PROVIDER_PATH: /sierra/sntools/SDK/compilers/intel/IntelOneAPI-2023.1.0/mpi/2021.9.0/libfabric/lib/prov:/usr/lib64/libfabric # Required for intel MPI to work in build env
+        I_MPI_OFI_PROVIDER: tcp # Workaround for intel MPI immediately failing on ascic0197/ascic0198
+      set:
+        OMPI_MCA_fs_ufs_lock_algorithm: 1
+    extra_rpaths: [ /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/gcc-12.1.0/install/linux-rhel7-x86_64/gcc-10.3.0/gcc-12.1.0-6jxiora/lib64 ]
 - compiler:
     spec: clang@=16.0.6
     paths:
@@ -36,5 +50,7 @@ compilers:
     operating_system: rhel8
     target: x86_64
     modules: [aue/binutils, aue/gcc-12.1.0]
-    environment: {}
+    environment:
+      set:
+        OMPI_MCA_fs_ufs_lock_algorithm: 1
     extra_rpaths: []
