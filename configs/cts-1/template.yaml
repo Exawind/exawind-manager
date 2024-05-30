@@ -4,8 +4,8 @@ spack:
     reuse: false
   view: false
   specs:
-  - exawind+fsi%intel ^openfast@develop
-  - exawind~fsi%intel ^amr-wind+openfast ^nalu-wind+openfast+boost
+  - exawind@master+fsi%oneapi
+  - amr-wind@main+openfast
   modules:
     default:
       arch_folder: true
