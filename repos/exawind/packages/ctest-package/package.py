@@ -6,6 +6,7 @@
 # for more details.
 import llnl.util.tty as tty
 import importlib
+import inspect
 import glob
 import os
 import shutil
@@ -13,14 +14,82 @@ import time
 
 import llnl.util.filesystem as fs
 
+import spack.builder
+import spack.build_systems.cmake
+
 from spack.builder import run_after
 from spack.directives import depends_on, variant, requires
 from spack.package import CMakePackage
 find_machine = importlib.import_module("find-exawind-manager")
 
+class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
+    phases = ("cmake", "build", "install", "finalize")
+    @property
+    def std_cmake_args(self):
+        args = super().std_cmake_args
+        if self.spec.variants["cdash_submit"].value:
+            args.extend([
+                        "-D",
+                        "BUILDNAME={}".format(find_machine.cdash_build_name(self.pkg.spec.short_spec)),
+                        "-D",
+                        "SITE={}".format(find_machine.cdash_host_name()),
+            ])
+        return args
+
+    def ctest_args(self):
+        args = ["-T", "Test", "--group", self.pkg.spec.name]
+        args.append("--stop-time")
+        overall_test_timeout=60*60*4 # 4 hours
+        args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
+        args.append("-VV")
+        extra_args = self.pkg.spec.variants["ctest_args"].value
+        if extra_args:
+            args.extend(extra_args.split())
+        return args
+
+    @property
+    def build_args(self):
+        args = [
+            "-T",
+            "Start",
+            "-T",
+            "Configure",
+            "-T",
+            "Build",
+            "-V"
+        ]
+        return args
+
+    def build(self, pkg, spec, prefix):
+        if self.spec.variants["cdash_submit"].value:
+            with fs.working_dir(self.build_directory):
+                inspect.getmodule(self.pkg).ctest(*self.build_args)
+        else:
+            super().build(pkg, spec, prefix)
+
+    def finalize(self, pkg, spec, prefix):
+        """
+        This method will be used to run regression test
+        TODO: workout how to get the track,build,site mapped correctly
+        thinking of a call to super and writing logic into the packages
+        and auxilary python lib
+        """ 
+
+        with working_dir(self.build_directory):
+            args = self.ctest_args()
+            tty.debug("{} running CTest".format(self.pkg.spec.name))
+            tty.debug("Running:: ctest"+" ".join(args))
+            ctest = inspect.getmodule(self.pkg).ctest
+            ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
+            ctest(*args)
+
+            if self.pkg.spec.variants["cdash_submit"].value:
+                ctest("-T", "Submit", "-V")
+
 
 class CtestPackage(CMakePackage):
 
+    CMakeBuilder = CTestBuilder
     variant("cdash_submit", default=False, description="Submit results to cdash")
     variant("ninja", default=False, description="Shortcut for generator=ninja")
     variant("reference_golds", default='default', description="gold directories to compare against")
@@ -53,31 +122,6 @@ class CtestPackage(CMakePackage):
             if os.path.isfile(source):
                 shutil.copyfile(source, target)
 
-    def cmake_args(self):
-        args = []
-        if self.spec.variants["cdash_submit"].value:
-            args.extend([
-                        "-D",
-                        "BUILDNAME={}".format(find_machine.cdash_build_name(self.spec)),
-                        "-D",
-                        "SITE={}".format(find_machine.cdash_host_name()),
-            ])
-        return args
-
-
-    def build(self, spec, prefix):
-        """
-        override spack's default build to run through ctest if needed
-        """
-        if self.spec.variants["cdash_submit"].value:
-            with fs.working_dir(self.build_directory):
-                ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
-                ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
-                ctest("-T", "Start", "-T", "Configure", "-T", "Build", "-V")
-        else:
-            super().build(spec, prefix)
-
-
     @property
     def saved_golds_dir(self):
         """
@@ -98,41 +142,3 @@ class CtestPackage(CMakePackage):
         else:
             return find_machine.reference_golds_default(self.spec)
             
-
-
-    def ctest_args(self):
-        args = ["-T", "Test", "--group", self.spec.name]
-        args.append("--stop-time")
-        overall_test_timeout=60*60*4 # 4 hours
-        args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
-        args.append("-VV")
-        extra_args = self.spec.variants["ctest_args"].value
-        if extra_args:
-            args.extend(extra_args.split())
-        return args
-
-
-    @run_after("install")
-    def test_regression(self):
-        """
-        This method will be used to run regression test
-        TODO: workout how to get the track,build,site mapped correctly
-        thinking of a call to super and writing logic into the packages
-        and auxilary python lib
-        """ 
-        spec = self.spec
-
-        test_env = os.environ.copy()
-        with working_dir(self.builder.build_directory):
-            args = self.ctest_args()
-            tty.debug("{} running CTest".format(spec.name))
-            tty.debug("Running:: ctest"+" ".join(args))
-            ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
-            ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
-            # We want the install to succeed even if some tests fail so pass
-            # fail_on_error=False
-            ctest(*args, env=test_env, fail_on_error=False)
-
-            if self.spec.variants["cdash_submit"].value:
-                ctest("-T", "Submit", "-V")
-
