@@ -10,7 +10,8 @@ compilers:
       operating_system: rhel8
       target: x86_64
       modules: []
-      extra_rpaths: []
+      extra_rpaths:
+        - /nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_intel
       environment: {}
   - compiler:
       spec: gcc@12.2.0
