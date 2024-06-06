@@ -56,8 +56,8 @@ match
 """
 machine_list = {
     # SNL
-    "cee": MachineData(lambda: is_cee(socket.gethostname()), socket.gethostname()),
-    "cts-1": MachineData(lambda: is_cts_1(socket.gethostname()), socket.gethostname()),
+    "cee": MachineData(lambda: is_cee(socket.gethostname()), "cee"),
+    "cts-1": MachineData(lambda: is_cts_1(socket.gethostname()), "cts-1"),
     # NREL
     "kestrel": MachineData(
         lambda: os.environ["NREL_CLUSTER"] == "kestrel", "kestrel.hpc.nrel.gov"
@@ -125,7 +125,7 @@ def cdash_host_name():
 
 def cdash_build_name(spec):
     return spec.format("{name}{@version}%{compiler}")
-   
+
 
 def reference_golds_default(spec):
     """

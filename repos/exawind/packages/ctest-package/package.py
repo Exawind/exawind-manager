@@ -16,6 +16,7 @@ import llnl.util.filesystem as fs
 
 import spack.builder
 import spack.build_systems.cmake
+import spack.util.log_parse
 
 from spack.builder import run_after
 from spack.directives import depends_on, variant, requires
@@ -24,6 +25,7 @@ find_machine = importlib.import_module("find-exawind-manager")
 
 class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
     phases = ("cmake", "build", "install", "finalize")
+
     @property
     def std_cmake_args(self):
         args = super().std_cmake_args
@@ -50,6 +52,8 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
     @property
     def build_args(self):
         args = [
+            "--group",
+            self.pkg.spec.name,
             "-T",
             "Start",
             "-T",
@@ -60,10 +64,37 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         ]
         return args
 
+    @property
+    def submit_args(self):
+        args = [
+            "--groupe",
+            self.pkg.spec.name,
+            "-T",
+            "Submit",
+            "-v"
+        ]
+        return args
+
+    def submit_cdash(self, pkg, spec, prefix):
+        ctest = inspect.getmodule(self.pkg).ctest
+        ctest(*self.submit_args, env = os.environ.copy())
+
+
     def build(self, pkg, spec, prefix):
-        if self.spec.variants["cdash_submit"].value:
+        if self.pkg.spec.variants["cdash_submit"].value:
+            ctest = inspect.getmodule(self.pkg).ctest
+            ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
+            tty.warn(f"Desired build jobs {make_jobs}")
+            build_env = {}
             with fs.working_dir(self.build_directory):
-                inspect.getmodule(self.pkg).ctest(*self.build_args)
+                 output = ctest(*self.build_args, output=str, error=str, _dump_env= build_env).split("\n")
+                 assert "CTEST_PARALLEL_LEVEL" in build_env
+                 tty.warn(f"Actual build env {build_env['CTEST_PARALLEL_LEVEL']}")
+                 errors, warnings = spack.util.log_parse.parse_log_events(output)
+                 if errors:
+                     self.submit_cdash(pkg, spec, prefix)
+                     raise InstallError(f"{self.pkg.spec.name} had build errors")
+
         else:
             super().build(pkg, spec, prefix)
 
@@ -73,7 +104,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         TODO: workout how to get the track,build,site mapped correctly
         thinking of a call to super and writing logic into the packages
         and auxilary python lib
-        """ 
+        """
 
         with working_dir(self.build_directory):
             args = self.ctest_args()
@@ -84,7 +115,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
             ctest(*args)
 
             if self.pkg.spec.variants["cdash_submit"].value:
-                ctest("-T", "Submit", "-V")
+                self.submit_cdash(pkg, spec, prefix)
 
 
 class CtestPackage(CMakePackage):
@@ -141,4 +172,4 @@ class CtestPackage(CMakePackage):
             return self.spec.variants["reference_golds"].value
         else:
             return find_machine.reference_golds_default(self.spec)
-            
+
