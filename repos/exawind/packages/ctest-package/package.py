@@ -32,14 +32,14 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         if self.spec.variants["cdash_submit"].value:
             args.extend([
                         "-D",
-                        "BUILDNAME={}".format(find_machine.cdash_build_name(self.pkg.spec.short_spec)),
+                        "BUILDNAME={}".format(find_machine.cdash_build_name(self.pkg.spec.name)),
                         "-D",
                         "SITE={}".format(find_machine.cdash_host_name()),
             ])
         return args
 
     def ctest_args(self):
-        args = ["-T", "Test", "--group", self.pkg.spec.name]
+        args = ["-T", "Test"]
         args.append("--stop-time")
         overall_test_timeout=60*60*4 # 4 hours
         args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
@@ -76,20 +76,21 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         return args
 
     def submit_cdash(self, pkg, spec, prefix):
-        ctest = inspect.getmodule(self.pkg).ctest
-        ctest(*self.submit_args, env = os.environ.copy())
+        ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
+        ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
+        build_env = os.environ.copy()
+        ctest(*self.submit_args, env = build_env)
 
 
     def build(self, pkg, spec, prefix):
         if self.pkg.spec.variants["cdash_submit"].value:
-            ctest = inspect.getmodule(self.pkg).ctest
+            ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
             ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
+            ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
             tty.warn(f"Desired build jobs {make_jobs}")
-            build_env = {}
             with fs.working_dir(self.build_directory):
-                 output = ctest(*self.build_args, output=str, error=str, _dump_env= build_env).split("\n")
-                 assert "CTEST_PARALLEL_LEVEL" in build_env
-                 tty.warn(f"Actual build env {build_env['CTEST_PARALLEL_LEVEL']}")
+                 build_env = os.environ.copy()
+                 output = ctest(*self.build_args, env=build_env, output=str, error=str).split("\n")
                  errors, warnings = spack.util.log_parse.parse_log_events(output)
                  if errors:
                      self.submit_cdash(pkg, spec, prefix)
@@ -110,9 +111,11 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
             args = self.ctest_args()
             tty.debug("{} running CTest".format(self.pkg.spec.name))
             tty.debug("Running:: ctest"+" ".join(args))
-            ctest = inspect.getmodule(self.pkg).ctest
+            ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
             ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
-            ctest(*args)
+            ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
+            build_env = os.environ.copy()
+            ctest(*args, "-j", make_jobs,  env=build_env, fail_on_error=False)
 
             if self.pkg.spec.variants["cdash_submit"].value:
                 self.submit_cdash(pkg, spec, prefix)
