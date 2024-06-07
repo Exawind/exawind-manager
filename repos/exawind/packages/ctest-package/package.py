@@ -32,9 +32,9 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         if self.spec.variants["cdash_submit"].value:
             args.extend([
                         "-D",
-                        "BUILDNAME={}".format(find_machine.cdash_build_name(self.pkg.spec.name)),
+                        "BUILDNAME={}".format(find_machine.cdash_build_name(self.pkg.spec)),
                         "-D",
-                        f"CDASH_EXTRA_BUILD_NAME={self.pkg.spec.short_spec}",
+                        f"CTEST_BUILD_OPTIONS={self.pkg.spec.short_spec}",
                         "-D",
                         "SITE={}".format(find_machine.cdash_host_name()),
             ])
@@ -62,7 +62,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
             "Configure",
             "-T",
             "Build",
-            "-V"
+            "-VV"
         ]
         return args
 
@@ -88,9 +88,12 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
             ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
             with fs.working_dir(self.build_directory):
                  build_env = os.environ.copy()
-                 output = ctest(*self.build_args, env=build_env, output=str, error=str).split("\n")
+                 output = ctest(*self.build_args, env=build_env, output=str.split, error=str.split).split("\n")
                  errors, warnings = spack.util.log_parse.parse_log_events(output)
-                 if errors:
+                 if len(errors) > 0:
+                     errs = [str(e) for e in errors]
+                     tty.warn(f"Errors: {errs}")
+                     tty.warn(f"returncode {ctest.returncode}")
                      self.submit_cdash(pkg, spec, prefix)
                      raise BaseException(f"{self.pkg.spec.name} had build errors")
 

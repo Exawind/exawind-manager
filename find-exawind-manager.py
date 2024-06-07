@@ -124,6 +124,7 @@ def cdash_host_name():
 
 
 def cdash_build_name(spec):
+    #return f"'{spec.short_spec}'".replace(" ", "_")
     return spec.format("{name}{@version}%{compiler}")
 
 

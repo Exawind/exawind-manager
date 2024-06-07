@@ -31,7 +31,6 @@ class NaluWind(bNaluWind, CtestPackage):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer -fsanitize-blacklist={0}".format(join_path(self.package_dir, "blacklist.asan")))
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
             env.set("ASAN_OPTIONS", "detect_container_overflow=0")
-        print(env)
 
     def cmake_args(self):
         spec = self.spec
