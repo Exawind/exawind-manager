@@ -34,6 +34,8 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
                         "-D",
                         "BUILDNAME={}".format(find_machine.cdash_build_name(self.pkg.spec.name)),
                         "-D",
+                        f"EXTRA_BUILD_NAME={self.pkg.spec.short_spec}",
+                        "-D",
                         "SITE={}".format(find_machine.cdash_host_name()),
             ])
         return args
@@ -67,8 +69,6 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
     @property
     def submit_args(self):
         args = [
-            "--groupe",
-            self.pkg.spec.name,
             "-T",
             "Submit",
             "-v"
@@ -85,7 +85,6 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
     def build(self, pkg, spec, prefix):
         if self.pkg.spec.variants["cdash_submit"].value:
             ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
-            ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
             ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
             tty.warn(f"Desired build jobs {make_jobs}")
             with fs.working_dir(self.build_directory):
@@ -94,7 +93,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
                  errors, warnings = spack.util.log_parse.parse_log_events(output)
                  if errors:
                      self.submit_cdash(pkg, spec, prefix)
-                     raise InstallError(f"{self.pkg.spec.name} had build errors")
+                     raise BaseException(f"{self.pkg.spec.name} had build errors")
 
         else:
             super().build(pkg, spec, prefix)
@@ -115,7 +114,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
             ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
             ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
             build_env = os.environ.copy()
-            ctest(*args, "-j", make_jobs,  env=build_env, fail_on_error=False)
+            ctest(*args, "-j", str(make_jobs),  env=build_env, fail_on_error=False)
 
             if self.pkg.spec.variants["cdash_submit"].value:
                 self.submit_cdash(pkg, spec, prefix)
