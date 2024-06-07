@@ -34,7 +34,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
                         "-D",
                         "BUILDNAME={}".format(find_machine.cdash_build_name(self.pkg.spec.name)),
                         "-D",
-                        f"EXTRA_BUILD_NAME={self.pkg.spec.short_spec}",
+                        f"CDASH_EXTRA_BUILD_NAME={self.pkg.spec.short_spec}",
                         "-D",
                         "SITE={}".format(find_machine.cdash_host_name()),
             ])
@@ -86,7 +86,6 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         if self.pkg.spec.variants["cdash_submit"].value:
             ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
             ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
-            tty.warn(f"Desired build jobs {make_jobs}")
             with fs.working_dir(self.build_directory):
                  build_env = os.environ.copy()
                  output = ctest(*self.build_args, env=build_env, output=str, error=str).split("\n")

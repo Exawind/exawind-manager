@@ -56,8 +56,8 @@ match
 """
 machine_list = {
     # SNL
-    "cee": MachineData(lambda: is_cee(socket.gethostname()), "cee"),
-    "cts-1": MachineData(lambda: is_cts_1(socket.gethostname()), "cts-1"),
+    "cee": MachineData(lambda: is_cee(socket.gethostname()), "cee.snl.gov"),
+    "cts-1": MachineData(lambda: is_cts_1(socket.gethostname()), "cts-1.snl.gov"),
     # NREL
     "kestrel": MachineData(
         lambda: os.environ["NREL_CLUSTER"] == "kestrel", "kestrel.hpc.nrel.gov"
