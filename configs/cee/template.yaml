@@ -1,0 +1,10 @@
+spack:
+  concretizer:
+    unify: false
+    reuse: false
+  view: false
+  specs:
+  - amr-wind@main+openfast
+  - nalu-wind@master+openfast+wind-utils+boost~trilinos-solvers
+  - nalu-wind@master+openfast+wind-utils+boost+trilinos-solvers
+  - exawind@master ^nalu-wind@master+openfast+wind-utils+boost~trilinos-solvers
