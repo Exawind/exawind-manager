@@ -26,7 +26,7 @@ class NaluWind(bNaluWind, CtestPackage):
 
     def setup_build_environment(self, env):
         spec = self.spec
-        super().setup_build_environment(env)
+        super(CtestPackage, self).setup_build_environment(env)
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer -fsanitize-blacklist={0}".format(join_path(self.package_dir, "blacklist.asan")))
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
@@ -35,8 +35,7 @@ class NaluWind(bNaluWind, CtestPackage):
     def cmake_args(self):
         spec = self.spec
 
-        cmake_options = super(CtestPackage, self).cmake_args()
-        cmake_options.extend(super(NaluWind, self).cmake_args())
+        cmake_options = super().cmake_args()
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
