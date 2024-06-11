@@ -35,6 +35,8 @@ parser.add_argument("--ranks", type=int)
 parser.add_argument("--cdash", nargs='+', default=[], help="packages to run tests and submit to cdash")
 parser.add_argument("--overwrite", action="store_true")
 parser.add_argument("--depfile", action="store_true")
+parser.add_argument("--regression_tests", "-r", action="store_true", help="run rfull regression tests")
+parser.add_argument("--daily", action="store_true", help="deploy as daily modules")
 
 today = date.today()
 daystr = today.isoformat()
@@ -68,7 +70,12 @@ def configure_env(args, env_name):
         config("add", "config:install_tree:{}".format(
                spack_path_resolve("$EXAWIND_MANAGER/opt/{}".format(e.name))
                ))
-        config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
+        if args.daily:
+            config("add", "modules:default:tcl:all:suffixes:all:daily")
+        else:
+            config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
+        if args.regression_tests:
+            config("add", "packages:all:variants:ctest_args:\"\"")
         if args.cdash:
             for pkg in args.cdash:
                 config("add", "packages:{}:variants:\"{}\"".format(pkg,"+cdash_submit"))
