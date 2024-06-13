@@ -75,7 +75,7 @@ def configure_env(args, env_name):
         else:
             config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
         if args.regression_tests:
-            config("add", "packages:all:variants:ctest_args:\"\"")
+            config("add", "packages:all:variants:\"ctest_args=None\"")
         if args.cdash:
             for pkg in args.cdash:
                 config("add", "packages:{}:variants:\"{}\"".format(pkg,"+cdash_submit"))
