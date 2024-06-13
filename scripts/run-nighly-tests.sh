@@ -8,11 +8,14 @@ cmd() {
 source ../start.sh
 cmd "spack-start"
 
+days_to_keep=${DAYS_TO_KEEP:-30}
+nranks=${NRANKS:-8}
+
 date_spack_envs() {
   # determine date spack env's from running deploy
   env_output=$(spack env ls)
-  env_list=$(echo "$env_output" | awk '{print $1}' | grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
-  echo "$env_list"
+  env_list=$(echo "${env_output}" | awk '{print $1}' | grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+  echo "${env_list}"
 }
 
 prune_envs() {
@@ -21,10 +24,10 @@ prune_envs() {
 
   for env in $(date_spack_envs); do
     date_diff=$(( ($(date -d "$today" +%s) - $(date -d "$env" +%s)) / 86400 ))
-    if [ "$date_diff" -gt 30 ]; then
-     echo "Spack env ${env} is older than 30 days"
-     spack -e "${env}" uninstall --all
-     spack env remove "${env}"
+    if [ "${date_diff}" -gt "${days_to_keep}" ]; then
+     echo "Spack env ${env} is older than ${days_to_keep} days"
+     cmd "spack -e ${env} uninstall --all --dependents --force -y"
+     cmd "spack env remove ${env} -y"
     fi
   done
 }
@@ -32,4 +35,4 @@ prune_envs() {
 cmd "prune_envs"
 
 # build the test environment and run the tests
-cmd "deploy.py --daily --depfile --cdash exawind amr-wind nalu-wind --ranks $(NRANKS:-8) --overwrite --regression_tests"
+cmd "deploy.py --daily --depfile --cdash exawind amr-wind nalu-wind --ranks ${nranks} --overwrite --regression_tests"
