@@ -169,11 +169,10 @@ class CtestPackage(CMakePackage):
     @property
     def reference_golds_dir(self):
         if self.spec.variants["reference_golds"].value != "default":
-            if not os.path.isdir(self.spec.variants["reference_golds"].value):
-                tty.die("Supplied referenced golds path is not valid: {}".format(
-                        self.spec.variants["reference_golds"].value)
-                        )
-            return self.spec.variants["reference_golds"].value
+            gold_dir =  self.spec.variants["reference_golds"].value
         else:
-            return find_machine.reference_golds_default(self.spec)
+            gold_dir = find_machine.reference_golds_default(self.spec)
+        if not os.path.isdir(gold_dir):
+            tty.die(f"Supplied referenced golds path is not valid: {gold_dir}")
+
 

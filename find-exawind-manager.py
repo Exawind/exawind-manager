@@ -9,6 +9,8 @@ import os
 import socket
 import sys
 
+from gold_getter import get_golds_path
+
 
 class MachineData:
     def __init__(self, test, full_machine_name):
@@ -112,15 +114,21 @@ def detector(name):
                 raise
     return False
 
-
-def cdash_host_name():
-    """get consistent hostnames for cdash"""
+def get_current_machine():
     for name, machine in machine_list.items():
         # wasteful look up but adds error checking
         if detector(name):
-            return machine.full_machine_name
+            return machine
+
+
+def cdash_host_name():
+    """get consistent hostnames for cdash"""
     # if we get here we need to error
-    raise Exception("Unsupported machines can't upload to cdash")
+    machine = get_current_machine()
+    if machine:
+        return machine.full_machine_name
+    else:
+        raise Exception("Unsupported machines can't upload to cdash")
 
 
 def cdash_build_name(spec):
@@ -135,6 +143,13 @@ def reference_golds_default(spec):
     This can eventually provide check on the machine
     and spec to give predetermined golds directories
     """
+    machine = get_current_machine()
+    if machine:
+        # gives data if it exists so check output
+        specific_path = get_golds_path(spec, machine)
+        if specific_path:
+            return specific_path
+    # secondary path
     gold_dir = os.path.join(os.environ["EXAWIND_MANAGER"], "golds", "current", spec.name)
     os.makedirs(gold_dir, exist_ok=True)
     return gold_dir
