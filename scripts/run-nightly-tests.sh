@@ -5,7 +5,7 @@ cmd() {
   eval "$@"
 }
 
-source ../start.sh
+cmd "source ${EXAWIND_MANAGER}/start.sh"
 cmd "spack-start"
 
 days_to_keep=${DAYS_TO_KEEP:-30}
@@ -35,4 +35,4 @@ prune_envs() {
 cmd "prune_envs"
 
 # build the test environment and run the tests
-cmd "deploy.py --daily --depfile --cdash exawind amr-wind nalu-wind --ranks ${nranks} --overwrite --regression_tests"
+cmd "${EXAWIND_MANAGER}/scripts/deploy.py --daily --cdash exawind amr-wind nalu-wind --ranks ${nranks} --overwrite --regression_tests"
