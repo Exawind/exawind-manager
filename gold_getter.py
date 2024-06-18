@@ -10,22 +10,22 @@ def get_golds_yaml():
         yaml = spack_yaml.load(f)
     return yaml
 
-def get_golds_path(spec, machine):
+def get_golds_path(spec, machine_name):
     """
     Look for a specific gold match using spec comparisons
     """
     gyaml = get_golds_yaml()
 
-    if machine not in gyaml:
+    if machine_name not in gyaml:
         return None
 
-    myaml = gyaml[machine]
+    myaml = gyaml[machine_name]
 
     for spec_pair in myaml:
        gold_spec_str, gold_path = spec_pair 
        gold_spec = Spec(gold_spec_str)
 
-       if gold_spec.satisfies(spec):
+       if spec.satisfies(gold_spec):
             return gold_path
 
     return None

@@ -44,8 +44,8 @@ compilers:
     paths:
       cc: /projects/aue/cee/builds/x86_64/rhel8/d00f4910/clang-16.0.6/install/linux-rhel8-x86_64/clang-16.0.6/llvm-16.0.6-f4feo2o/bin/clang
       cxx: /projects/aue/cee/builds/x86_64/rhel8/d00f4910/clang-16.0.6/install/linux-rhel8-x86_64/clang-16.0.6/llvm-16.0.6-f4feo2o/bin/clang++
-      f77: /projects/aue/cee/builds/x86_64/rhel8/ae2aa8f4/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
-      fc: /projects/aue/cee/builds/x86_64/rhel8/ae2aa8f4/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
+      f77: /projects/aue/cee/builds/x86_64/rhel8/d00f4910/clang-16.0.6/install/linux-rhel8-x86_64/clang-16.0.6/llvm-16.0.6-f4feo2o/bin/flang-new
+      fc: /projects/aue/cee/builds/x86_64/rhel8/d00f4910/clang-16.0.6/install/linux-rhel8-x86_64/clang-16.0.6/llvm-16.0.6-f4feo2o/bin/flang-new
     flags: {}
     operating_system: rhel8
     target: x86_64

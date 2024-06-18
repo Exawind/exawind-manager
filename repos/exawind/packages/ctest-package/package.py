@@ -173,6 +173,7 @@ class CtestPackage(CMakePackage):
         else:
             gold_dir = find_machine.reference_golds_default(self.spec)
         if not os.path.isdir(gold_dir):
-            tty.die(f"Supplied referenced golds path is not valid: {gold_dir}")
+            raise Exception(f"Supplied referenced golds path is not valid: {gold_dir}")
+        return gold_dir
 
 

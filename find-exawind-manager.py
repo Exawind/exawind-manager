@@ -118,13 +118,13 @@ def get_current_machine():
     for name, machine in machine_list.items():
         # wasteful look up but adds error checking
         if detector(name):
-            return machine
+            return name, machine
 
 
 def cdash_host_name():
     """get consistent hostnames for cdash"""
     # if we get here we need to error
-    machine = get_current_machine()
+    _ , machine = get_current_machine()
     if machine:
         return machine.full_machine_name
     else:
@@ -143,10 +143,11 @@ def reference_golds_default(spec):
     This can eventually provide check on the machine
     and spec to give predetermined golds directories
     """
-    machine = get_current_machine()
-    if machine:
+    name, _ = get_current_machine()
+    if name:
         # gives data if it exists so check output
-        specific_path = get_golds_path(spec, machine)
+        specific_path = get_golds_path(spec, name)
+        assert os.path.isdir(specific_path)
         if specific_path:
             return specific_path
     # secondary path
