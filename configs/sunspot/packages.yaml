@@ -4,7 +4,7 @@ packages:
     buildable: false
     externals:
       - spec: "mpich@20231026"
-        prefix: /opt/aurora/24.086.0/CNDA/mpich/20231026/mpich-ofi-all-icc-default-pmix-gpu-drop20231026/lib
+        prefix: /opt/aurora/24.086.0/CNDA/mpich/20231026/mpich-ofi-all-icc-default-pmix-gpu-drop20231026
         modules:
           - mpich/icc-all-pmix-gpu/20231026
           - libfabric/1.15.2.0
