@@ -35,7 +35,7 @@ parser.add_argument("--ranks", type=int)
 parser.add_argument("--cdash", nargs='+', default=[], help="packages to run tests and submit to cdash")
 parser.add_argument("--overwrite", action="store_true")
 parser.add_argument("--depfile", action="store_true")
-parser.add_argument("--regression_tests", "-r", action="store_true", help="run rfull regression tests")
+parser.add_argument("--regression_tests", "-r", nargs='+', default=[], help="packages to run full regression tests")
 parser.add_argument("--daily", action="store_true", help="deploy as daily modules")
 
 today = date.today()
@@ -64,9 +64,23 @@ def environment_setup(args, env_name):
 
     print("Using env:", ev.read(env_name).path)
 
+class PackageVariantAccumulator:
+    def __init__(self):
+        self.data = {}
+
+    def update_variants(self, name, variant_string):
+        if name in self.data:
+            self.data[name] = self.data.get(name) + variant_string
+        else:
+            self.data[name] = variant_string
+
+    def update_configs(self):
+        for name, variants in self.data.items():
+            config("add", f"packages:{name}:variants:\"{variants}\"")
 
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
+        accumulator = PackageVariantAccumulator()
         config("add", "config:install_tree:{}".format(
                spack_path_resolve("$EXAWIND_MANAGER/opt/{}".format(e.name))
                ))
@@ -74,11 +88,17 @@ def configure_env(args, env_name):
             config("add", "modules:default:tcl:all:suffixes:all:daily")
         else:
             config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
+
         if args.regression_tests:
-            config("add", "packages:all:variants:\"ctest_args=None\"")
+            for pkg in args.regression_tests:
+                accumulator.update_variants(pkg, "ctest_args=None")
+
         if args.cdash:
             for pkg in args.cdash:
-                config("add", "packages:{}:variants:\"{}\"".format(pkg,"+cdash_submit"))
+                accumulator.update_variants(pkg,"+cdash_submit")
+
+        accumulator.update_configs()
+
         concretize("--force")
         if args.depfile:
             env("depfile", "-o", os.path.join(e.path, "Makefile"))
