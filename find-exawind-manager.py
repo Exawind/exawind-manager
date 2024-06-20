@@ -147,7 +147,6 @@ def reference_golds_default(spec):
     if name:
         # gives data if it exists so check output
         specific_path = get_golds_path(spec, name)
-        assert os.path.isdir(specific_path)
         if specific_path:
             return specific_path
     # secondary path
