@@ -1,26 +1,26 @@
 compilers:
   - compiler:
-      spec: oneapi@2024.1
+      spec: oneapi@2024.2
       paths:
-        cc: /opt/aurora/23.275.2/CNDA/oneapi/compiler/eng-20231130/bin/icx
-        cxx: /opt/aurora/23.275.2/CNDA/oneapi/compiler/eng-20231130/bin/icpx
-        f77: /opt/aurora/23.275.2/CNDA/oneapi/compiler/eng-20231130/bin/ifx
-        fc: /opt/aurora/23.275.2/CNDA/oneapi/compiler/eng-20231130/bin/ifx
+        cc: /opt/aurora/24.086.0/CNDA/oneapi/compiler/eng-20240227/bin/icx
+        cxx: /opt/aurora/24.086.0/CNDA/oneapi/compiler/eng-20240227/bin/icpx
+        f77: /opt/aurora/24.086.0/CNDA/oneapi/compiler/eng-20240227/bin/ifx
+        fc: /opt/aurora/24.086.0/CNDA/oneapi/compiler/eng-20240227/bin/ifx
       flags: {}
       operating_system: sles15
       target: x86_64
       modules:
-        - oneapi/eng-compiler/2023.12.15.002
-        - intel_compute_runtime/release/agama-devel-736.25
+        - oneapi/eng-compiler/2024.04.15.002
+        - intel_compute_runtime/release/821.36
       environment: {}
       extra_rpaths: []
   - compiler:
       spec: gcc@12.2.0
       paths:
-        cc: /opt/aurora/23.275.2/spack/gcc/0.6.1/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gcc
-        cxx: /opt/aurora/23.275.2/spack/gcc/0.6.1/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/g++
-        f77: /opt/aurora/23.275.2/spack/gcc/0.6.1/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gfortran
-        fc: /opt/aurora/23.275.2/spack/gcc/0.6.1/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gfortran
+        cc: /opt/aurora/24.086.0/spack/gcc/0.7.0/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gcc
+        cxx: /opt/aurora/24.086.0/spack/gcc/0.7.0/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/g++
+        f77: /opt/aurora/24.086.0/spack/gcc/0.7.0/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gfortran
+        fc: /opt/aurora/24.086.0/spack/gcc/0.7.0/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-jf4ov3v3scg7dvd76qhsuugl3jp42gfn/bin/gfortran
       flags: {}
       operating_system: sles15
       target: x86_64
