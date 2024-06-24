@@ -24,7 +24,7 @@ prune_envs() {
 
   for env in $(date_spack_envs); do
 
-    date_diff=$(( ($(date -j -f "%Y-%m-%d" "$today" +%s) - $(date -j -f "%Y-%m-%d" "$env" +%s)) / 86400 ))
+    date_diff=$(( ($(date -f "%Y-%m-%d" "$today" +%s) - $(date -f "%Y-%m-%d" "$env" +%s)) / 86400 ))
 
     if [ "${date_diff}" -gt "${days_to_keep}" ]; then
      echo "Spack env ${env} is older than ${days_to_keep} days"
