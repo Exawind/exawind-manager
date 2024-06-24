@@ -11,11 +11,7 @@ from spack.pkg.exawind.ctest_package import *
 
 
 class NaluWind(bNaluWind, CtestPackage):
-    version("master", branch="master", submodules=True, preferred=True)
-    version("multiphase", branch="multiphase_dev", submodules=True)
-
     variant("asan", default=False, description="Turn on address sanitizer")
-    variant("tests", default=True, description="Activate regression tests")
     variant("unit-tests", default=True, description="Activate unit tests")
 
     depends_on("openfast@develop", when="+fsi")
