@@ -1,0 +1,7 @@
+# This yaml file will serve as the mapping between specs and gold files
+# This allows us to match specs to golds based on what they satisfy in the environment
+# Specs should be ordered from most to least specific per platform
+cee:
+  - ["amr-wind%gcc", "/projects/wind/exawind-manager/environments/cee-golds/opt/linux-rhel8-x86_64/gcc-12.1.0/amr-wind-2.1.0-nqomj7kd5rbhrsell25md3zhggpxhdso/golds"]
+    
+      
