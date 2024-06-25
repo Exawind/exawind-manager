@@ -33,9 +33,10 @@ class NaluWind(bNaluWind, CtestPackage):
 
         cmake_options = super().cmake_args()
 
+        cmake_options.append(self.define("ENABLE_TESTS", True))
+
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
-            cmake_options.append(self.define("ENABLE_TESTS", True))
 
         cmake_options.append(self.define_from_variant("ENABLE_OPENFAST_FSI", "fsi"))
         if spec.satisfies("+fsi"):
@@ -43,7 +44,6 @@ class NaluWind(bNaluWind, CtestPackage):
             cmake_options.append(self.define("ENABLE_OPENFAST", True))
 
         if spec.satisfies("+tests") or self.run_tests or spec.satisfies("dev_path=*"):
-            cmake_options.append(self.define("ENABLE_TESTS", True))
             cmake_options.append(self.define("NALU_WIND_SAVE_GOLDS", True))
             cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", super().saved_golds_dir))
             cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", super().reference_golds_dir))
