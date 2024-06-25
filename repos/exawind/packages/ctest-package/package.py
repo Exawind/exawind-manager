@@ -24,7 +24,7 @@ from spack.package import CMakePackage
 find_machine = importlib.import_module("find-exawind-manager")
 
 class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
-    phases = ("cmake", "build", "install", "finalize")
+    phases = ("cmake", "build", "install", "check")
 
     @property
     def std_cmake_args(self):
@@ -100,7 +100,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         else:
             super().build(pkg, spec, prefix)
 
-    def finalize(self, pkg, spec, prefix):
+    def check(self, pkg, spec, prefix):
         """
         This method will be used to run regression test
         TODO: workout how to get the track,build,site mapped correctly
