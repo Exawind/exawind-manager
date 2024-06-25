@@ -70,7 +70,7 @@ class PackageVariantAccumulator:
 
     def update_variants(self, name, variant_string):
         if name in self.data:
-            self.data[name] = self.data.get(name) + variant_string
+            self.data[name] = self.data.get(name) + " " +variant_string
         else:
             self.data[name] = variant_string
 
