@@ -38,6 +38,7 @@ class Pelec(CMakePackage, CudaPackage, ROCmPackage):
     variant("masa", default=False, description="Enable MASA integration")
     variant("mpi", default=True, description="Enable MPI support")
     variant("openmp", default=False, description="Enable OpenMP for CPU builds")
+    variant("particles", default=False, description="Enable AMReX particles")
     variant("shared", default=True, description="Build shared libraries")
     variant("tiny_profile", default=True, description="Activate tiny profile")
     variant("hdf5", default=False, description="Enable HDF5 plots with ZFP compression")
