@@ -35,6 +35,7 @@ class Pelelmex(CMakePackage, CudaPackage, ROCmPackage):
         multi=False
     )
     variant("ascent", default=False, description="Enable Ascent integration")
+    variant("eb", default=True, description="Enable embedded boundaries")
     variant("masa", default=False, description="Enable MASA integration")
     variant("mpi", default=True, description="Enable MPI support")
     variant("openmp", default=False, description="Enable OpenMP for CPU builds")
