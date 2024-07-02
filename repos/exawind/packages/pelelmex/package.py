@@ -108,7 +108,7 @@ class Pelelmex(CMakePackage, CudaPackage, ROCmPackage, CtestPackage):
             self.define_from_variant("BUILD_SHARED_LIBS", "shared"),
             self.define_from_variant("PELE_DIM", "dim"),
             self.define_from_variant("PELE_PRECISION", "precision"),
-            self.define_from_variant("PELE_ENABLE_CLANG_TIDY", "clangtidy"))
+            self.define_from_variant("PELE_ENABLE_CLANG_TIDY", "clangtidy"),
         ]
 
         if spec.satisfies("+mpi"):
