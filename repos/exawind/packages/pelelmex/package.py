@@ -7,7 +7,7 @@ from spack.package import *
 from spack.pkg.exawind.ctest_package import *
 
 
-class Pelelmex(CMakePackage, CudaPackage, ROCmPackage, CtestPackage):
+class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
     """An AMR code for compressible reacting flow simulations."""
 
     homepage = "https://github.com/AMReX-Combustion/PeleLMeX"
