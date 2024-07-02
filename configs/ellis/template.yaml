@@ -1,0 +1,9 @@
+spack:
+  concretizer:
+    unify: false
+    reuse: false
+  view: false
+  specs:
+  - exawind~amr_wind_gpu~nalu_wind_gpu~cuda+asan %clang build_type=Debug ^nalu-wind+asan build_type=Debug ^amr-wind+asan build_type=Debug ^tioga+asan build_type=Debug ^trilinos+asan build_type=Debug
+  - exawind~amr_wind_gpu~nalu_wind_gpu~cuda %gcc
+  - exawind+amr_wind_gpu+nalu_wind_gpu+cuda cuda_arch=80 %gcc
