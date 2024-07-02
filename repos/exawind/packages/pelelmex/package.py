@@ -146,12 +146,12 @@ class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
             )
 
         if spec.satisfies("dev_path=*"):
-            cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
+            args.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
 
         if spec.satisfies("+tests"):
-            cmake_options.append(self.define("PELE_ENABLE_FCOMPARE_FOR_TESTS", True))
-            cmake_options.append(self.define("PELE_SAVE_GOLDS", True))
-            cmake_options.append(self.define("PELE_SAVED_GOLDS_DIRECTORY", self.saved_golds_dir))
-            cmake_options.append(self.define("PELE_REFERENCE_GOLDS_DIRECTORY", self.reference_golds_dir))
+            args.append(self.define("PELE_ENABLE_FCOMPARE_FOR_TESTS", True))
+            args.append(self.define("PELE_SAVE_GOLDS", True))
+            args.append(self.define("PELE_SAVED_GOLDS_DIRECTORY", self.saved_golds_dir))
+            args.append(self.define("PELE_REFERENCE_GOLDS_DIRECTORY", self.reference_golds_dir))
 
         return args
