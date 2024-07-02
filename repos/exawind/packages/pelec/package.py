@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 from spack.package import *
+from spack.pkg.exawind.ctest_package import *
 
 
 class Pelec(CMakePackage, CudaPackage, ROCmPackage, CtestPackage):
