@@ -26,7 +26,7 @@ class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
     variant(
         "dim",
         default="3",
-        description="Phyiscal dimensions",
+        description="Physical dimensions",
         values=["2", "3"],
         multi=False
     )
@@ -39,12 +39,10 @@ class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
     )
     variant("ascent", default=False, description="Enable Ascent integration")
     variant("eb", default=True, description="Enable embedded boundaries")
-    variant("masa", default=False, description="Enable MASA integration")
     variant("mpi", default=True, description="Enable MPI support")
     variant("openmp", default=False, description="Enable OpenMP for CPU builds")
     variant("particles", default=False, description="Enable AMReX particles")
     variant("shared", default=True, description="Build shared libraries")
-    variant("tests", default=False, description="Enable some things for testing")
     variant("tiny_profile", default=True, description="Activate tiny profile")
     variant("hdf5", default=False, description="Enable HDF5 plots with ZFP compression")
     variant("sycl", default=False, description="Enable SYCL backend")
@@ -55,11 +53,8 @@ class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
     depends_on("hdf5+mpi", when="+hdf5+mpi")
     depends_on("h5z-zfp", when="+hdf5")
     depends_on("zfp", when="+hdf5")
-    depends_on("masa", when="+masa")
     depends_on("ascent~mpi", when="+ascent~mpi")
     depends_on("ascent+mpi", when="+ascent+mpi")
-    depends_on("py-matplotlib", when="+masa")
-    depends_on("py-pandas", when="+masa")
     depends_on("hypre@2.20.0:", when="+hypre")
     depends_on("hypre+mpi", when="+hypre+mpi")
     depends_on("hypre+sycl", when="+hypre+sycl")
@@ -77,11 +72,8 @@ class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
     conflicts("+openmp", when="+rocm")
     conflicts("+openmp", when="+sycl")
 
-    requires("+tests", when="+cdash_submit")
-
     def setup_build_environment(self, env):
         spec = self.spec
-        super().setup_build_environment(env)
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
@@ -94,11 +86,9 @@ class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
             "ascent",
             "cuda",
             "eb",
-            "masa",
             "mpi",
             "openmp",
             "particles",
-            "rocm",
             "sycl",
             "hypre",
             "tiny_profile",
@@ -110,6 +100,7 @@ class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
             self.define_from_variant("PELE_DIM", "dim"),
             self.define_from_variant("PELE_PRECISION", "precision"),
             self.define_from_variant("PELE_ENABLE_CLANG_TIDY", "clangtidy"),
+            self.define_from_variant("PELE_ENABLE_HIP", "rocm"),
         ]
 
         if spec.satisfies("+mpi"):
@@ -148,7 +139,7 @@ class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
         if spec.satisfies("dev_path=*"):
             args.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
 
-        if spec.satisfies("+tests"):
+        if spec.satisfies("+cdash_submit"):
             args.append(self.define("PELE_ENABLE_FCOMPARE_FOR_TESTS", True))
             args.append(self.define("PELE_SAVE_GOLDS", True))
             args.append(self.define("PELE_SAVED_GOLDS_DIRECTORY", self.saved_golds_dir))
