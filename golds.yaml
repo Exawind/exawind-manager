@@ -4,9 +4,9 @@
 cee:
   - ["amr-wind%gcc", "/projects/wind/exawind-manager/environments/cee-golds/opt/linux-rhel8-x86_64/gcc-12.1.0/amr-wind-2.1.0-nqomj7kd5rbhrsell25md3zhggpxhdso/golds"]
 ellis:
-  - ["amr-wind%clang", "/data/ssd1/home/jrood/exawind-manager/golds/current/amr-wind/clang-cpu"]
-  - ["nalu-wind%clang", "/data/ssd1/home/jrood/exawind-manager/golds/current/nalu-wind/clang-cpu"]
-  - ["amr-wind%gcc", "/data/ssd1/home/jrood/exawind-manager/golds/current/amr-wind/gcc-cpu"]
-  - ["nalu-wind%gcc", "/data/ssd1/home/jrood/exawind-manager/golds/current/nalu-wind/gcc-cpu"]
-  - ["amr-wind+cuda%gcc", "/data/ssd1/home/jrood/exawind-manager/golds/current/amr-wind/gcc-gpu"]
-  - ["nalu-wind+cuda%gcc", "/data/ssd1/home/jrood/exawind-manager/golds/current/nalu-wind/gcc-gpu"]
+  - ["amr-wind%clang", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/clang-cpu"]
+  - ["nalu-wind%clang", "/data/ssd1/home/jrood/exawind/golds/current/nalu-wind/clang-cpu"]
+  - ["amr-wind%gcc", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/gcc-cpu"]
+  - ["nalu-wind%gcc", "/data/ssd1/home/jrood/exawind/golds/current/nalu-wind/gcc-cpu"]
+  - ["amr-wind+cuda%gcc", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/gcc-gpu"]
+  - ["nalu-wind+cuda%gcc", "/data/ssd1/home/jrood/exawind/golds/current/nalu-wind/gcc-gpu"]
