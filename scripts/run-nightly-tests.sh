@@ -1,7 +1,7 @@
 #!/bin/bash -l
 
 #Example crontab:
-#1 0 * * * /bin/bash -l -c "export EXAWIND_MANAGER=${HOME}/exawind-manager && mkdir -p \${EXAWIND_MANAGER}/logs && cd \${EXAWIND_MANAGER} && (git fetch --all && git reset --hard origin/main && git clean -df && git status -uno) &> \${EXAWIND_MANAGER}/logs/exawind-manager-repo-update-$(date '+\%Y-\%m-\%d').txt && NRANKS=48 nice -n19 ionice -c3 \${EXAWIND_MANAGER}/scripts/run-nightly-tests.sh &> \${EXAWIND_MANAGER}/logs/exawind-tests-log-$(date '+\%Y-\%m-\%d').txt"
+#1 0 * * * /bin/bash -l -c "export EXAWIND_MANAGER=${HOME}/exawind-manager && mkdir -p \${EXAWIND_MANAGER}/logs && cd \${EXAWIND_MANAGER} && (git fetch --all && git reset --hard origin/main && git clean -df && git status -uno) &> \${EXAWIND_MANAGER}/logs/exawind-manager-repo-update-$(date -I).txt && NRANKS=48 nice -n19 ionice -c3 \${EXAWIND_MANAGER}/scripts/run-nightly-tests.sh &> \${EXAWIND_MANAGER}/logs/exawind-tests-log-$(date -I).txt"
 
 cmd() {
   echo "+ $@"
