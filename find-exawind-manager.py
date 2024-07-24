@@ -119,6 +119,8 @@ def get_current_machine():
         # wasteful look up but adds error checking
         if detector(name):
             return name, machine
+        else:
+            return None, None
 
 
 def cdash_host_name():
