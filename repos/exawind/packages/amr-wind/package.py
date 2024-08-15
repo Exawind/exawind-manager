@@ -41,4 +41,8 @@ class AmrWind(bAmrWind, CtestPackage):
             cmake_options.append(self.define("AMR_WIND_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
             cmake_options.append(self.define("AMR_WIND_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
 
+        if spec.satisfies("+mpi"):
+            cmake_options.append(self.define("MPI_CXX_COMPILER", spec["mpi"].mpicxx))
+            cmake_options.append(self.define("MPI_C_COMPILER", spec["mpi"].mpicc))
+
         return cmake_options
