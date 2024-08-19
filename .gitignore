@@ -30,3 +30,4 @@ __pycache__
 Configuring
 .tmp/
 *.swp
+*.py-e
