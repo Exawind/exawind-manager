@@ -86,9 +86,6 @@ spack:
    #    projections:
    #      all: '{compiler.name}/{compiler.version}/{name}/{version}/{hash:8}'
    #    link_type: symlink
-   concretizer:
-     unify: false
-     reuse: true
    packages:
      perl:
        require: "@5.30.3"

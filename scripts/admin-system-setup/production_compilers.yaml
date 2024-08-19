@@ -8,8 +8,6 @@ spack:
   - gcc@10.3.0
   - llvm@13+clang targets=x86 +gold ^ninja@kitware
   view: false
-  concretizer:
-    unify: false
   packages:
     all:
       target: [x86_64]

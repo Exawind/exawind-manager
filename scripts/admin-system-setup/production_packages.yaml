@@ -22,8 +22,6 @@ spack:
   #    projections:
   #      all: '{compiler.name}/{compiler.version}/{name}/{version}/{hash:8}'
   #    link_type: symlink
-  concretizer:
-    unify: false
   packages:
     all:
       target: [x86_64]
