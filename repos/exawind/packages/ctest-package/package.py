@@ -71,7 +71,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         args = [
             "-T",
             "Submit",
-            "-v"
+            "-V"
         ]
         return args
 
