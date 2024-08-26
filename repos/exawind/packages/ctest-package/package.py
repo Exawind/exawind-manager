@@ -70,7 +70,8 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
     def submit_args(self):
         args = [
             "-T",
-            "Submit"
+            "Submit",
+            "-V"
         ]
         return args
 
