@@ -34,7 +34,8 @@ function spack-start() {
   export EXAWIND_MANAGER="$( cd -- "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" >/dev/null 2>&1 ; pwd -P )"
 
   function install_spack_manager(){
-    git submodule update $SPACK_ROOT/../spack-manager
+    export SPACK_ROOT=${EXAWIND_MANAGER}/spack
+    git submodule update ${SPACK_ROOT}/../spack-manager
     spack -E config --scope site add "config:extensions:[${EXAWIND_MANAGER}/spack-manager]"
     spack -E manager add ${EXAWIND_MANAGER}
   }
