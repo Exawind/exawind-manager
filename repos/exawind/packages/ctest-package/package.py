@@ -113,10 +113,14 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
             tty.debug("{} running CTest".format(self.pkg.spec.name))
             tty.debug("Running:: ctest"+" ".join(args))
             ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
-            ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
             ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
             build_env = os.environ.copy()
-            ctest(*args, "-j", str(make_jobs),  env=build_env, fail_on_error=False)
+            # Avoid running GPU tests in parallel due to memory constraints
+            if self.spec.satisfies("+cuda"):
+                ctest(*args, env=build_env, fail_on_error=False)
+            else:
+                ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
+                ctest(*args, "-j", str(make_jobs),  env=build_env, fail_on_error=False)
 
             if self.pkg.spec.variants["cdash_submit"].value:
                 self.submit_cdash(pkg, spec, prefix)
