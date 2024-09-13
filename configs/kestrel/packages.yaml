@@ -11,6 +11,8 @@ packages:
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/10.3
         modules:
           - libfabric/1.15.2.0
+  cuda:
+    require: "@=12.4.1"
   mpi:
     require: "cray-mpich@8.1.28"
   blas:
