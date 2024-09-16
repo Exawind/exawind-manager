@@ -5,8 +5,8 @@ packages:
     buildable: false
     version: [12.1.1]
     externals:
-    - spec: cuda@12.4.0
-      prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/cuda-12.4.0-bwslslabxptjumrxh3r5zhhpxj4jy46i             
+    #- spec: cuda@12.4.0
+    #  prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/cuda-12.4.0-bwslslabxptjumrxh3r5zhhpxj4jy46i             
     - spec: cuda@12.1.1
       prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/cuda-12.1.1-2guqltpcvg7a3qvils5bzxtcjmxrni76
   all:
