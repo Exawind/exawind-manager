@@ -2,13 +2,13 @@ packages:
   perl:
     require: "@5.38.0"
   cuda:
-    buildable: false
-    version: [12.1.1]
-    externals:
+    version: [12.5.1]
+    #buildable: false
+    #externals:
     #- spec: cuda@12.4.0
     #  prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/cuda-12.4.0-bwslslabxptjumrxh3r5zhhpxj4jy46i             
-    - spec: cuda@12.1.1
-      prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/cuda-12.1.1-2guqltpcvg7a3qvils5bzxtcjmxrni76
+    #- spec: cuda@12.1.1
+    #  prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/cuda-12.1.1-2guqltpcvg7a3qvils5bzxtcjmxrni76
   all:
     compiler: [gcc@12.3.0, clang@17.0.6]
     variants: build_type=Release +mpi cuda_arch=80
