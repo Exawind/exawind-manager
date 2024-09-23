@@ -6,6 +6,7 @@ cee:
 ellis:
   - ["amr-wind+cuda%gcc", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/gcc-gpu"]
   - ["nalu-wind+cuda%gcc", "/data/ssd1/home/jrood/exawind/golds/current/nalu-wind/gcc-gpu"]
+  - ["amr-wind+asan%clang", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/clang-cpu-asan"]
   - ["amr-wind%clang", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/clang-cpu"]
   - ["nalu-wind%clang", "/data/ssd1/home/jrood/exawind/golds/current/nalu-wind/clang-cpu"]
   - ["amr-wind%gcc", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/gcc-cpu"]
