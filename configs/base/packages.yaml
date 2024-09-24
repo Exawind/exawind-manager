@@ -17,8 +17,6 @@ packages:
     variants: ~fortran
   tioga:
     version: [develop]
-  boost:
-    version: [1.80.0]
   hypre:
     version: [2.31.0]
     variants: ~fortran
