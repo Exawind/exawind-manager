@@ -13,12 +13,12 @@ compilers:
       extra_rpaths: []
       environment: {}
   - compiler:
-      spec: gcc@12.2.0
+      spec: gcc@12.1.0
       paths:
-        cc: /opt/cray/pe/gcc/12.2.0/bin/gcc
-        cxx: /opt/cray/pe/gcc/12.2.0/bin/g++
-        f77: /opt/cray/pe/gcc/12.2.0/bin/gfortran
-        fc: /opt/cray/pe/gcc/12.2.0/bin/gfortran
+        cc: /opt/rh/gcc-toolset-12/root/bin/gcc
+        cxx: /opt/rh/gcc-toolset-12/root/bin/g++
+        f77: /opt/rh/gcc-toolset-12/root/bin/gfortran
+        fc: /opt/rh/gcc-toolset-12/root/bin/gfortran
       flags: {}
       operating_system: rhel8
       target: x86_64
