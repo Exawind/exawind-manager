@@ -7,7 +7,7 @@ packages:
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/intel/2022.1
         modules:
           - libfabric/1.15.2.0
-      - spec: "cray-mpich@=8.1.28%gcc@12.2.0"
+      - spec: "cray-mpich@=8.1.28%gcc@12.1.0"
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/10.3
         modules:
           - libfabric/1.15.2.0
