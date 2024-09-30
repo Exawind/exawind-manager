@@ -45,4 +45,7 @@ class AmrWind(bAmrWind, CtestPackage):
             cmake_options.append(self.define("MPI_CXX_COMPILER", spec["mpi"].mpicxx))
             cmake_options.append(self.define("MPI_C_COMPILER", spec["mpi"].mpicc))
 
+        if spec.satisfies("+cuda"):
+            cmake_options.append(self.define("CMAKE_CUDA_HOST_COMPILER", env["SPACK_CXX"]))
+
         return cmake_options
