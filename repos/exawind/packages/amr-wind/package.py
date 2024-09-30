@@ -25,6 +25,10 @@ class AmrWind(bAmrWind, CtestPackage):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
 
+        if spec.satisfies("+cuda"):
+            env.set("CUDAHOSTCXX", spack_cxx)
+
+
     def cmake_args(self):
         spec = self.spec
         cmake_options = super(AmrWind, self).cmake_args()
@@ -44,8 +48,5 @@ class AmrWind(bAmrWind, CtestPackage):
         if spec.satisfies("+mpi"):
             cmake_options.append(self.define("MPI_CXX_COMPILER", spec["mpi"].mpicxx))
             cmake_options.append(self.define("MPI_C_COMPILER", spec["mpi"].mpicc))
-
-        if spec.satisfies("+cuda"):
-            cmake_options.append(self.define("CMAKE_CUDA_HOST_COMPILER", env["SPACK_CXX"]))
 
         return cmake_options
