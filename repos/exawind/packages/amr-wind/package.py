@@ -25,6 +25,10 @@ class AmrWind(bAmrWind, CtestPackage):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
 
+        if spec.satisfies("+cuda"):
+            env.set("CUDAHOSTCXX", spack_cxx)
+
+
     def cmake_args(self):
         spec = self.spec
         cmake_options = super(AmrWind, self).cmake_args()
