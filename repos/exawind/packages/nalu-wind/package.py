@@ -48,5 +48,8 @@ class NaluWind(bNaluWind, CtestPackage):
             cmake_options.append(self.define("NALU_WIND_SAVE_GOLDS", True))
             cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", super().saved_golds_dir))
             cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", super().reference_golds_dir))
+            if spec.satisfies("+cuda"):
+                cmake_options.append(self.define("TEST_ABS_TOL", 1.0e-8))
+                cmake_options.append(self.define("TEST_REL_TOL", 1.0e-6))
 
         return cmake_options
