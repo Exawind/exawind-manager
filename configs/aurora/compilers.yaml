@@ -1,17 +1,29 @@
 compilers:
   - compiler:
-      spec: oneapi@2023.2
+      spec: oneapi@2025.0
       paths:
-        cc: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/icx
-        cxx: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/icpx
-        f77: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/ifx
-        fc: /soft/compilers/oneapi/2023.10.15.001/oneapi/compiler/2023.2.0/linux/bin/ifx
+        cc: /opt/aurora/24.180.0/CNDA/oneapi/compiler/eng-20240629/bin/icx
+        cxx: /opt/aurora/24.180.0/CNDA/oneapi/compiler/eng-20240629/bin/icpx
+        f77: /opt/aurora/24.180.0/CNDA/oneapi/compiler/eng-20240629/bin/ifx
+        fc: /opt/aurora/24.180.0/CNDA/oneapi/compiler/eng-20240629/bin/ifx
       flags: {}
       operating_system: sles15
       target: x86_64
       modules:
-        - oneapi/release/2023.10.15.001
+        - oneapi/eng-compiler/2024.07.30.002
+        - intel_compute_runtime/release/950.13
       environment: {}
-        #  set:
-        #  DPLROOT: /lus/gecko/projects/CSC249ADSE13_CNDA/$user/exawind/oneDPL
+      extra_rpaths: []
+  - compiler:
+      spec: gcc@12.2.0
+      paths:
+        cc: /opt/aurora/24.180.0/spack/unified/0.8.0/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-zt4lle2p2egbpjx626cspwd4h7atqgxn/bin/gcc
+        cxx: /opt/aurora/24.180.0/spack/unified/0.8.0/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-zt4lle2p2egbpjx626cspwd4h7atqgxn/bin/g++
+        f77: /opt/aurora/24.180.0/spack/unified/0.8.0/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-zt4lle2p2egbpjx626cspwd4h7atqgxn/bin/gfortran
+        fc: /opt/aurora/24.180.0/spack/unified/0.8.0/install/linux-sles15-x86_64/gcc-12.2.0/gcc-12.2.0-zt4lle2p2egbpjx626cspwd4h7atqgxn/bin/gfortran
+      flags: {}
+      operating_system: sles15
+      target: x86_64
+      modules: []
+      environment: {}
       extra_rpaths: []
