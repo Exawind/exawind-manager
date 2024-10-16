@@ -1,19 +1,17 @@
 packages:
   mpich:
-    require: "@52.2"
+    require: "@20240717"
     buildable: false
     externals:
-      - spec: "mpich@52.2"
-        prefix: /soft/restricted/CNDA/updates/mpich/52.2/mpich-ofi-all-icc-default-pmix-gpu-drop52
+      - spec: "mpich@20240717"
+        prefix: /opt/aurora/24.180.0/CNDA/mpich/20240717/mpich-ofi-all-icc-default-pmix-gpu-drop20240717
         modules:
-          - mpich/52.2/icc-all-pmix-gpu 
-          - libfabric/1.15.2.0
+          - mpich/icc-all-pmix-gpu/20240717
+          - libfabric/1.20.1
+  python:
+    require: "@=3.11.9"
   mpi:
-    require: "mpich@52.2"
-  blas:
-    require: "openblas"
-  lapack:
-    require: "openblas"
+    require: "mpich@20240717"
   all:
-    require:
-      - "%oneapi@2023.2"
+    prefer:
+      - "%oneapi@2025.0"

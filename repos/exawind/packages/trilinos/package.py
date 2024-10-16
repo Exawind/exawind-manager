@@ -21,6 +21,7 @@ class Trilinos(bTrilinos):
     variant("asan", default=False, description="Turn on address sanitizer")
 
     patch("kokkos_zero_length_team.patch", when="@:13.3.0")
+    patch("kokkos-kernels-remove-sort_option.patch", when="@15.1.1")
 
     conflicts("^kokkos+cuda", when="~cuda")
     conflicts("^kokkos+rocm", when="~rocm")
