@@ -17,7 +17,7 @@ packages:
   tioga:
     require: "@=1.2.0"
   hypre:
-    require: "@=2.32.0"
+    require: "@=2.31.0"
   trilinos:
     require: "@=15.1.1"
   openfast:
@@ -58,8 +58,6 @@ packages:
     require: "@=2.2.1"
   gmake:
     require: "@=4.4.1"
-  hypre:
-    require: "@=2.31.0"
   nccmp:
     require: "@=1.9.1.0"
   hdf5:
