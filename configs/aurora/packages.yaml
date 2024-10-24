@@ -21,7 +21,7 @@ packages:
   trilinos:
     require: "@=15.1.1"
   openfast:
-    require: "@=aurora"
+    require: "@=develop"
   python:
     require: "@=3.11.9"
   netcdf-c:
