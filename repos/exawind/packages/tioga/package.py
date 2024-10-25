@@ -10,7 +10,7 @@ from spack.pkg.builtin.tioga import Tioga as bTioga
 from spack.pkg.exawind.ctest_package import *
 
 class Tioga(bTioga, CtestPackage):
-    version("1.2.0", tag="v1.2.0", submodules=True, preferred=True)
+    version("1.2.0", git="https://github.com/Exawind/tioga.git", tag="v1.2.0")
 
     variant("asan", default=False, description="turn on address sanitizer")
 
