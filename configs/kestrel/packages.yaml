@@ -22,4 +22,6 @@ packages:
   lapack:
     require: "openblas"
   all:
+    prefer:
+      - "%oneapi"
     variants: cuda_arch=90
