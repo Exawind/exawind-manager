@@ -11,7 +11,6 @@ from spack.pkg.exawind.ctest_package import *
 
 class AmrWind(bAmrWind, CtestPackage):
     version("main", branch="main", submodules=True, preferred=True)
-    version("3.1.6", tag="v3.1.6", submodules=True)
     version("multiphase", branch="multiphase_dev", submodules=True)
     
     variant("asan", default=False, description="Turn on address sanitizer")
