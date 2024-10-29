@@ -12,11 +12,13 @@ from spack.pkg.exawind.ctest_package import *
 
 class NaluWind(bNaluWind, CtestPackage):
     version("master", branch="master", submodules=True)
+    version("2.1.0", tag="v2.1.0", submodules=True)
+    version("2.0.0", tag="v2.0.0", submodules=True)
 
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("unit-tests", default=True, description="Activate unit tests")
 
-    depends_on("openfast@develop,aurora", when="+fsi")
+    depends_on("openfast@develop", when="+fsi")
 
     requires("+tests", when="+cdash_submit")
 
