@@ -15,7 +15,6 @@ class NaluWind(bNaluWind, CtestPackage):
     variant("unit-tests", default=True, description="Activate unit tests")
 
     depends_on("openfast@develop", when="+fsi")
-    depends_on("trilinos@15.1.1", when="@=2.1.0")
 
     requires("+tests", when="+cdash_submit")
 
