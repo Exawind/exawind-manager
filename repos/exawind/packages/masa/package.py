@@ -18,7 +18,7 @@ class Masa(AutotoolsPackage):
 
     license("LGPL-2.1-or-later")
 
-    version("master", branch="master")
+    version("master", branch="update-python-m4")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
