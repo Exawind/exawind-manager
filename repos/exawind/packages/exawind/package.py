@@ -12,6 +12,9 @@ from spack.pkg.exawind.ctest_package import *
 
 class Exawind(bExawind, CtestPackage):
     version("multiphase", branch="multiphase_dev", submodules=True)
+    version("master", branch="main", submodules=True)
+    version("1.1.0", tag="v1.1.0", submodules=True)
+    version("1.0.0", tag="v1.0.0", submodules=True)
 
     variant("asan", default=False, description="Turn on address sanitizer")
 
