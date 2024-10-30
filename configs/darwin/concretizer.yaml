@@ -1,4 +1,0 @@
-concretizer:
-  reuse: dependencies
-  os_compatible:
-    sonoma: [ ventura ]

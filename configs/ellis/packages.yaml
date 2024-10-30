@@ -5,7 +5,7 @@ packages:
     version: [12.5.1]
   all:
     compiler: [gcc@12.3.0, clang@17.0.6]
-    variants: build_type=Release +mpi cuda_arch=80
+    variants: build_type=Release cuda_arch=80
     target: [zen2]
     providers:
       mpi: [mpich]

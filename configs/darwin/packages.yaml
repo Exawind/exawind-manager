@@ -1,6 +1,8 @@
 packages:
   trilinos:
-    require: "cxxflags='-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'"
+    require:
+      - "cxxflags='-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'"
+      - any_of: ["@=15.1.1", "@=13.4.1.2023.02.28", "@=13.4.0.2022.10.27", "@=develop"]
   nalu-wind:
     require: "cxxflags='-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'"
   hypre:
@@ -14,3 +16,7 @@ packages:
   all:
     require:
       - "%apple-clang"
+    variants: build_type=Release
+    providers:
+      blas: [openblas]
+      lapack: [openblas]

@@ -24,4 +24,7 @@ packages:
   all:
     prefer:
       - "%oneapi"
-    variants: cuda_arch=90
+    variants: build_type=Release cuda_arch=90
+    providers:
+      blas: [openblas]
+      lapack: [openblas]

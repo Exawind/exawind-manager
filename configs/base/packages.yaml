@@ -21,8 +21,3 @@ packages:
     variants: ~adelus~adios2~amesos~amesos2~anasazi~asan+aztec~basker~belos~boost~chaco~complex~dtk~epetra~epetraext~epetraextbtf~epetraextexperimental~epetraextgraphreorderings~float~fortran~hypre~ifpack~ifpack2~intrepid~intrepid2~ipo~isorropia~mesquite~minitensor~ml~muelu~mumps~nox~openmp~panzer~phalanx~piro~python~rol~rythmos~sacado~scorec~shards~shylu~stk_simd~stk_unit_tests~stokhos~stratimikos~strumpack~suite-sparse~superlu~superlu-dist~teko~tempus~test~thyra~trilinoscouplings~x11~zoltan2 generator=ninja
     require:
       - any_of: ["@=15.1.1", "@=13.4.1.2023.02.28", "@=13.4.0.2022.10.27", "@=develop"]
-  all:
-    variants: ~fortran build_type=Release
-    providers:
-      blas: [netlib-lapack]
-      lapack: [netlib-lapack]
