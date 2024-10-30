@@ -1,6 +1,8 @@
 packages:
   perl:
-    require: "@5.38.0"
+    require: "@=5.38.0"
+  py-numpy:
+    require: "@=2.1.2"
   cuda:
     version: [12.5.1]
   all:
