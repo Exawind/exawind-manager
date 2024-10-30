@@ -8,6 +8,7 @@ packages:
   conduit:
     variants: ~fortran~hdf5_compat
   hdf5:
+    require: "@=1.14.3"
     variants: ~fortran+cxx+hl
   masa:
     variants: ~fortran~python
