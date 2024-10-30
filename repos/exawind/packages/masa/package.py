@@ -29,7 +29,7 @@ class Masa(AutotoolsPackage):
 
     depends_on("gettext")
     depends_on("metaphysicl")
-    depends_on("python", when="+python")
+    depends_on("python")
     depends_on("autoconf", type="build")
     depends_on("automake", type="build")
     depends_on("libtool", type="build")
