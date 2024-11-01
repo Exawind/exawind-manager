@@ -7,4 +7,4 @@ spack:
   - exawind~amr_wind_gpu~nalu_wind_gpu~cuda@master %gcc ^nalu-wind+wind-utils@master ^amr-wind@main ^tioga@develop
   - exawind~amr_wind_gpu~nalu_wind_gpu~cuda@master %clang ^nalu-wind+wind-utils@master ^amr-wind@main ^tioga@develop
   - exawind~amr_wind_gpu~nalu_wind_gpu~cuda+asan@master %clang build_type=Debug ^nalu-wind+asan@master build_type=Debug ^amr-wind+asan@main build_type=Debug ^tioga+asan@develop build_type=Debug ^trilinos+asan build_type=Debug ^hypre+debug
-  - exawind+amr_wind_gpu+nalu_wind_gpu+cuda@master cuda_arch=80 %gcc ^nalu-wind@master ^amr-wind@main ^tioga@develop
+  - exawind+amr_wind_gpu+nalu_wind_gpu+cuda@master cuda_arch=80 %gcc ^nalu-wind@master ^amr-wind+hypre@main ^tioga@develop
