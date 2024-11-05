@@ -14,11 +14,17 @@ class Masa(AutotoolsPackage):
     dimensions."""
 
     homepage = "https://github.com/manufactured-solutions/MASA"
-    git = "https://github.com/marchdf/MASA.git"
+    git = "https://github.com/manufactured-solutions/MASA.git"
 
     license("LGPL-2.1-or-later")
 
-    version("master", branch="update-python-m4")
+    version("master", branch="master")
+    version("0.51.0", tag="0.51.0")
+    version("0.50.0", tag="0.50.0")
+    version("0.44.0", tag="0.44.0")
+    version("0.43.1", tag="0.43.1")
+    version("0.43.0", tag="0.43.0")
+    version("0.42.0", tag="0.42.0")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
