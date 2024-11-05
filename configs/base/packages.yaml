@@ -7,7 +7,7 @@ packages:
     variants: +tiny_profile
   conduit:
     variants: ~fortran~hdf5_compat
-  libxlm2:
+  libxml2:
     require: "@=2.10.3"
   hdf5:
     require: "@=1.14.3"
