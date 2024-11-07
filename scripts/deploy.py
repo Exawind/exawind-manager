@@ -81,7 +81,7 @@ class PackageVariantAccumulator:
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
         accumulator = PackageVariantAccumulator()
-        config("add", "config:install_tree:{}".format(
+        config("add", "config:install_tree:root:{}".format(
                spack_path_resolve("$EXAWIND_MANAGER/opt/{}".format(e.name))
                ))
         if args.daily:
