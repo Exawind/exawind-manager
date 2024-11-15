@@ -2,16 +2,16 @@ compilers:
   - compiler:
       spec: clang@18.0.0
       paths:
-        cc: /opt/rocm-6.2.0/bin/amdclang
-        cxx: /opt/rocm-6.2.0/bin/amdclang++
-        f77: /opt/rocm-6.2.0/bin/amdflang
-        fc: /opt/rocm-6.2.0/bin/amdflang
+        cc: /opt/rocm-6.2.4/bin/amdclang
+        cxx: /opt/rocm-6.2.4/bin/amdclang++
+        f77: /opt/rocm-6.2.4/bin/amdflang
+        fc: /opt/rocm-6.2.4/bin/amdflang
       flags: {}
       operating_system: sles15
       target: any
       modules:
         - PrgEnv-amd/8.5.0
-        - amd/6.2.0
+        - amd/6.2.4
         - craype-x86-trento
       extra_rpaths: []
       environment: {}
