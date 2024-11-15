@@ -24,18 +24,6 @@ class AmrWind(bAmrWind, CtestPackage):
 
         if spec.satisfies("+cuda"):
             env.set("CUDAHOSTCXX", spack_cxx)
-        if spec.satisfiles("+gpu-aware-mpi") and find_machine(verbose=False, full_machine_name=False) == "frontier":
-            env.set("MPICH_GPU_SUPPORT_ENABLED", "1")
-
-    def flag_handler(self, name, flags):
-        if find_machine(verbose=False, full_machine_name=False) == "frontier" and name == "cxxflags" and "+gpu-aware-mpi" in self.spec and "+rocm" in self.spec:
-            flags.append("-I" + os.path.join(os.getenv("MPICH_DIR"), "include"))
-            flags.append("-L" + os.path.join(os.getenv("MPICH_DIR"), "lib"))
-            flags.append("-lmpi")
-            flags.append(os.getenv("CRAY_XPMEM_POST_LINK_OPTS"))
-            flags.append("-lxpmem")
-            flags.append(os.getenv("PE_MPICH_GTL_DIR_amd_gfx90a"))
-            flags.append(os.getenv("PE_MPICH_GTL_LIBS_amd_gfx90a"))
 
     def cmake_args(self):
         spec = self.spec
