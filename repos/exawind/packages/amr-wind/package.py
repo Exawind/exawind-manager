@@ -20,11 +20,22 @@ class AmrWind(bAmrWind, CtestPackage):
         super().setup_build_environment(env)
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
-            env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
+            env.set("LSAN_OPTIONS", "verbosity=1:log_threads=1:suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
 
         if spec.satisfies("+cuda"):
             env.set("CUDAHOSTCXX", spack_cxx)
+        if spec.satisfiles("+gpu-aware-mpi") and find_machine(verbose=False, full_machine_name=False) == "frontier":
+            env.set("MPICH_GPU_SUPPORT_ENABLED", "1")
 
+    def flag_handler(self, name, flags):
+        if find_machine(verbose=False, full_machine_name=False) == "frontier" and name == "cxxflags" and "+gpu-aware-mpi" in self.spec and "+rocm" in self.spec:
+            flags.append("-I" + os.path.join(os.getenv("MPICH_DIR"), "include"))
+            flags.append("-L" + os.path.join(os.getenv("MPICH_DIR"), "lib"))
+            flags.append("-lmpi")
+            flags.append(os.getenv("CRAY_XPMEM_POST_LINK_OPTS"))
+            flags.append("-lxpmem")
+            flags.append(os.getenv("PE_MPICH_GTL_DIR_amd_gfx90a"))
+            flags.append(os.getenv("PE_MPICH_GTL_LIBS_amd_gfx90a"))
 
     def cmake_args(self):
         spec = self.spec
