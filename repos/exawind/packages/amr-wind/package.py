@@ -8,6 +8,7 @@
 from spack import *
 from spack.pkg.builtin.amr_wind import AmrWind as bAmrWind
 from spack.pkg.exawind.ctest_package import *
+find_machine = importlib.import_module("find-exawind-manager")
 
 class AmrWind(bAmrWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
@@ -24,6 +25,27 @@ class AmrWind(bAmrWind, CtestPackage):
 
         if spec.satisfies("+cuda"):
             env.set("CUDAHOSTCXX", spack_cxx)
+
+        machine_name, _ = find_machine.get_current_machine()
+        if spec.satisfies("+gpu-aware-mpi+rocm") and machine_name == "frontier":
+            env.set("MPICH_GPU_SUPPORT_ENABLED", "1")
+            env.append_flags("HIPFLAGS", "--amdgpu-target=gfx90a")
+            env.append_flags("HIPFLAGS", "-I" + os.path.join(os.getenv("MPICH_DIR"), "include"))
+            env.append_flags("HIPFLAGS", "-L" + os.path.join(os.getenv("MPICH_DIR"), "lib"))
+            env.append_flags("HIPFLAGS", "-lmpi")
+            env.append_flags("HIPFLAGS", os.getenv("CRAY_XPMEM_POST_LINK_OPTS"))
+            env.append_flags("HIPFLAGS", "-lxpmem")
+            env.append_flags("HIPFLAGS", os.getenv("PE_MPICH_GTL_DIR_amd_gfx90a"))
+            env.append_flags("HIPFLAGS", os.getenv("PE_MPICH_GTL_LIBS_amd_gfx90a"))
+        if spec.satisfies("+gpu-aware-mpi+cuda") and machine_name == "kestrel":
+            env.set("MPICH_GPU_SUPPORT_ENABLED", "1")
+            env.append_flags("CXXFLAGS", "-I" + os.path.join(os.getenv("MPICH_DIR"), "include"))
+            env.append_flags("CXXFLAGS", "-L" + os.path.join(os.getenv("MPICH_DIR"), "lib"))
+            env.append_flags("CXXFLAGS", "-lmpi")
+            env.append_flags("CXXFLAGS", os.getenv("CRAY_XPMEM_POST_LINK_OPTS"))
+            env.append_flags("CXXFLAGS", "-lxpmem")
+            env.append_flags("CXXFLAGS", os.getenv("PE_MPICH_GTL_DIR_nvidia90"))
+            env.append_flags("CXXFLAGS", os.getenv("PE_MPICH_GTL_LIBS_nvidia90"))
 
     def cmake_args(self):
         spec = self.spec
