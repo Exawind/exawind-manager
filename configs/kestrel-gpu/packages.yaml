@@ -19,7 +19,7 @@ packages:
     require: "openblas"
   all:
     prefer:
-      - "%gcc build_type=Relase cuda_arch=90"
+      - "%gcc build_type=Release cuda_arch=90"
     providers:
       blas: [openblas]
       lapack: [openblas]
