@@ -61,11 +61,12 @@ machine_list = {
     "cee": MachineData(lambda: is_cee(socket.gethostname()), "cee.snl.gov"),
     "cts-1": MachineData(lambda: is_cts_1(socket.gethostname()), "cts-1.snl.gov"),
     # NREL
-    "kestrel": MachineData(
-        lambda: os.environ["NREL_CLUSTER"] == "kestrel", "kestrel.hpc.nrel.gov"
+    "kestrel-cpu": MachineData(
+        lambda: (os.environ["NREL_CLUSTER"] == "kestrel" and os.environ["CRAY_CPU_TARGET"] == "x86-spr"), "kestrel-cpu.hpc.nrel.gov"
     ),
-    "eagle": MachineData(lambda: os.environ["NREL_CLUSTER"] == "eagle", "eagle.hpc.nrel.gov"),
-    "rhodes": MachineData(lambda: os.environ["NREL_CLUSTER"] == "rhodes", "rhodes.hpc.nrel.gov"),
+    "kestrel-gpu": MachineData(
+        lambda: (os.environ["NREL_CLUSTER"] == "kestrel" and os.environ["CRAY_CPU_TARGET"] == "x86-genoa"), "kestrel-gpu.hpc.nrel.gov"
+    ),
     "ellis": MachineData(lambda: os.environ["NREL_CLUSTER"] == "ellis", "ellis.hpc.nrel.gov"),
     # OLCF
     "summit": MachineData(

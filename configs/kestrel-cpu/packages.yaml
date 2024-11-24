@@ -23,8 +23,7 @@ packages:
     require: "openblas"
   all:
     prefer:
-      - "%oneapi"
-    variants: build_type=Release cuda_arch=90
+      - "%oneapi build_type=Release"
     providers:
       blas: [openblas]
       lapack: [openblas]
