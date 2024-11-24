@@ -1,0 +1,9 @@
+spack:
+  concretizer:
+    unify: false
+    reuse: false 
+  view: false
+  specs:
+    - 'exawind~amr_wind_gpu~nalu_wind_gpu~cuda'
+    - 'exawind+amr_wind_gpu~nalu_wind_gpu+cuda cuda_arch=90'
+    - 'exawind+amr_wind_gpu+nalu_wind_gpu+cuda cuda_arch=90'
