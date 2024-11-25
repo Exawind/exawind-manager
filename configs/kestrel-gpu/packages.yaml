@@ -14,12 +14,9 @@ packages:
   mpi:
     require: "cray-mpich@8.1.28"
   blas:
-    require: "openblas"
+    require: "netlib-lapack"
   lapack:
-    require: "openblas"
+    require: "netlib-lapack"
   all:
     prefer:
-      - "%gcc build_type=Release cuda_arch=90"
-    providers:
-      blas: [openblas]
-      lapack: [openblas]
+      - "%gcc build_type=Release"
