@@ -16,6 +16,13 @@ class AmrWind(bAmrWind, CtestPackage):
 
     requires("+tests", when="+cdash_submit")
 
+    def setup_dependent_run_environment(self, env, dependent_spec):
+        spec = self.spec
+        # Temporarily turn on launch blocking for testing
+        if spec.satisfies("+cuda") or spec.satisfies("+rocm"):
+            env.set("CUDA_LAUNCH_BLOCKING", "1")
+            env.set("HIP_LAUNCH_BLOCKING", "1")
+
     def setup_build_environment(self, env):
         spec = self.spec
         super().setup_build_environment(env)
