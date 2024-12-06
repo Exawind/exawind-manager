@@ -16,12 +16,8 @@ class AmrWind(bAmrWind, CtestPackage):
 
     requires("+tests", when="+cdash_submit")
 
-    def setup_dependent_run_environment(self, env, dependent_spec):
-        spec = self.spec
-        # Temporarily turn on launch blocking for testing
-        if spec.satisfies("+cuda") or spec.satisfies("+rocm"):
-            env.set("CUDA_LAUNCH_BLOCKING", "1")
-            env.set("HIP_LAUNCH_BLOCKING", "1")
+    def setup_run_environment(self, env):
+        env.set("CUDA_LAUNCH_BLOCKING", "1")
 
     def setup_build_environment(self, env):
         spec = self.spec
@@ -32,6 +28,7 @@ class AmrWind(bAmrWind, CtestPackage):
 
         if spec.satisfies("+cuda"):
             env.set("CUDAHOSTCXX", spack_cxx)
+            env.set("CUDA_LAUNCH_BLOCKING", "1")
 
         machine_name, _ = find_machine.get_current_machine()
         if spec.satisfies("+gpu-aware-mpi+rocm") and machine_name == "frontier":
