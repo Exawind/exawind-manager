@@ -28,7 +28,7 @@ class HypreMiniApp(CMakePackage, CudaPackage, ROCmPackage):
 
     depends_on("mpi")
     depends_on("hypre+mpi@2.20.0:")
-    depends_on("yaml-cpp@0.6.2:")
+    depends_on("yaml-cpp@0.6.2:0.7.0")
     depends_on("hypre+umpire", when="+umpire")
     depends_on("hypre+unified-memory", when="+unified-memory")
     depends_on("hypre+gpu-aware-mpi", when="+gpu-aware-mpi")
