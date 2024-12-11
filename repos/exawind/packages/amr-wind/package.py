@@ -16,9 +16,6 @@ class AmrWind(bAmrWind, CtestPackage):
 
     requires("+tests", when="+cdash_submit")
 
-    def setup_run_environment(self, env):
-        env.set("CUDA_LAUNCH_BLOCKING", "1")
-
     def setup_build_environment(self, env):
         spec = self.spec
         super().setup_build_environment(env)
@@ -28,7 +25,6 @@ class AmrWind(bAmrWind, CtestPackage):
 
         if spec.satisfies("+cuda"):
             env.set("CUDAHOSTCXX", spack_cxx)
-            env.set("CUDA_LAUNCH_BLOCKING", "1")
 
         machine_name, _ = find_machine.get_current_machine()
         if spec.satisfies("+gpu-aware-mpi+rocm") and machine_name == "frontier":
