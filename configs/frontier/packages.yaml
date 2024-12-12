@@ -82,5 +82,5 @@ packages:
     require: "cray-mpich@8.1.28"
   all:
     require:
-      - "%clang@18.0.0"
+      - "%clang@17.0.0"
     variants: amdgpu_target=gfx90a
