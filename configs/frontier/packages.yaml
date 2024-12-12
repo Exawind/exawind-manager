@@ -12,67 +12,67 @@ packages:
           - cray-pmi/6.1.13
           - xpmem/2.8.4-1.0_7.3__ga37cbd9.shasta
   rocprim:
-    require: "@6.2.4"
+    require: "@6.1.3"
     buildable: false
     externals:
-      - spec: rocprim@6.2.4
-        prefix: /opt/rocm-6.2.4
+      - spec: rocprim@6.1.3
+        prefix: /opt/rocm-6.1.3
         modules:
-          - rocm/6.2.4
+          - rocm/6.1.3
           - craype-accel-amd-gfx90a
   rocrand:
-    require: "@6.2.4"
+    require: "@6.1.3"
     buildable: false
     externals:
-      - spec: rocrand@6.2.4
-        prefix: /opt/rocm-6.2.4
+      - spec: rocrand@6.1.3
+        prefix: /opt/rocm-6.1.3
         modules:
-          - rocm/6.2.4
+          - rocm/6.1.3
           - craype-accel-amd-gfx90a
   rocthrust:
-    require: "@6.2.4"
+    require: "@6.1.3"
     buildable: false
     externals:
-      - spec: rocthrust@6.2.4
-        prefix: /opt/rocm-6.2.4
+      - spec: rocthrust@6.1.3
+        prefix: /opt/rocm-6.1.3
         modules:
-          - rocm/6.2.4
+          - rocm/6.1.3
           - craype-accel-amd-gfx90a
   rocsparse:
-    require: "@6.2.4"
+    require: "@6.1.3"
     buildable: false
     externals:
-      - spec: rocsparse@6.2.4
-        prefix: /opt/rocm-6.2.4
+      - spec: rocsparse@6.1.3
+        prefix: /opt/rocm-6.1.3
         modules:
-          - rocm/6.2.4
+          - rocm/6.1.3
           - craype-accel-amd-gfx90a
   hip:
-    require: "@6.2.4"
+    require: "@6.1.3"
     buildable: false
     externals:
-      - spec: hip@6.2.4
-        prefix: /opt/rocm-6.2.4
+      - spec: hip@6.1.3
+        prefix: /opt/rocm-6.1.3
         modules:
-          - rocm/6.2.4
+          - rocm/6.1.3
           - craype-accel-amd-gfx90a
   hsa-rocr-dev:
-    require: "@6.2.4"
+    require: "@6.1.3"
     buildable: false
     externals:
-      - spec: hsa-rocr-dev@6.2.4
-        prefix: /opt/rocm-6.2.4
+      - spec: hsa-rocr-dev@6.1.3
+        prefix: /opt/rocm-6.1.3
         modules:
-          - rocm/6.2.4
+          - rocm/6.1.3
           - craype-accel-amd-gfx90a
   llvm-amdgpu:
-    require: "@6.2.4"
+    require: "@6.1.3"
     buildable: false
     externals:
-      - spec: llvm-amdgpu@6.2.4
-        prefix: /opt/rocm-6.2.4/llvm
+      - spec: llvm-amdgpu@6.1.3
+        prefix: /opt/rocm-6.1.3/llvm
         modules:
-          - rocm/6.2.4
+          - rocm/6.1.3
           - craype-accel-amd-gfx90a
   python:
     require: "~ssl"
