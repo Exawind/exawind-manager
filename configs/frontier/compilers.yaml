@@ -1,6 +1,6 @@
 compilers:
   - compiler:
-      spec: clang@18.0.0
+      spec: clang@17.0.0
       paths:
         cc: /opt/rocm-6.1.3/bin/amdclang
         cxx: /opt/rocm-6.1.3/bin/amdclang++
