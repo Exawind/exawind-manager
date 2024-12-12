@@ -3,7 +3,7 @@ packages:
     require: "@8.1.28"
     buildable: false
     externals:
-      - spec: "cray-mpich@8.1.28%clang@18.0.0"
+      - spec: "cray-mpich@8.1.28%clang@17.0.0"
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/amd/5.0
         modules:
           - cray-mpich/8.1.28
