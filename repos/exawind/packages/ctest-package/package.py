@@ -14,11 +14,11 @@ import time
 
 import llnl.util.filesystem as fs
 
-import spack.builder
+import spack.phase_callbacks
 import spack.build_systems.cmake
 import spack.util.log_parse
 
-from spack.builder import run_after
+from spack.phase_callbacks import run_after
 from spack.directives import depends_on, variant, requires
 from spack.package import CMakePackage
 find_machine = importlib.import_module("find-exawind-manager")
