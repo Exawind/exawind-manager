@@ -7,6 +7,7 @@
 
 import os
 from spack import *
+from spack.package import *
 from spack.pkg.builtin.cuda import Cuda as bCuda
 
 

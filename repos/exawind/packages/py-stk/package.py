@@ -6,6 +6,7 @@
 # for more details.
 
 from spack import *
+from spack.package import *
 
 
 class PyStk(PythonPackage):
