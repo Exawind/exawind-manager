@@ -5,6 +5,7 @@
 # This software is released under the BSD 3-clause license. See LICENSE file
 # for more details.
 
+from spack import *
 from spack.pkg.builtin.openfast import Openfast as bOpenfast
 
 class Openfast(bOpenfast):
