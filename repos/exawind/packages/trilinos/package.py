@@ -26,7 +26,25 @@ class Trilinos(bTrilinos):
     patch("kokkos-kernels-remove-sort_option.patch", when="@15.1.1")
     patch("stk_mesh_ngpfield_template.patch", when="@16.0.1")
 
-    depends_on("kokkos@4.4.01", when="@16.0.1")
+    # External Kokkos
+    with when("@14.4: +kokkos"):
+        depends_on("kokkos+wrapper", when="+wrapper")
+        depends_on("kokkos~wrapper", when="~wrapper")
+        depends_on("kokkos~complex_align")
+        depends_on("kokkos@4.4.01", when="@16:")
+        depends_on("kokkos@4.2.01", when="@15.1:15")
+        depends_on("kokkos@4.1.00", when="@14.4:15.0")
+        depends_on("kokkos-kernels@4.5.00", when="@master:")
+        depends_on("kokkos-kernels@4.3.01", when="@16")
+        depends_on("kokkos-kernels@4.2.01", when="@15.1:15")
+        depends_on("kokkos-kernels@4.1.00", when="@15.0")
+
+        for a in CudaPackage.cuda_arch_values:
+            arch_str = f"+cuda cuda_arch={a}"
+            depends_on(f"kokkos{arch_str}", when=arch_str)
+        for a in ROCmPackage.amdgpu_targets:
+            arch_str = f"+rocm amdgpu_target={a}"
+            depends_on(f"kokkos{arch_str}", when=arch_str)
 
     conflicts("^kokkos+cuda", when="~cuda")
     conflicts("^kokkos+rocm", when="~rocm")
