@@ -108,7 +108,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         and auxilary python lib
         """
 
-        with working_dir(self.build_directory):
+        with fs.working_dir(self.build_directory):
             args = self.ctest_args()
             tty.debug("{} running CTest".format(self.pkg.spec.name))
             tty.debug("Running:: ctest"+" ".join(args))
