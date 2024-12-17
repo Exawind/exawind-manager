@@ -15,7 +15,7 @@ class Trilinos(bTrilinos):
     # this preserves the Trilinos versioning scheme and will allow for valid
     # version comparisons in spack's internals.
 
-    version("16.0.1", commit="76e401dbc71e6dcb612f9b16584e0ec67dc9e645")
+    version("develop", commit="436ce065b6e3c37acc3f5db6807a9cdf9807c78f")
     version("13.4.1.2023.02.28", commit="8b3e2e1db4c7e07db13225c73057230c4814706f")
     version("13.4.0.2022.10.27", commit="da54d929ea62e78ba8e19c7d5aa83dc1e1f767c1")
     version("13.2.0.2022.06.05", commit="7498bcb9b0392c830b83787f3fb0c17079431f06")
@@ -24,7 +24,6 @@ class Trilinos(bTrilinos):
 
     patch("kokkos_zero_length_team.patch", when="@:13.3.0")
     patch("kokkos-kernels-remove-sort_option.patch", when="@15.1.1")
-    patch("stk_mesh_ngpfield_template.patch", when="@16.0.1")
 
     depends_on("kokkos+cuda_relocatable_device_code~shared", when="+cuda_rdc")
     depends_on("kokkos-kernels~shared", when="+cuda_rdc")
