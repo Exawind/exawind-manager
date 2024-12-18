@@ -25,9 +25,6 @@ class Trilinos(bTrilinos):
     patch("kokkos_zero_length_team.patch", when="@:13.3.0")
     patch("kokkos-kernels-remove-sort_option.patch", when="@15.1.1")
 
-    depends_on("kokkos+cuda_relocatable_device_code~shared", when="+cuda_rdc")
-    depends_on("kokkos-kernels~shared", when="+cuda_rdc")
-
     conflicts("^kokkos+cuda", when="~cuda")
     conflicts("^kokkos+rocm", when="~rocm")
 
