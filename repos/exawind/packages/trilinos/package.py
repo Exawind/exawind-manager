@@ -24,6 +24,7 @@ class Trilinos(bTrilinos):
 
     patch("kokkos_zero_length_team.patch", when="@:13.3.0")
     patch("kokkos-kernels-remove-sort_option.patch", when="@15.1.1")
+    patch("stk_mesh_ngpfield_template.patch", when="@develop")
 
     conflicts("^kokkos+cuda", when="~cuda")
     conflicts("^kokkos+rocm", when="~rocm")
