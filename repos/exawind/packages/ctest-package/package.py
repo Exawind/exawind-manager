@@ -19,7 +19,7 @@ import spack.build_systems.cmake
 import spack.util.log_parse
 
 from spack.phase_callbacks import run_after
-from spack.directives import depends_on, variant, requires
+from spack.directives import variant, requires
 from spack.package import CMakePackage
 from spack.package import Executable
 find_machine = importlib.import_module("find-exawind-manager")
@@ -31,20 +31,18 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
     def std_cmake_args(self):
         args = super().std_cmake_args
         if self.spec.variants["cdash_submit"].value:
+            spec_string = find_machine.cdash_build_name(self.pkg.spec)
+            trunc_spec_string = spec_string[:spec_string.index("ctest_args") + len("ctest_args")]
             args.extend([
-                        "-D",
-                        "BUILDNAME={}".format(find_machine.cdash_build_name(self.pkg.spec)),
-                        "-D",
-                        f"CTEST_BUILD_OPTIONS={self.pkg.spec.short_spec}",
-                        "-D",
-                        "SITE={}".format(find_machine.cdash_host_name()),
+                        f"-DBUILDNAME={trunc_spec_string}",
+                        "-DSITE={}".format(find_machine.cdash_host_name()),
             ])
         return args
 
     def ctest_args(self):
         args = ["-T", "Test"]
         args.append("--stop-time")
-        overall_test_timeout=60*60*4 # 4 hours
+        overall_test_timeout=60*60*8 # 8 hours
         args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
         args.append("-VV")
         extra_args = self.pkg.spec.variants["ctest_args"].value
@@ -78,7 +76,6 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
 
     def submit_cdash(self, pkg, spec, prefix):
         ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
-        ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
         build_env = os.environ.copy()
         ctest(*self.submit_args, env = build_env)
 
@@ -114,21 +111,17 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
             tty.debug("{} running CTest".format(self.pkg.spec.name))
             tty.debug("Running:: ctest"+" ".join(args))
             ctest = Executable(self.spec["cmake"].prefix.bin.ctest)
-            ctest.add_default_env("CMAKE_BUILD_PARALLEL_LEVEL", str(make_jobs))
             build_env = os.environ.copy()
             # Avoid running GPU tests in parallel due to memory constraints
-            if self.spec.satisfies("+cuda"):
-                ctest(*args, env=build_env, fail_on_error=False)
-            else:
+            if not self.spec.satisfies("+cuda"):
                 ctest.add_default_env("CTEST_PARALLEL_LEVEL", str(make_jobs))
-                ctest(*args, "-j", str(make_jobs),  env=build_env, fail_on_error=False)
+            ctest(*args, env=build_env, fail_on_error=False)
 
             if self.pkg.spec.variants["cdash_submit"].value:
                 self.submit_cdash(pkg, spec, prefix)
 
 
 class CtestPackage(CMakePackage):
-
     CMakeBuilder = CTestBuilder
     variant("cdash_submit", default=False, description="Submit results to cdash")
     variant("ninja", default=False, description="Shortcut for generator=ninja")
