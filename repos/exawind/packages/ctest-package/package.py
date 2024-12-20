@@ -32,7 +32,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         args = super().std_cmake_args
         if self.spec.variants["cdash_submit"].value:
             spec_string = find_machine.cdash_build_name(self.pkg.spec)
-            trunc_spec_string = spec_string[:spec_string.index("ctest_args") + len("ctest_args")]
+            trunc_spec_string = spec_string[:spec_string.index("ctest_args")]
             args.extend([
                         f"-DBUILDNAME={trunc_spec_string}",
                         "-DSITE={}".format(find_machine.cdash_host_name()),
