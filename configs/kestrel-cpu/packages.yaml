@@ -21,4 +21,5 @@ packages:
     require: "netlib-lapack"
   all:
     prefer:
-      - "%oneapi build_type=Release"
+      - "%oneapi"
+      - "build_type=Release"

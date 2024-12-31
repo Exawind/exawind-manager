@@ -19,4 +19,5 @@ packages:
     require: "netlib-lapack"
   all:
     prefer:
-      - "%gcc build_type=Release"
+      - "%gcc"
+      - "build_type=Release"
