@@ -15,6 +15,9 @@ class AmrWind(bAmrWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
 
+    depends_on("py-netcdf4", when="+netcdf")
+    depends_on("py-numpy", when="+netcdf")
+
     requires("+tests", when="+cdash_submit")
 
     def setup_build_environment(self, env):
