@@ -21,3 +21,4 @@ packages:
     prefer:
       - "%gcc"
       - "build_type=Release"
+      - "cuda_arch=90"
