@@ -15,7 +15,7 @@ class Trilinos(bTrilinos):
     # this preserves the Trilinos versioning scheme and will allow for valid
     # version comparisons in spack's internals.
 
-    version("develop", commit="436ce065b6e3c37acc3f5db6807a9cdf9807c78f")
+    version("develop", commit="6719dbe87b47abbe69f96fa6a40a0892931a9983")
     version("13.4.1.2023.02.28", commit="8b3e2e1db4c7e07db13225c73057230c4814706f")
     version("13.4.0.2022.10.27", commit="da54d929ea62e78ba8e19c7d5aa83dc1e1f767c1")
     version("13.2.0.2022.06.05", commit="7498bcb9b0392c830b83787f3fb0c17079431f06")
