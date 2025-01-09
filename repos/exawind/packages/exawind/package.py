@@ -13,16 +13,26 @@ find_machine = importlib.import_module("find-exawind-manager")
 
 class Exawind(bExawind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
+    variant("tests", default=False, description="Activate regression tests")
+
+    requires("+tests", when="+cdash_submit")
 
     def cmake_args(self):
         spec = self.spec
-
-        args = super(Exawind, self).cmake_args()
+        cmake_options = super(Exawind, self).cmake_args()
 
         if spec.satisfies("dev_path=*"):
-            args.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
+            cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
 
-        return args
+        cmake_options += [self.define_from_variant("EXAWIND_ENABLE_TESTS", "tests")]
+        if spec.satisfies("+tests"):
+            cmake_options.append(self.define("EXAWIND_TEST_WITH_FCOMPARE", True))
+            cmake_options.append(self.define("EXAWIND_SAVE_GOLDS", True))
+            cmake_options.append(self.define("EXAWIND_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
+            cmake_options.append(self.define("EXAWIND_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
+            cmake_options.append(self.define("FCOMPARE_EXE", join_path(spec["amr-wind"].prefix.bin, "amrex_fcompare")))
+
+        return cmake_options
 
     def setup_build_environment(self, env):
         spec = self.spec
