@@ -8,6 +8,7 @@ ellis:
   - ["nalu-wind+cuda%gcc", "/data/ssd1/home/jrood/exawind/golds/current/nalu-wind/gcc-gpu"]
   - ["exawind+cuda%gcc", "/data/ssd1/home/jrood/exawind/golds/current/exawind/gcc-gpu"]
   - ["amr-wind+asan%clang", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/clang-cpu-asan"]
+  - ["nalu-wind+asan%clang", "/data/ssd1/home/jrood/exawind/golds/current/nalu-wind/clang-cpu-asan"]
   - ["exawind+asan%clang", "/data/ssd1/home/jrood/exawind/golds/current/exawind/clang-cpu-asan"]
   - ["amr-wind%clang", "/data/ssd1/home/jrood/exawind/golds/current/amr-wind/clang-cpu"]
   - ["nalu-wind%clang", "/data/ssd1/home/jrood/exawind/golds/current/nalu-wind/clang-cpu"]
