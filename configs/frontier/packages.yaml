@@ -1,16 +1,16 @@
 packages:
   cray-mpich:
-    require: "@8.1.27"
+    require: "@8.1.28"
     buildable: false
     externals:
-      - spec: "cray-mpich@8.1.27%clang@17.0.0"
-        prefix: /opt/cray/pe/mpich/8.1.27/ofi/amd/5.0
+      - spec: "cray-mpich@8.1.28%clang@17.0.0"
+        prefix: /opt/cray/pe/mpich/8.1.28/ofi/amd/5.0
         modules:
-          - cray-mpich/8.1.27
+          - cray-mpich/8.1.28
           - craype-network-ofi
-          - libfabric/1.15.2.0
-          - cray-pmi/6.1.8
-          - xpmem/2.6.2-2.5_2.22__gd067c3f.shasta
+          - libfabric/1.20.1
+          - cray-pmi/6.1.13
+          - xpmem/2.8.4-1.0_7.3__ga37cbd9.shasta
   rocprim:
     require: "@6.1.3"
     buildable: false
@@ -79,7 +79,9 @@ packages:
   nalu-wind:
     require: "~trilinos-solvers"
   mpi:
-    require: "cray-mpich@8.1.27"
+    require: "cray-mpich@8.1.28"
+  openfast:
+    require: "~shared"
   all:
     require:
       - "%clang@17.0.0"
