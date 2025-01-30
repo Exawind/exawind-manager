@@ -80,8 +80,6 @@ packages:
     require: "~trilinos-solvers"
   mpi:
     require: "cray-mpich@8.1.28"
-  openfast:
-    require: "~shared"
   all:
     require:
       - "%clang@17.0.0"
