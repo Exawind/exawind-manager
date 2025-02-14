@@ -11,6 +11,8 @@ from spack.pkg.builtin.tioga import Tioga as bTioga
 from spack.pkg.exawind.ctest_package import *
 
 class Tioga(bTioga, CtestPackage):
+    version("1.3.0", git="https://github.com/Exawind/tioga.git", tag="v1.3.0")
+
     variant("asan", default=False, description="turn on address sanitizer")
 
     def cmake_args(self):
