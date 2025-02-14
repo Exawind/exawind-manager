@@ -15,7 +15,7 @@ class NaluWind(bNaluWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("unit-tests", default=True, description="Activate unit tests")
 
-    depends_on("openfast@4.0.0", when="+fsi")
+    depends_on("openfast@4.0.2", when="+fsi")
 
     requires("+tests", when="+cdash_submit")
 
