@@ -12,3 +12,16 @@ compilers:
       modules: []
       extra_rpaths: []
       environment: {}
+  - compiler:
+      spec: gcc@13.3.0
+      paths:
+        cc: /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: /usr/bin/gfortan
+        fc: /usr/bin/gfortran
+      flags: {}
+      operating_system: ubuntu24.04
+      target: any
+      modules: []
+      extra_rpaths: []
+      environment: {}
