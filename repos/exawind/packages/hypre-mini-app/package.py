@@ -26,9 +26,11 @@ class HypreMiniApp(CMakePackage, CudaPackage, ROCmPackage):
     variant("gpu-aware-mpi", default=False, description="gpu-aware-mpi")
     variant("rocblas", default=False, description="use rocblas")
     variant("cublas", default=False, description="use cublas")
+    variant("mpi", default=False, description="use MPI")
 
-    depends_on("mpi")
-    depends_on("hypre+mpi@2.20.0:")
+    depends_on("mpi", when="+mpi")
+    depends_on("hypre@2.20.0:")
+    depends_on("hypre+mpi", when="+mpi")
     depends_on("yaml-cpp@0.6.2:0.7.0")
     depends_on("hypre+umpire", when="+umpire")
     depends_on("hypre+unified-memory", when="+unified-memory")
