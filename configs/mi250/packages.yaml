@@ -46,8 +46,6 @@ packages:
   nalu-wind:
     require: "~trilinos-solvers"
   all:
-    require:
-      - "%clang@18.0.0"
     prefer:
-      - "~mpi"
+      - "%clang@18.0.0"
     variants: amdgpu_target=gfx90a
