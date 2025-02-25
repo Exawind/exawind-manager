@@ -7,7 +7,7 @@ compilers:
         f77: /opt/rocm-6.2.4/flang
         fc: /opt/rocm-6.2.4/flang
       flags: {}
-      operating_system: ubuntu
+      operating_system: ubuntu24.04
       target: any
       modules: []
       extra_rpaths: []
