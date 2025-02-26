@@ -68,6 +68,7 @@ machine_list = {
         lambda: (os.environ["NREL_CLUSTER"] == "kestrel" and os.environ["CRAY_CPU_TARGET"] == "x86-genoa"), "kestrel-gpu.hpc.nrel.gov"
     ),
     "ellis": MachineData(lambda: os.environ["NREL_CLUSTER"] == "ellis", "ellis.hpc.nrel.gov"),
+    "mi250": MachineData(lambda: "mi250" in socket.getfqdn(), "mi250-test.hpc.nrel.gov"),
     # OLCF
     "summit": MachineData(
         lambda: os.environ["LMOD_SYSTEM_NAME"] == "summit", "summit.olcf.ornl.gov"

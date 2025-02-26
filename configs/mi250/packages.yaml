@@ -1,0 +1,29 @@
+packages:
+  rocprim:
+    require: "@6.2.4"
+  rocrand:
+    require: "@6.2.4"
+  rocthrust:
+    require: "@6.2.4"
+  rocsparse:
+    require: "@6.2.4"
+  hip:
+    require: "@6.2.4"
+  hsa-rocr-dev:
+    require: "@6.2.4"
+  llvm-amdgpu:
+    require: "@6.2.4"
+  python:
+    require: "~ssl"
+  nalu-wind:
+    require: "~trilinos-solvers"
+  mpi:
+    require: "mpich"
+  blas:
+    require: "netlib-lapack"
+  lapack:
+    require: "netlib-lapack"
+  all:
+    prefer:
+      - "%clang@18.0.0"
+    variants: amdgpu_target=gfx90a
