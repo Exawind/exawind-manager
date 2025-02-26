@@ -2,13 +2,13 @@ compilers:
   - compiler:
       spec: clang@18.0.0
       paths:
-        cc: /opt/rocm-6.2.4/clang
-        cxx: /opt/rocm-6.2.4/clang++
-        f77: /opt/rocm-6.2.4/flang
-        fc: /opt/rocm-6.2.4/flang
+        cc: /opt/rocm/llvm/bin/clang
+        cxx: /opt/rocm/llvm/bin/clang++
+        f77: /opt/rocm/llvm/bin/flang
+        fc: /opt/rocm/llvm/bin/flang
       flags: {}
       operating_system: ubuntu24.04
-      target: any
+      target: x86_64
       modules: []
       extra_rpaths: []
       environment: {}
@@ -21,7 +21,7 @@ compilers:
         fc: /usr/bin/gfortran
       flags: {}
       operating_system: ubuntu24.04
-      target: any
+      target: x86_64
       modules: []
       extra_rpaths: []
       environment: {}

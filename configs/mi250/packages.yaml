@@ -1,50 +1,28 @@
 packages:
   rocprim:
     require: "@6.2.4"
-    buildable: false
-    externals:
-      - spec: rocprim@6.2.4
-        prefix: /opt/rocm-6.2.4
   rocrand:
     require: "@6.2.4"
-    buildable: false
-    externals:
-      - spec: rocrand@6.2.4
-        prefix: /opt/rocm-6.2.4
   rocthrust:
     require: "@6.2.4"
-    buildable: false
-    externals:
-      - spec: rocthrust@6.2.4
-        prefix: /opt/rocm-6.2.4
   rocsparse:
     require: "@6.2.4"
-    buildable: false
-    externals:
-      - spec: rocsparse@6.2.4
-        prefix: /opt/rocm-6.2.4
   hip:
     require: "@6.2.4"
-    buildable: false
-    externals:
-      - spec: hip@6.2.4
-        prefix: /opt/rocm-6.2.4
   hsa-rocr-dev:
     require: "@6.2.4"
-    buildable: false
-    externals:
-      - spec: hsa-rocr-dev@6.2.4
-        prefix: /opt/rocm-6.2.4
   llvm-amdgpu:
     require: "@6.2.4"
-    buildable: false
-    externals:
-      - spec: llvm-amdgpu@6.2.4
-        prefix: /opt/rocm-6.2.4/llvm
   python:
     require: "~ssl"
   nalu-wind:
     require: "~trilinos-solvers"
+  mpi:
+    require: "mpich"
+  blas:
+    require: "netlib-lapack"
+  lapack:
+    require: "netlib-lapack"
   all:
     prefer:
       - "%clang@18.0.0"
