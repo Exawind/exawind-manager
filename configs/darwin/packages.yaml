@@ -8,4 +8,5 @@ packages:
   all:
     require:
       - "%apple-clang"
-    variants: build_type=Release
+    prefer:
+      - "build_type=Release"
