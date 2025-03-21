@@ -12,7 +12,7 @@ from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
 class Trilinos(bTrilinos):
     variant("asan", default=False, description="Turn on address sanitizer")
 
-    patch("stk_mesh_ngpfield_template.patch", when="@develop")
+    #patch("stk_mesh_ngpfield_template.patch", when="@develop")
 
     def setup_build_environment(self, env):
         spec = self.spec
