@@ -15,9 +15,6 @@ class AmrWind(bAmrWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
 
-    depends_on("py-netcdf4", when="+netcdf")
-    depends_on("py-numpy", when="+netcdf")
-
     requires("+tests", when="+cdash_submit")
 
     def setup_build_environment(self, env):
@@ -26,9 +23,6 @@ class AmrWind(bAmrWind, CtestPackage):
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "verbosity=1:log_threads=1:suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
-
-        if spec.satisfies("+cuda"):
-            env.set("CUDAHOSTCXX", spack_cxx)
 
         machine_name, _ = find_machine.get_current_machine()
         if spec.satisfies("+gpu-aware-mpi+rocm") and machine_name == "frontier":
@@ -63,9 +57,5 @@ class AmrWind(bAmrWind, CtestPackage):
             cmake_options.append(self.define("AMR_WIND_SAVE_GOLDS", True))
             cmake_options.append(self.define("AMR_WIND_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
             cmake_options.append(self.define("AMR_WIND_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
-
-        if spec.satisfies("+mpi"):
-            cmake_options.append(self.define("MPI_CXX_COMPILER", spec["mpi"].mpicxx))
-            cmake_options.append(self.define("MPI_C_COMPILER", spec["mpi"].mpicc))
 
         return cmake_options

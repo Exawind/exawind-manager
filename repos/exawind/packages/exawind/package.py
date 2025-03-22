@@ -12,8 +12,6 @@ from spack.pkg.exawind.ctest_package import *
 find_machine = importlib.import_module("find-exawind-manager")
 
 class Exawind(bExawind, CtestPackage):
-    version("1.2.0", tag="v1.2.0", submodules=True)
-
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("tests", default=False, description="Activate regression tests")
 
