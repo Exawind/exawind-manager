@@ -11,7 +11,7 @@ from spack.pkg.builtin.tioga import Tioga as bTioga
 from spack.pkg.exawind.ctest_package import *
 
 class Tioga(bTioga, CtestPackage):
-    variant("asan", default=False, description="turn on address sanitizer")
+    variant("asan", default=False, description="Turn on address sanitizer")
 
     def cmake_args(self):
         spec = self.spec
