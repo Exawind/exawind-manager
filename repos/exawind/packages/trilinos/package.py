@@ -19,3 +19,12 @@ class Trilinos(bTrilinos):
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "verbosity=1:log_threads=1:suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
+
+    def cmake_args(self):
+        spec = self.spec
+        cmake_options = super().cmake_args()
+        if spec.satisfies("+stk platform=darwin"):
+            cmake_options.append(self.define("STK_HAVE_FP_EXCEPT", False))
+            cmake_options.append(self.define("STK_HAVE_FP_ERRNO", False))
+
+        return cmake_options
