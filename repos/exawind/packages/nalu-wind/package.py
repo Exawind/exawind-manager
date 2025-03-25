@@ -12,8 +12,9 @@ from spack.pkg.exawind.ctest_package import *
 find_machine = importlib.import_module("find-exawind-manager")
 
 class NaluWind(bNaluWind, CtestPackage):
-    version("2.2.1", tag="v2.2.1", submodules=True)
-    version("2.2.0", tag="v2.2.0", submodules=True)
+    version(
+        "2.2.2", tag="v2.2.2", commit="6e98cb004e5cc2dcb60d09b155182a7095007c8e", submodules=True
+    )
 
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("unit-tests", default=True, description="Activate unit tests")

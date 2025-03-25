@@ -1,25 +1,5 @@
 packages:
-  ascent:
-    variants: ~fortran~openmp
-  nalu-wind:
-    variants: ~trilinos-solvers
   amr-wind:
     variants: +tiny_profile
-  conduit:
-    variants: ~fortran~hdf5_compat
-  libxml2:
-    require: "@=2.10.3"
-  hdf5:
-    require: "@=1.14.3"
-    variants: ~fortran+cxx+hl
-  masa:
-    variants: ~fortran~python
-  netcdf-c:
-    variants: +parallel-netcdf
-  parallel-netcdf:
-    variants: ~fortran
-  hypre:
-    variants: ~fortran
   trilinos:
-    variants: ~adelus~adios2~amesos~amesos2~anasazi~asan+aztec~basker~belos~boost~chaco~complex~dtk~epetra~epetraext~epetraextbtf~epetraextexperimental~epetraextgraphreorderings~float~fortran~hypre~ifpack~ifpack2~intrepid~intrepid2~ipo~isorropia~mesquite~minitensor~ml~muelu~mumps~nox~openmp~panzer~phalanx~piro~python~rol~rythmos~sacado~scorec~shards~shylu~stk_simd~stk_unit_tests~stokhos~stratimikos~strumpack~suite-sparse~superlu~superlu-dist~teko~tempus~test~thyra~trilinoscouplings~x11~zoltan2 generator=ninja
-    require: "@=develop"
+    variants: ~adelus~adios2~amesos~amesos2~anasazi+aztec~basker~belos~boost~chaco~complex~dtk~epetra~epetraext~epetraextbtf~epetraextexperimental~epetraextgraphreorderings~float~fortran~hypre~ifpack~ifpack2~intrepid~intrepid2~ipo~isorropia~mesquite~minitensor~ml~muelu~mumps~nox~openmp~panzer~phalanx~piro~python~rol~rythmos~sacado~scorec~shards~shylu~stk_simd~stk_unit_tests~stokhos~stratimikos~strumpack~suite-sparse~superlu~superlu-dist~teko~tempus~test~thyra~trilinoscouplings~x11~zoltan2 generator=ninja

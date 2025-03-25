@@ -1,6 +1,4 @@
 packages:
-  hypre:
-    require: "+shared~fortran"
   mpi:
     require: "mpich"
   blas:
@@ -10,7 +8,5 @@ packages:
   all:
     require:
       - "%apple-clang"
-    variants: build_type=Release
-    providers:
-      blas: [openblas]
-      lapack: [openblas]
+    prefer:
+      - "build_type=Release"
