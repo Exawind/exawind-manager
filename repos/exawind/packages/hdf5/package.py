@@ -7,7 +7,7 @@
 
 from spack import *
 from spack.package import *
-from spack.pkg.builtin.tioga import Hdf5 as bHdf5
+from spack.pkg.builtin.hdf5 import Hdf5 as bHdf5
 
 class Hdf5(bHdf5):
     version(
