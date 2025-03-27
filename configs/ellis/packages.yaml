@@ -1,15 +1,9 @@
 packages:
-  perl:
-    require: "@=5.38.0"
-  py-numpy:
-    require: "@=2.1.2"
+  mpi:
+    require: "mpich"
   cuda:
-    version: [12.5.1]
+    require: "@=12.5.1"
   all:
     compiler: [gcc@12.3.0, clang@17.0.6]
     variants: build_type=Release cuda_arch=80
     target: [zen2]
-    providers:
-      mpi: [mpich]
-      blas: [openblas]
-      lapack: [openblas]
