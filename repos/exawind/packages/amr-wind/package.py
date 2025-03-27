@@ -15,7 +15,12 @@ class AmrWind(bAmrWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
 
+    # For some reason numpy tends to concretize to a 1.X version
+    # and doesn't build
     depends_on("py-numpy@2:", when="+netcdf")
+    # New versions of HDF5 have CMake problems finding ZLIB::ZLIB targets
+    # during amr-wind configure
+    depends_on("hdf5@:1.14.4-3", when="+hdf5")
 
     requires("+tests", when="+cdash_submit")
 
