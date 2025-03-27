@@ -1,4 +1,14 @@
 packages:
+  hdf5:
+    require: "~fortran"
+  h5z-zfp:
+    require: "~fortran"
+  masa:
+    require: "~fortran~python"
+  parallel-netcdf:
+    require: "~fortran"
+  hypre:
+    require: "~fortran"
   mpi:
     require: "mpich"
   cuda:
