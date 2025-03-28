@@ -1,6 +1,8 @@
 packages:
   mpi:
     require: "mpich"
+  hypre:
+    require: "+shared"
   blas:
     require: "openblas"
   lapack:
