@@ -23,9 +23,10 @@ class Exawind(bExawind, CtestPackage):
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
+            cmake_options.append(self.define("EXAWIND_ENABLE_TESTS", True))
 
-        cmake_options += [self.define_from_variant("EXAWIND_ENABLE_TESTS", "tests")]
         if spec.satisfies("+tests"):
+            cmake_options.append(self.define("EXAWIND_ENABLE_TESTS", True))
             cmake_options.append(self.define("EXAWIND_TEST_WITH_FCOMPARE", True))
             cmake_options.append(self.define("EXAWIND_SAVE_GOLDS", True))
             cmake_options.append(self.define("EXAWIND_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
