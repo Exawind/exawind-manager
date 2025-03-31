@@ -1,0 +1,27 @@
+diff --git a/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp b/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
+index ad1232b5bf7..4c1c9236f22 100644
+--- a/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
++++ b/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
+@@ -70,13 +70,13 @@ class ReceiveCounter
+ };
+ 
+ template <typename T>
+-constexpr size_t max_elements_per_message(size_t maxMsgSizeInBytes)
++constexpr size_t max_elements_per_message(std::size_t maxMsgSizeInBytes)
+ {
+   return maxMsgSizeInBytes / sizeof(T);
+ }
+ 
+ template <typename T>
+-std::vector<int>  get_send_counts(std::vector< std::vector<T> > sendLists, size_t maxSendSizeInBytes)
++std::vector<int>  get_send_counts(std::vector< std::vector<T> > sendLists, std::size_t maxSendSizeInBytes)
+ {
+   std::vector<int> sendCounts(sendLists.size());
+   for (unsigned int i=0; i < sendLists.size(); ++i)
+@@ -92,4 +92,4 @@ std::vector<int>  get_send_counts(std::vector< std::vector<T> > sendLists, size_
+ }
+ 
+ }  // namespace
+-#endif
+\ No newline at end of file
++#endif
