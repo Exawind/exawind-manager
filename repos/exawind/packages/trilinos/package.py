@@ -11,6 +11,7 @@ from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
 
 class Trilinos(bTrilinos):
     variant("asan", default=False, description="Turn on address sanitizer")
+    patch("stk-fpe-exceptions.patch", when="@=16.1.0 +stk platform=darwin")
 
     def setup_build_environment(self, env):
         spec = self.spec
@@ -19,12 +20,3 @@ class Trilinos(bTrilinos):
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "verbosity=1:log_threads=1:suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
-
-    def cmake_args(self):
-        spec = self.spec
-        cmake_options = super().cmake_args()
-        if spec.satisfies("+stk platform=darwin"):
-            cmake_options.append(self.define("STK_HAVE_FP_EXCEPT", False))
-            cmake_options.append(self.define("STK_HAVE_FP_ERRNO", False))
-
-        return cmake_options
