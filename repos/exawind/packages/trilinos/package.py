@@ -11,7 +11,8 @@ from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
 
 class Trilinos(bTrilinos):
     variant("asan", default=False, description="Turn on address sanitizer")
-    patch("stk-fpe-exceptions.patch", when="@=16.1.0 +stk platform=darwin")
+    patch("16-1-0-stk-fpe-exceptions.patch", when="@=16.1.0 +stk platform=darwin")
+    patch("16-1-0-stk-size_t.patch", when="@=16.1.0 +stk %oneapi")
 
     def setup_build_environment(self, env):
         spec = self.spec
