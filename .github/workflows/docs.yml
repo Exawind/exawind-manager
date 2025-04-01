@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  docs:
+  Docs:
     runs-on: ubuntu-24.04
     steps:
       - name: Clone
