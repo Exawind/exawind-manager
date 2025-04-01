@@ -1,5 +1,5 @@
 diff --git a/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp b/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
-index ad1232b5bf7..4c1c9236f22 100644
+index ad1232b5bf7..862b6946cb2 100644
 --- a/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
 +++ b/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
 @@ -70,13 +70,13 @@ class ReceiveCounter
@@ -7,7 +7,7 @@ index ad1232b5bf7..4c1c9236f22 100644
  
  template <typename T>
 -constexpr size_t max_elements_per_message(size_t maxMsgSizeInBytes)
-+constexpr size_t max_elements_per_message(std::size_t maxMsgSizeInBytes)
++constexpr std::size_t max_elements_per_message(std::size_t maxMsgSizeInBytes)
  {
    return maxMsgSizeInBytes / sizeof(T);
  }
