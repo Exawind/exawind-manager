@@ -18,10 +18,11 @@ Prerequisites
 
 We will walk through this tutorial using an Apple Macbook Pro M1. To set up such a machine for using Exawind-Manager, we need to satisfy these requirements:
 
-1. Install `Homebrew <https://brew.sh>`_
-2. ``brew install gcc`` for gfortran
-3. ``brew install make`` for using depfiles
-4. Install Python 3.12 and set `SPACK_PYTHON` to it if requiring use of `SSL_CERT_FILE`
+1. Install XCode and its command line tools
+2. Install `Homebrew <https://brew.sh>`_
+3. ``brew install gcc`` for gfortran
+4. ``brew install make`` for using depfiles
+5. Install Python 3.12 and set `SPACK_PYTHON` to it if requiring use of `SSL_CERT_FILE`
 
 Machine Configurations
 ----------------------
