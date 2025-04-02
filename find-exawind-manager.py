@@ -110,7 +110,7 @@ def detector(name):
             except Exception:
                 """
                 all other errors will be raised and kill the program
-                we can add more excpetions to the pass list as needed
+                we can add more exceptions to the pass list as needed
                 in the future
                 """
                 raise

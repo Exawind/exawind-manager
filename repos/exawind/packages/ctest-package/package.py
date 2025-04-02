@@ -104,7 +104,7 @@ class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
         This method will be used to run regression test
         TODO: workout how to get the track,build,site mapped correctly
         thinking of a call to super and writing logic into the packages
-        and auxilary python lib
+        and auxiliary python lib
         """
 
         with fs.working_dir(self.build_directory):
