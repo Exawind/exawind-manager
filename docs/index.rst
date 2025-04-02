@@ -16,14 +16,27 @@ Spack-Manager and Exawind-Manager also provide several shortcut commands for aut
 
 Tutorial
 ========
-In this tutorial we will learn the most used features and workflows for doing development of HPC software using this framework. We will do so using an Apple Macbook Pro M1. To set up such a machine for using Exawind-Manager, we need to satisfy these requirements:
+In this tutorial we will learn the most used features and workflows for doing development of HPC software using this framework.
+
+Prerequisites
+-------------
+
+We will do so using an Apple Macbook Pro M1. To set up such a machine for using Exawind-Manager, we need to satisfy these requirements:
 
 1. Install `Homebrew <https://brew.sh>`_
 2. `brew install gcc` for gfortran
 3. `brew install make` for using depfiles
 4. Install Python 3.12 if requiring use of SSL_CERT_FILE
 
-Next, we start by cloning exawind-manager:
+Machine Configurations
+----------------------
+
+For most HPC Linux machines, we want to find a way for Exawind-Manager to figure out which machine it is on and we need the Spack configuration files set up for that machine in a way that might typically require a Spack expert to design. In this tutorial we will assume we already have a robust configuration.
+
+Cloning
+-------
+
+To begin we start by cloning exawind-manager:
 
 .. code-block:: console
 
@@ -63,6 +76,8 @@ Next, we start by cloning exawind-manager:
    Submodule path 'spack': checked out '313b7d4cdbbf0610b9b449d5855cb0f52c6df1eb'
    Submodule path 'spack-manager': checked out '9a02da44788c943c1f1d4fcbe85b7397abe0a724'
 
+Loading Exawind-Manager
+-----------------------
 
 To invoke Exawind-Manager we merely `source shortcut.sh` which sets the `EXAWIND_MANAGER` environment variable and also invokes Spack's shell support through our own `spack-start` command:
 
@@ -77,7 +92,10 @@ To invoke Exawind-Manager we merely `source shortcut.sh` which sets the `EXAWIND
    ==> Compilers are defined in the following files:
        /Users/jrood/exawind-manager/.spack/darwin/compilers.yaml
 
-Next, we can probe the machine to see what Exawind-Manager thinks the machine is. Note for our project we have a set list of machines in which we curate our own configurations. They are defined and queried in the `find-exawind-manager.py <https://github.com/Exawind/exawind-manager/blob/main/find-exawind-manager.py>`_ file. Here we query which configuration files Exawind-Manager will choose:
+Machine Fingerprint
+-------------------
+
+Next, we can probe the machine to see what Exawind-Manager thinks the machine is. Note for our project we have a set list of machines in which we curate our own configurations. They are defined and queried in the `find-exawind-manager.py <https://github.com/Exawind/exawind-manager/blob/main/find-exawind-manager.py>`_ file. This file maps the machine to a known lowercase name identifier where the Spack yaml config files are referenced. Here we query which configuration files Exawind-Manager will choose:
 
 .. code-block:: console
 
@@ -94,6 +112,9 @@ Within the machine-specific config or the base config, we have a `template.yaml`
    spack:
      specs:
      - exawind
+
+Deploying the Project
+---------------------
 
 The first thing we could do is then easily build our entire project using the `deploy.py <https://github.com/Exawind/exawind-manager/blob/main/scripts/deploy.py>`_ script.
 
@@ -229,3 +250,21 @@ The first thing we could do is then easily build our entire project using the `d
    ==> exawind: Successfully installed exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
      Stage: 1.38s.  Cmake: 9.12s.  Build: 6.24s.  Install: 0.33s.  Analysis: 0.05s.  Post-install: 0.07s.  Total: 17.47s
    [+] /Users/jrood/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
+
+This displays the most simple method for deploying the project binaries and checking if the project will build. We can rerun the deploy command numerous times after modifying the machine configurations if necessary to iterate on the configuration.
+
+Loading a Spack Environment and Project Binaries
+------------------------------------------------
+
+To load and run the project binaries starting from a new terminal, we can load the Spack environment the `deploy.py` script created and then load the binaries as such:
+
+.. code-block:: console
+
+   jrood@jrood-38508s exawind-manager % source shortcut.sh 
+   jrood@jrood-38508s exawind-manager % spack env activate exawind-env 
+   jrood@jrood-38508s exawind-manager % spack load exawind
+   jrood@jrood-38508s exawind-manager % which exawind
+   /Users/jrood/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a/bin/exawind
+
+Developing Code Within a Project
+--------------------------------   
