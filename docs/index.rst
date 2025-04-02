@@ -22,7 +22,10 @@ We will walk through this tutorial using an Apple Macbook Pro M1. To set up such
 2. Install `Homebrew <https://brew.sh>`_
 3. ``brew install gcc`` for gfortran
 4. ``brew install make`` for using depfiles
-5. Install Python 3.12 and set `SPACK_PYTHON` to it if requiring use of `SSL_CERT_FILE`
+
+   a. Then ``export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"``
+
+5. Install Python 3.12 and set ``SPACK_PYTHON`` to it if requiring use of ``SSL_CERT_FILE``
 
 Machine Configurations
 ----------------------
