@@ -543,16 +543,18 @@ We can also add more develop specs to ``spack.yaml``, such as dependencies of AM
 More Exawind-Manager Topics
 ===========================
 
-Below is a list of notable Exawind-Manager, Spack-Manager, or Spack topics and useful features where we might expand upon this documentation.
+Below is a list of notable Exawind-Manager, Spack-Manager, or Spack topics and useful features where we might expand upon in this documentation.
 
 1. Designing machine configuration files
 2. More Spack-Manager commands and shortcuts
+
    a. quick-create
    b. quick-create-dev
    c. quick-develop
    d. quick-activate
    e. build-env-dive
    f. spack manager include
+
 3. Custom package files and class inheritance
 4. ``CTestPackage`` class and custom Spack phases
 5. Automated nightly testing using CDash
