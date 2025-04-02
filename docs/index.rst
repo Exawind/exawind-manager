@@ -104,7 +104,7 @@ Next, we can probe the machine to see what Exawind-Manager thinks the machine is
    user@user-38508s exawind-manager % spack manager find-machine
    exawind-manager darwin
 
-Therefore Exawind-Manager will implement the ``yaml`` files from the ``darwin`` (MacOS) `configuration <https://github.com/Exawind/exawind-manager/tree/main/configs/darwin>`_ directory. Note the `base <https://github.com/Exawind/exawind-manager/tree/main/configs/base>`_ configuration files will always be used at a low precedence, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, Spack's temporary build stage is located, etc. Any of these can be overidden by the machine-specific configuration.
+Therefore Exawind-Manager will implement the ``yaml`` files from the ``darwin`` (MacOS) `configuration <https://github.com/Exawind/exawind-manager/tree/main/configs/darwin>`_ directory. Note the `base <https://github.com/Exawind/exawind-manager/tree/main/configs/base>`_ configuration files will always be used at a low precedence, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, Spack's temporary build stage is located, etc. Any of these can be overridden by the machine-specific configuration.
 
 Within the machine-specific config or the base config, we have a ``template.yaml`` file which contains the default ``spack.yaml`` file that will be used for that machine if none is created or specified by the user. The ``spack.yaml`` file generally contains the spec or specs that will be built for the project on that machine by default. For the base template we see the default ``template.yaml`` below:
 
@@ -327,7 +327,7 @@ Next we need to concretize this environment so Spack has a concrete list of exac
 
 Notice that the spec we are using merely has ``cmake`` as a dependency, which we see in the DAG Spack emits. To install this Spack environment, we can use the ``spack install`` command. *However*, this command does not enact maximum build parallelism. The ``spack install`` command will build each package one after another, and with each package it will essentially perform a ``make -j`` command using the maximum CPU cores on the machine within each package. Luckily, the DAG contains more parallel opportunity within itself. For example, ``cmake`` and ``gmake`` do not depend on one another so they can be built concurrently. Within the DAG there are typically numerous opportunities for this further parallelism.
 
-Spack deals with DAG parallelism using filesystem locks. So that allows us to run muliple spack instances. For example we could ``spack install & spack install & wait``, which runs two ``spack install`` commands concurrently. Spack is very aware of itself to have each instance of Spack build separate packages in the DAG that can be built concurrently.
+Spack deals with DAG parallelism using filesystem locks. So that allows us to run multiple spack instances. For example we could ``spack install & spack install & wait``, which runs two ``spack install`` commands concurrently. Spack is very aware of itself to have each instance of Spack build separate packages in the DAG that can be built concurrently.
 
 We can expand even further on this idea by having Spack generate a high level GNUmake makefile to perform this DAG parallelism. To build our project using as much build parallelism as possible, we use what Spack calls "depfiles". To use these, we need our environment to be concretized. Any updates to ``spack.yaml`` typically require reconcretization, and after concretization, the depfile needs to be regenerated to match the concrete DAG.
 
@@ -370,7 +370,7 @@ Here is how we do it using our previously concretized ``amr-wind-env`` environme
      Stage: 0.00s.  Cmake: 2.86s.  Build: 1m 39.30s.  Install: 10.22s.  Analysis: 1.66s.  Post-install: 0.20s.  Total: 1m 54.34s
    [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
 
-Notice the makefile is running several Spack instances while also providing build parallelism within each package. Using depfiles is the fastest way to build a large amount of dependenices in Spack typically at the beginning of building an entire environment. Once we start developing ``amr-wind``, it's simpler to use the ``spack install`` command to rebuild the projects listed as develop specs. Note Spack will always rebuild develop specs.
+Notice the makefile is running several Spack instances while also providing build parallelism within each package. Using depfiles is the fastest way to build a large amount of dependencies in Spack typically at the beginning of building an entire environment. Once we start developing ``amr-wind``, it's simpler to use the ``spack install`` command to rebuild the projects listed as develop specs. Note Spack will always rebuild develop specs.
 
 
 Running Tests
@@ -490,7 +490,7 @@ Then we rebuild the project:
      Stage: 0.00s.  Cmake: 0.00s.  Build: 8.21s.  Install: 8.02s.  Analysis: 0.78s.  Post-install: 0.17s.  Total: 17.32s
    [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
 
-Note the time in which it took to build ``amr-wind`` (17s), showing that the previous build objects were re-used and only the files that changed were built.
+Note the time in which it took to build ``amr-wind`` (17s), showing that the previous build objects were reused and only the files that changed were built.
 
 Now we can run the unit tests again:
 
