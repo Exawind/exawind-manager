@@ -1,6 +1,6 @@
-================
- Exawind-Manager
-================
+===============
+Exawind-Manager
+===============
 
 Exawind-Manager is a project specialization of `Spack-Manager <https://github.com/sandialabs/spack-manager>`_.
 Spack-Manager is a light-weight extension to 
@@ -16,6 +16,7 @@ Spack-Manager and Exawind-Manager also provide several shortcut commands for aut
 
 Tutorial
 ========
+
 In this tutorial we will learn the most used features and workflows for doing development of HPC software using this framework.
 
 Prerequisites
@@ -301,9 +302,9 @@ For our example, we will choose to develop an Exawind package with less dependen
        amr-wind:
          spec: amr-wind@=main
 
-We can see that the Spack environment file ``spack.yaml`` was created for us with ``amr-wind`` listed as a develop spec.
+We can see that the Spack environment file ``spack.yaml`` was created for us with ``amr-wind`` listed as a develop spec. Note that the ``include.yaml`` is created by Spack-Manager, which contains the concatenated machine-specific configuration ``yaml`` files in a specifi hierarchy of precedence. This ``include.yaml`` is included in the ``spack.yaml`` file. This means the entire Spack configuration for the machine is generally contained within the Spack environment.
 
-Next we need to concretize this environment so Spack has a concrete list of exactly how it needs to build everything.
+Next we need to concretize this environment so Spack has a concrete list of exactly how it needs to build everything:
 
 .. code-block:: console
 
@@ -430,6 +431,7 @@ First we will re-run the unit tests with full output so we can see our edits are
    1: 
    1: 
    1: [  SKIPPED ] Configuration.MPI (0 ms)
+   
    ... etc 
 
 Now we edit the code:
@@ -527,5 +529,22 @@ Now we can run the unit tests again:
    1: AMR-Wind not built with GPU support
    1: /Users/jrood/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:86: Skipped
    1: 
+   
+   ... etc
 
 We can repeat this process for iterating on the code and create further complex single line commands or scripts for testing our code changes. One very useful thing that is possible with our Spack environment is that we can add more specs to our environment, where ``spack install`` will rebuild the entire environment. So we could have ``amr-wind+cuda`` and ``amr-wind~cuda`` in the same environment and reinstall and test AMR-Wind on the GPU and the CPU with the same command while using the same source code changes. We can also add more develop specs to the ``spack.yaml``, such as dependencies of AMR-Wind. Then we can develop both AMR-Wind and its dependencies while using a single ``spack install`` command to rebuild and test the environment in a very agile way that is adaptable to the developer's use case. This is the key benefit to using Spack for software development and we have found it to be extremely effective in developer productivity.
+
+
+More Exawind-Manager Topics
+===========================
+
+1. Machine configuration files
+2. More Spack-Manager commands and shortcuts
+3. Custom package files and class inheritance
+4. ``CTestPackage`` class and custom Spack phases
+5. Automated nightly testing using CDash
+6. Managing gold files
+7. Containers for CI using Github Actions
+8. Source mirrors
+9. Build caches
+10. Deploying large software environments
