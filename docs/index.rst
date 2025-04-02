@@ -24,8 +24,8 @@ Prerequisites
 We will do so using an Apple Macbook Pro M1. To set up such a machine for using Exawind-Manager, we need to satisfy these requirements:
 
 1. Install `Homebrew <https://brew.sh>`_
-2. `brew install gcc` for gfortran
-3. `brew install make` for using depfiles
+2. ``brew install gcc`` for gfortran
+3. ``brew install make`` for using depfiles
 4. Install Python 3.12 and set `SPACK_PYTHON` to it if requiring use of `SSL_CERT_FILE`
 
 Machine Configurations
@@ -79,7 +79,7 @@ To begin we start by cloning exawind-manager:
 Loading Exawind-Manager
 -----------------------
 
-To invoke Exawind-Manager we merely `source shortcut.sh` which sets the `EXAWIND_MANAGER` environment variable and also invokes Spack's shell support through our own `spack-start` command:
+To invoke Exawind-Manager we merely ``source shortcut.sh`` which sets the ``EXAWIND_MANAGER`` environment variable and also invokes Spack's shell support through our own ``spack-start`` command:
 
 .. code-block:: console
 
@@ -102,9 +102,9 @@ Next, we can probe the machine to see what Exawind-Manager thinks the machine is
    jrood@jrood-38508s exawind-manager % spack manager find-machine
    exawind-manager darwin
 
-Therefore Exawind-Manager will include the `yaml` files from the `darwin` (MacOS) `configuration <https://github.com/Exawind/exawind-manager/tree/main/configs/darwin>`_. Note the `base <https://github.com/Exawind/exawind-manager/tree/main/configs/base>`_ configuration files will always be used, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, the build stage is located, etc. Any of these can be overidden by the machine-specific configuration.
+Therefore Exawind-Manager will include the ``yaml`` files from the ``darwin`` (MacOS) `configuration <https://github.com/Exawind/exawind-manager/tree/main/configs/darwin>`_. Note the `base <https://github.com/Exawind/exawind-manager/tree/main/configs/base>`_ configuration files will always be used, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, the build stage is located, etc. Any of these can be overidden by the machine-specific configuration.
 
-Within the machine-specific config or the base config, we have a `template.yaml` file which contains the default `spack.yaml` file that will be used for that machine if none is created or specified by the user. The `spack.yaml` file generally contains the spec or specs that will be built for the project on that machine by default. For the base template we see the default `template.yaml` below:
+Within the machine-specific config or the base config, we have a ``template.yaml`` file which contains the default ``spack.yaml`` file that will be used for that machine if none is created or specified by the user. The ``spack.yaml`` file generally contains the spec or specs that will be built for the project on that machine by default. For the base template we see the default ``template.yaml`` below:
 
 .. code-block:: console
 
@@ -256,7 +256,7 @@ This displays the most simple method for deploying the project binaries and chec
 Loading a Spack Environment and Project Binaries
 ------------------------------------------------
 
-To load and run the project binaries starting from a new terminal, we can load the Spack environment the `deploy.py` script created and then load the binaries as such:
+To load and run the project binaries starting from a new terminal, we can load the Spack environment the ``deploy.py`` script created and then load the binaries as such:
 
 .. code-block:: console
 
@@ -269,9 +269,9 @@ To load and run the project binaries starting from a new terminal, we can load t
 Developing Code Within a Project
 --------------------------------
 
-When building with Spack by default such as when using the `deploy.py` script, Spack downloads the code, builds it, installs it, and then removes the temporary files from building. Spack also has features for source code development that are very efficient. When developing code using Spack, we use "develop specs" to tell Spack where our source code is for the package(s) we are developing and Spack will also keep the code and build objects so it can do iterative builds and only compile files that have changed since the last compilation. Source code development works best with packages that use the CMake build system. This is because CMake is designed to be built out of source, when build systems like Autotools are typically built in source. Spack has built-in compatibility with CMake build directories where Spack places a hash on the build directories. This allows for multiple specs to be built simultaneously in a Spack environment and not cause conflicts in the build directory like Autotools packages can.
+When building with Spack by default such as when using the ``deploy.py`` script, Spack downloads the code, builds it, installs it, and then removes the temporary files from building. Spack also has features for source code development that are very efficient. When developing code using Spack, we use "develop specs" to tell Spack where our source code is for the package(s) we are developing and Spack will also keep the code and build objects so it can do iterative builds and only compile files that have changed since the last compilation. Source code development works best with packages that use the CMake build system. This is because CMake is designed to be built out of source, when build systems like Autotools are typically built in source. Spack has built-in compatibility with CMake build directories where Spack places a hash on the build directories. This allows for multiple specs to be built simultaneously in a Spack environment and not cause conflicts in the build directory like Autotools packages can.
 
-For our example, we will choose to develop an Exawind package with less dependencies, which is the `AMR-Wind <https://github.com/Exawind/amr-wind>`_ application. To do so we will use Spack-Manager's `quick-create-dev` shortcut command which creates an environment with develop specs and clones or unpacks the code. Then it activates the environment it created:
+For our example, we will choose to develop an Exawind package with less dependencies, which is the `AMR-Wind <https://github.com/Exawind/amr-wind>`_ application. To do so we will use Spack-Manager's ``quick-create-dev`` shortcut command which creates an environment with develop specs and clones or unpacks the code. Then it activates the environment it created:
 
 .. code-block:: console
 
@@ -301,7 +301,7 @@ For our example, we will choose to develop an Exawind package with less dependen
        amr-wind:
          spec: amr-wind@=main
 
-We can see that the Spack environment file `spack.yaml` was created for us with `amr-wind` listed as a develop spec.
+We can see that the Spack environment file ``spack.yaml`` was created for us with ``amr-wind`` listed as a develop spec.
 
 Next we need to concretize this environment so Spack has a concrete list of exactly how it needs to build everything.
 
@@ -321,11 +321,11 @@ Next we need to concretize this environment so Spack has a concrete list of exac
     -   kcwseep          ^zlib@1.3.1+optimize+pic+shared build_system=makefile arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   uf5swtz      ^gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@15.0.0
 
-Notice that the spec we are using merely has `cmake` as a dependency, which we see in the directed acyclic graph (DAG) Spack emits. To install this Spack environment, we can use the `spack install` command, but this command does not enact maximum build parallelism. The `spack install` command will build each package one after another, and with each package it will essentially perform a `make -j` command using the maximum CPU cores on the machine within each package. However, the DAG contains parallel opportunity within itself in that `cmake` and `gmake` do not depend on one another so they can be built concurrently. Within the DAG there are typically numerous opportunities for this further parallelism.
+Notice that the spec we are using merely has ``cmake`` as a dependency, which we see in the directed acyclic graph (DAG) Spack emits. To install this Spack environment, we can use the ``spack install`` command, but this command does not enact maximum build parallelism. The ``spack install`` command will build each package one after another, and with each package it will essentially perform a ``make -j`` command using the maximum CPU cores on the machine within each package. However, the DAG contains parallel opportunity within itself in that ``cmake`` and ``gmake`` do not depend on one another so they can be built concurrently. Within the DAG there are typically numerous opportunities for this further parallelism.
 
-Spack deals with DAG parallelism using filesystem locks. So that allows us to run muliple spack instances. For example we could `spack install & spack install & wait`, which runs two `spack install` commands concurrently. Spack is aware enough to have each instance of Spack install separate packages in the DAG that can be built concurrently. However, we can build even further on this idea by having Spack using a high level GNUmake makefile to perform this DAG parallelism. To build our project using as much build parallelism as possible, we use what Spack calls "depfiles". To use these, we need our environment to be concretized. Any updates to `spack.yaml` typically require reconcretization, and after concretization, the depfile needs to be regenerated to match the concretization.
+Spack deals with DAG parallelism using filesystem locks. So that allows us to run muliple spack instances. For example we could ``spack install & spack install & wait``, which runs two ``spack install`` commands concurrently. Spack is aware enough to have each instance of Spack install separate packages in the DAG that can be built concurrently. However, we can build even further on this idea by having Spack using a high level GNUmake makefile to perform this DAG parallelism. To build our project using as much build parallelism as possible, we use what Spack calls "depfiles". To use these, we need our environment to be concretized. Any updates to ``spack.yaml`` typically require reconcretization, and after concretization, the depfile needs to be regenerated to match the concretization.
 
-Here is how we do it using our previously concretized `amr-wind-env` environment. Once we generate the makefile, we can then use `make` in parallel to perform the environment build process with maximum parallelism (note there are 8 performance CPU cores on the Apple M1 machine used in creating this tutorial):
+Here is how we do it using our previously concretized ``amr-wind-env`` environment. Once we generate the makefile, we can then use ``make`` in parallel to perform the environment build process with maximum parallelism (note there are 8 performance CPU cores on the Apple M1 machine used in creating this tutorial):
 
 
 .. code-block:: console
@@ -364,7 +364,7 @@ Here is how we do it using our previously concretized `amr-wind-env` environment
      Stage: 0.00s.  Cmake: 2.86s.  Build: 1m 39.30s.  Install: 10.22s.  Analysis: 1.66s.  Post-install: 0.20s.  Total: 1m 54.34s
    [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
 
-Notice the makefile is running several Spack instances while also providing build parallelism within each package. Using depfiles is the fastest way to build a large amount of dependenices in Spack typically at the beginning of building an entire environment. Once we start developing `amr-wind`, it's simpler to use the `spack install` command to rebuild the projects listed as develop specs. Note Spack will always rebuild develop specs.
+Notice the makefile is running several Spack instances while also providing build parallelism within each package. Using depfiles is the fastest way to build a large amount of dependenices in Spack typically at the beginning of building an entire environment. Once we start developing ``amr-wind``, it's simpler to use the ``spack install`` command to rebuild the projects listed as develop specs. Note Spack will always rebuild develop specs.
 
 
 Running Tests
@@ -387,7 +387,10 @@ Once we built the project, we can run its tests. AMR-Wind using CTest, so the pr
    
    Total Test time (real) =   0.23 sec
 
-Here we `cd` to the `amr-wind` build directory and we use `spack build-env amr-wind` to run a command in the build environment Spack used to build `amr-wind`, and we run the tests labeled as unit tests.
+Here we ``cd`` to the ``amr-wind`` build directory and we use ``spack build-env amr-wind`` to run a command in the build environment Spack used to build ``amr-wind``, and we run the tests labeled as unit tests.
+
+Iterating on the Code
+~~~~~~~~~~~~~~~~~~~~~
 
 Once we know how to run our tests, we can edit the code, rebuild it, and re-run the tests.
 
@@ -480,7 +483,7 @@ Then we rebuild the project:
      Stage: 0.00s.  Cmake: 0.00s.  Build: 8.21s.  Install: 8.02s.  Analysis: 0.78s.  Post-install: 0.17s.  Total: 17.32s
    [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
 
-Note the time in which it took to build `amr-wind`, showing that the previous build objects were re-used and only the files that changed were built.
+Note the time in which it took to build ``amr-wind``, showing that the previous build objects were re-used and only the files that changed were built.
 
 Now we can run the unit tests again:
 
@@ -525,4 +528,4 @@ Now we can run the unit tests again:
    1: /Users/jrood/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:86: Skipped
    1: 
 
-We can repeat this process for iterating on the code and create further complex single line commands or scripts for testing our code changes. One very useful thing thing that is possible with out Spack environment is that we can add more specs to our environment, where `spack install` will rebuild the entire environment. So we could have `amr-wind+cuda` and `amr-wind~cuda` in the same environment and reinstall and test AMR-Wind on the GPU and the CPU with the same command while using the same source code changes. We can also add more develop specs to the `spack.yaml`, such as dependencies of AMR-Wind. Then we can develop both AMR-Wind and its dependencies while using a single `spack install` command to rebuild and test the environment in a very agile way that is adaptable to the developer's use case. This is key benefit to using Spack for software development and we have found it to be extremely effective in developer productivity.
+We can repeat this process for iterating on the code and create further complex single line commands or scripts for testing our code changes. One very useful thing that is possible with our Spack environment is that we can add more specs to our environment, where ``spack install`` will rebuild the entire environment. So we could have ``amr-wind+cuda`` and ``amr-wind~cuda`` in the same environment and reinstall and test AMR-Wind on the GPU and the CPU with the same command while using the same source code changes. We can also add more develop specs to the ``spack.yaml``, such as dependencies of AMR-Wind. Then we can develop both AMR-Wind and its dependencies while using a single ``spack install`` command to rebuild and test the environment in a very agile way that is adaptable to the developer's use case. This is the key benefit to using Spack for software development and we have found it to be extremely effective in developer productivity.
