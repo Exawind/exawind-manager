@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-concurrency:
-  group: ${{github.ref}}-${{github.head_ref}}-docs
-  cancel-in-progress: true
-
 jobs:
   Docs:
     runs-on: ubuntu-24.04
