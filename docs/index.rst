@@ -1,14 +1,8 @@
-================
- Exawind-Manager
-================
+===============
+Exawind-Manager
+===============
 
-Exawind-Manager is a project specialization of `Spack-Manager <https://github.com/sandialabs/spack-manager>`_.
-Spack-Manager is a light-weight extension to 
-`Spack <https://spack.io>`_ that is intended to streamline the software development and deployment cycle
-for software projects on specific machines.
-A given software project, especially in high performance computing (HPC), typically requires managing multiple software dependencies using multiple compilers and processing devices across many machines.
-Spack-Manager is quite literal in its name, in that it provides a way to manage and organize these configurations
-across multiple machines, and multiple projects. Exawind-Manager is specialized towards the `ExaWind <https://github.com/exawind>`_ project, which is a set of complex coupled applications for modeling the physics of entire wind farms at high fidelities.
+Exawind-Manager is a project specialization of `Spack-Manager <https://github.com/sandialabs/spack-manager>`_.  Spack-Manager is a light-weight extension to `Spack <https://spack.io>`_ that is intended to streamline the software development and deployment cycle for software projects on specific machines.  A given software project, especially in high performance computing (HPC), typically requires managing multiple software dependencies using multiple compilers and processing devices across many machines.  Spack-Manager is quite literal in its name, in that it provides a way to manage and organize these configurations across multiple machines, and multiple projects. Exawind-Manager is specialized towards the `ExaWind <https://github.com/exawind>`_ project, which is a set of complex coupled applications for modeling the physics of entire wind farms at high fidelities.
 
 More information on Spack-Manager itself can be found `here <https://github.com/sandialabs/spack-manager>`_. Features of Spack-Manager also generally continue to be developed in Spack itself by the Spack-Manager author. Spack-Manager itself is designed as a fully integrated extension of Spack.
 
@@ -16,6 +10,7 @@ Spack-Manager and Exawind-Manager also provide several shortcut commands for aut
 
 Tutorial
 ========
+
 In this tutorial we will learn the most used features and workflows for doing development of HPC software using this framework.
 
 Prerequisites
@@ -40,7 +35,7 @@ To begin we start by cloning exawind-manager:
 
 .. code-block:: console
 
-   jrood@jrood-38508s ~ % git clone -c feature.manyFiles=true --depth=1 --shallow-submodules --recursive https://github.com/Exawind/exawind-manager.git
+   user@user-38508s ~ % git clone -c feature.manyFiles=true --depth=1 --shallow-submodules --recursive https://github.com/Exawind/exawind-manager.git
    Cloning into 'exawind-manager'...
    remote: Enumerating objects: 167, done.
    remote: Counting objects: 100% (167/167), done.
@@ -50,14 +45,14 @@ To begin we start by cloning exawind-manager:
    Resolving deltas: 100% (15/15), done.
    Submodule 'spack' (https://github.com/spack/spack) registered for path 'spack'
    Submodule 'spack-manager' (https://github.com/sandialabs/spack-manager.git) registered for path 'spack-manager'
-   Cloning into '/Users/jrood/exawind-manager/spack'...
+   Cloning into '/Users/user/exawind-manager/spack'...
    remote: Enumerating objects: 21263, done.        
    remote: Counting objects: 100% (21263/21263), done.        
    remote: Compressing objects: 100% (12210/12210), done.        
    remote: Total 21263 (delta 980), reused 13494 (delta 917), pack-reused 0 (from 0)        
    Receiving objects: 100% (21263/21263), 14.82 MiB | 7.91 MiB/s, done.
    Resolving deltas: 100% (980/980), done.
-   Cloning into '/Users/jrood/exawind-manager/spack-manager'...
+   Cloning into '/Users/user/exawind-manager/spack-manager'...
    remote: Enumerating objects: 98, done.        
    remote: Counting objects: 100% (98/98), done.        
    remote: Compressing objects: 100% (92/92), done.        
@@ -83,23 +78,23 @@ To invoke Exawind-Manager we merely ``source shortcut.sh`` which sets the ``EXAW
 
 .. code-block:: console
 
-   jrood@jrood-38508s ~ % cd exawind-manager 
-   jrood@jrood-38508s exawind-manager % source shortcut.sh 
-   /Users/jrood/exawind-manager/.bootstrap
+   user@user-38508s ~ % cd exawind-manager 
+   user@user-38508s exawind-manager % source shortcut.sh 
+   /Users/user/exawind-manager/.bootstrap
    ==> Added repo with namespace 'exawind'.
-   ==> Added 2 new compilers to /Users/jrood/exawind-manager/.spack/darwin/compilers.yaml
+   ==> Added 2 new compilers to /Users/user/exawind-manager/.spack/darwin/compilers.yaml
        gcc@14.2.0  apple-clang@15.0.0
    ==> Compilers are defined in the following files:
-       /Users/jrood/exawind-manager/.spack/darwin/compilers.yaml
+       /Users/user/exawind-manager/.spack/darwin/compilers.yaml
 
 Machine Fingerprint
 -------------------
 
-Next, we can probe the machine to see what Exawind-Manager thinks the machine is. Note for our project we have a set list of machines in which we curate our own configurations. They are defined and queried in the `find-exawind-manager.py <https://github.com/Exawind/exawind-manager/blob/main/find-exawind-manager.py>`_ file. This file maps the machine to a known lowercase name identifier where the Spack yaml config files are referenced. Here we query which configuration files Exawind-Manager will choose:
+Next, we can probe the machine to see what Exawind-Manager thinks the machine is. Note for our project we have a set list of machines in which we curate our own configurations. They are defined and queried in the `find-exawind-manager.py <https://github.com/Exawind/exawind-manager/blob/main/find-exawind-manager.py>`_ file. This file maps the machine to a known lowercase name identifier where the Spack ``yaml`` config files are referenced. Here we query which configuration files Exawind-Manager will choose:
 
 .. code-block:: console
 
-   jrood@jrood-38508s exawind-manager % spack manager find-machine
+   user@user-38508s exawind-manager % spack manager find-machine
    exawind-manager darwin
 
 Therefore Exawind-Manager will include the ``yaml`` files from the ``darwin`` (MacOS) `configuration <https://github.com/Exawind/exawind-manager/tree/main/configs/darwin>`_. Note the `base <https://github.com/Exawind/exawind-manager/tree/main/configs/base>`_ configuration files will always be used, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, the build stage is located, etc. Any of these can be overidden by the machine-specific configuration.
@@ -108,7 +103,7 @@ Within the machine-specific config or the base config, we have a ``template.yaml
 
 .. code-block:: console
 
-   jrood@jrood-38508s exawind-manager % cat configs/base/template.yaml 
+   user@user-38508s exawind-manager % cat configs/base/template.yaml 
    spack:
      specs:
      - exawind
@@ -120,12 +115,12 @@ The first thing we could do is then easily build our entire project using the `d
 
 .. code-block:: console
 
-   jrood@jrood-38508s exawind-manager % nice deploy.py --ranks 32 --depfile --overwrite --name exawind-env
+   user@user-38508s exawind-manager % nice deploy.py --ranks 32 --depfile --overwrite --name exawind-env
    exawind-manager darwin
-   Using env: /Users/jrood/exawind-manager/environments/exawind-env
+   Using env: /Users/user/exawind-manager/environments/exawind-env
    configure args
-   ==> Using cached archive: /Users/jrood/.spack_downloads/blobs/sha256/8b3d4926c5fa7a6e4fc5834a3e7783a0b53b174eb77ef36ade87f423891f8331
-   ==> Using cached archive: /Users/jrood/.spack_downloads/blobs/sha256/91214626a86c21fc0d76918884ec819050d4d52b4f78df7cc9769a83fbee2f71
+   ==> Using cached archive: /Users/user/.spack_downloads/blobs/sha256/8b3d4926c5fa7a6e4fc5834a3e7783a0b53b174eb77ef36ade87f423891f8331
+   ==> Using cached archive: /Users/user/.spack_downloads/blobs/sha256/91214626a86c21fc0d76918884ec819050d4d52b4f78df7cc9769a83fbee2f71
    ==> Installing "clingo-bootstrap@=spack~docs+ipo+optimized+python build_system=cmake build_type=Release generator=make arch=darwin-bigsur-aarch64 %apple-clang@=15.0.0" from a buildcache
    ==> Starting concretization
    ==> Concretized 1 spec:
@@ -216,32 +211,32 @@ The first thing we could do is then easily build our entire project using the `d
    
    install
    make -j32 SPACK_INSTALL_FLAGS='--show-log-on-error'
-   /Users/jrood/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/jrood/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /uf5swtz56kty36hs6uhs3w26x7ho2myn # gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
-   /Users/jrood/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/jrood/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /eabkdvhseshxsuukgi4pznupmuwhrtmh # gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
-   /Users/jrood/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/jrood/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /4aj5ju7jryr7qtawfjfruuw5yngib3gq # apple-libuuid@1353.100.2 build_system=bundle arch=darwin-ventura-m1 %apple-clang@=15.0.0
-   /Users/jrood/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/jrood/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /qrsyolzjhfza5njdvr6l66y3kcc332ag # ca-certificates-mozilla@2025-02-25 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /uf5swtz56kty36hs6uhs3w26x7ho2myn # gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /eabkdvhseshxsuukgi4pznupmuwhrtmh # gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /4aj5ju7jryr7qtawfjfruuw5yngib3gq # apple-libuuid@1353.100.2 build_system=bundle arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /qrsyolzjhfza5njdvr6l66y3kcc332ag # ca-certificates-mozilla@2025-02-25 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
    [+] /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk (external apple-libuuid-1353.100.2-4aj5ju7jryr7qtawfjfruuw5yngib3gq)
    ==> Installing gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
    ==> No binary for gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh found: installing from source
-   ==> Updating view at /Users/jrood/exawind-manager/environments/exawind-env/.spack-env/view
+   ==> Updating view at /Users/user/exawind-manager/environments/exawind-env/.spack-env/view
    ==> Installing ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag
    ==> No binary for ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag found: installing from source
    ==> Installing gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn
    ==> No binary for gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn found: installing from source
-   ==> Using cached archive: /Users/jrood/.spack_downloads/_source-cache/archive/11/1135044961853c7f116145cee9bb15c3d29b1b081cf8293954efd0f05d801a7c.tar.gz
-   ==> Using cached archive: /Users/jrood/.spack_downloads/_source-cache/archive/50/50a6277ec69113f00c5fd45f09e8b97a4b3e32daa35d3a95ab30137a55386cef
+   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/archive/11/1135044961853c7f116145cee9bb15c3d29b1b081cf8293954efd0f05d801a7c.tar.gz
+   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/archive/50/50a6277ec69113f00c5fd45f09e8b97a4b3e32daa35d3a95ab30137a55386cef
    ==> No patches needed for ca-certificates-mozilla
-   ==> Using cached archive: /Users/jrood/.spack_downloads/_source-cache/archive/dd/dd16fb1d67bfab79a72f5e8390735c49e3e8e70b4945a15ab1f81ddb78658fb3.tar.gz
+   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/archive/dd/dd16fb1d67bfab79a72f5e8390735c49e3e8e70b4945a15ab1f81ddb78658fb3.tar.gz
    ==> ca-certificates-mozilla: Executing phase: 'install'
    ==> ca-certificates-mozilla: Successfully installed ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag
      Stage: 0.00s.  Install: 0.00s.  Post-install: 0.01s.  Total: 0.07s
-   [+] /Users/jrood/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag
+   [+] /Users/user/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag
 
    ... lots more building
 
    ==> Installing exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
    ==> No binary for exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a found: installing from source
-   ==> Using cached archive: /Users/jrood/.spack_downloads/_source-cache/git//Exawind/exawind-driver.git/4c49c7775c580b6bd2556e6c00fd13c08737d5eb.tar.gz
+   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/git//Exawind/exawind-driver.git/4c49c7775c580b6bd2556e6c00fd13c08737d5eb.tar.gz
    ==> No patches needed for exawind
    ==> exawind: Executing phase: 'cmake'
    ==> exawind: Executing phase: 'build'
@@ -249,7 +244,7 @@ The first thing we could do is then easily build our entire project using the `d
    ==> exawind: Executing phase: 'analysis'
    ==> exawind: Successfully installed exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
      Stage: 1.38s.  Cmake: 9.12s.  Build: 6.24s.  Install: 0.33s.  Analysis: 0.05s.  Post-install: 0.07s.  Total: 17.47s
-   [+] /Users/jrood/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
+   [+] /Users/user/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
 
 This displays the most simple method for deploying the project binaries and checking if the project will build. We can rerun the deploy command numerous times after modifying the machine configurations if necessary to iterate on the configuration.
 
@@ -260,11 +255,11 @@ To load and run the project binaries starting from a new terminal, we can load t
 
 .. code-block:: console
 
-   jrood@jrood-38508s exawind-manager % source shortcut.sh 
-   jrood@jrood-38508s exawind-manager % spack env activate exawind-env 
-   jrood@jrood-38508s exawind-manager % spack load exawind
-   jrood@jrood-38508s exawind-manager % which exawind
-   /Users/jrood/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a/bin/exawind
+   user@user-38508s exawind-manager % source shortcut.sh 
+   user@user-38508s exawind-manager % spack env activate exawind-env 
+   user@user-38508s exawind-manager % spack load exawind
+   user@user-38508s exawind-manager % which exawind
+   /Users/user/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a/bin/exawind
 
 Developing Code Within a Project
 --------------------------------
@@ -275,15 +270,15 @@ For our example, we will choose to develop an Exawind package with less dependen
 
 .. code-block:: console
 
-   jrood@jrood-38508s exawind-manager % source shortcut.sh 
-   jrood@jrood-38508s exawind-manager % quick-create-dev -n amr-wind-env -s amr-wind~mpi@main
+   user@user-38508s exawind-manager % source shortcut.sh 
+   user@user-38508s exawind-manager % quick-create-dev -n amr-wind-env -s amr-wind~mpi@main
    + spack manager create-dev-env -n amr-wind-env -s amr-wind~mpi@main
    ==> Cloning source code for amr-wind@=main
-   + spack env activate --dir /Users/jrood/exawind-manager/environments/amr-wind-env --prompt
-   [amr-wind-env] jrood@jrood-38508s exawind-manager % cd environments/amr-wind-env 
-   [amr-wind-env] jrood@jrood-38508s amr-wind-env % ls             
+   + spack env activate --dir /Users/user/exawind-manager/environments/amr-wind-env --prompt
+   [amr-wind-env] user@user-38508s exawind-manager % cd environments/amr-wind-env 
+   [amr-wind-env] user@user-38508s amr-wind-env % ls             
    amr-wind include.yaml spack.yaml
-   [amr-wind-env] jrood@jrood-38508s amr-wind-env % cat spack.yaml 
+   [amr-wind-env] user@user-38508s amr-wind-env % cat spack.yaml 
    # This is a Spack Environment file.
    #
    # It describes a set of packages to be installed, along with
@@ -301,15 +296,15 @@ For our example, we will choose to develop an Exawind package with less dependen
        amr-wind:
          spec: amr-wind@=main
 
-We can see that the Spack environment file ``spack.yaml`` was created for us with ``amr-wind`` listed as a develop spec.
+We can see that the Spack environment file ``spack.yaml`` was created for us with ``amr-wind`` listed as a develop spec. Note that the ``include.yaml`` is created by Spack-Manager, which contains the concatenated machine-specific configuration ``yaml`` files in a specifi hierarchy of precedence. This ``include.yaml`` is included in the ``spack.yaml`` file. This means the entire Spack configuration for the machine is generally contained within the Spack environment.
 
-Next we need to concretize this environment so Spack has a concrete list of exactly how it needs to build everything.
+Next we need to concretize this environment so Spack has a concrete list of exactly how it needs to build everything:
 
 .. code-block:: console
 
-   [amr-wind-env] jrood@jrood-38508s amr-wind-env % spack concretize -f
+   [amr-wind-env] user@user-38508s amr-wind-env % spack concretize -f
    ==> Concretized 1 spec:
-    -   mynrqjm  amr-wind@main~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa~mpi~netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' dev_path=/Users/jrood/exawind-manager/environments/amr-wind-env/amr-wind generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@15.0.0
+    -   mynrqjm  amr-wind@main~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa~mpi~netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' dev_path=/Users/user/exawind-manager/environments/amr-wind-env/amr-wind generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   2vdjg64      ^cmake@3.31.6~doc+ncurses+ownlibs~qtgui build_system=generic build_type=Release arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   k6bl6kl          ^curl@8.11.1~gssapi~ldap~libidn2~librtmp~libssh~libssh2+nghttp2 build_system=autotools libs=shared,static tls=secure_transport arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   eabkdvh              ^gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@15.0.0
@@ -330,29 +325,29 @@ Here is how we do it using our previously concretized ``amr-wind-env`` environme
 
 .. code-block:: console
 
-   [amr-wind-env] jrood@jrood-38508s amr-wind-env % spack env depfile -o Makefile
-   [amr-wind-env] jrood@jrood-38508s amr-wind-env % ls
+   [amr-wind-env] user@user-38508s amr-wind-env % spack env depfile -o Makefile
+   [amr-wind-env] user@user-38508s amr-wind-env % ls
    Makefile     amr-wind     include.yaml spack.lock   spack.yaml
-   [amr-wind-env] jrood@jrood-38508s amr-wind-env % nice make -j8
-   /Users/jrood/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/jrood/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /uf5swtz56kty36hs6uhs3w26x7ho2myn # gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
-   /Users/jrood/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/jrood/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /eabkdvhseshxsuukgi4pznupmuwhrtmh # gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   [amr-wind-env] user@user-38508s amr-wind-env % nice make -j8
+   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /uf5swtz56kty36hs6uhs3w26x7ho2myn # gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /eabkdvhseshxsuukgi4pznupmuwhrtmh # gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
    ==> Installing gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
    ==> Installing gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn
    ==> No binary for gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn found: installing from source
    ==> No binary for gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh found: installing from source
-   ==> Using cached archive: /Users/jrood/.spack_downloads/_source-cache/archive/11/1135044961853c7f116145cee9bb15c3d29b1b081cf8293954efd0f05d801a7c.tar.gz
-   ==> Using cached archive: /Users/jrood/.spack_downloads/_source-cache/archive/dd/dd16fb1d67bfab79a72f5e8390735c49e3e8e70b4945a15ab1f81ddb78658fb3.tar.gz
+   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/archive/11/1135044961853c7f116145cee9bb15c3d29b1b081cf8293954efd0f05d801a7c.tar.gz
+   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/archive/dd/dd16fb1d67bfab79a72f5e8390735c49e3e8e70b4945a15ab1f81ddb78658fb3.tar.gz
    ==> No patches needed for gnuconfig
    ==> gnuconfig: Executing phase: 'install'
    ==> gnuconfig: Successfully installed gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
      Stage: 0.01s.  Install: 0.00s.  Post-install: 0.01s.  Total: 0.09s
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
    ==> No patches needed for gmake
    ==> gmake: Executing phase: 'install'
 
    ... more building
 
-   /Users/jrood/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/jrood/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /mynrqjmh342mfhabxi5spxglxpdw5imj # amr-wind@main~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa~mpi~netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' dev_path=/Users/jrood/exawind-manager/environments/amr-wind-env/amr-wind generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /mynrqjmh342mfhabxi5spxglxpdw5imj # amr-wind@main~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa~mpi~netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' dev_path=/Users/user/exawind-manager/environments/amr-wind-env/amr-wind generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@=15.0.0
    ==> Installing amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
    ==> No binary for amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj found: installing from source
    ==> No patches needed for amr-wind
@@ -362,7 +357,7 @@ Here is how we do it using our previously concretized ``amr-wind-env`` environme
    ==> amr-wind: Executing phase: 'analysis'
    ==> amr-wind: Successfully installed amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
      Stage: 0.00s.  Cmake: 2.86s.  Build: 1m 39.30s.  Install: 10.22s.  Analysis: 1.66s.  Post-install: 0.20s.  Total: 1m 54.34s
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
 
 Notice the makefile is running several Spack instances while also providing build parallelism within each package. Using depfiles is the fastest way to build a large amount of dependenices in Spack typically at the beginning of building an entire environment. Once we start developing ``amr-wind``, it's simpler to use the ``spack install`` command to rebuild the projects listed as develop specs. Note Spack will always rebuild develop specs.
 
@@ -374,9 +369,9 @@ Once we built the project, we can run its tests. AMR-Wind using CTest, so the pr
 
 .. code-block:: console
 
-   [amr-wind-env] jrood@jrood-38508s amr-wind-env % spack cd -b amr-wind
-   [amr-wind-env] jrood@jrood-38508s spack-build-mynrqjm % spack build-env amr-wind ctest -L unit           
-   Test project /Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
+   [amr-wind-env] user@user-38508s amr-wind-env % spack cd -b amr-wind
+   [amr-wind-env] user@user-38508s spack-build-mynrqjm % spack build-env amr-wind ctest -L unit           
+   Test project /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
        Start 1: unit_tests
    1/1 Test #1: unit_tests .......................   Passed    0.22 sec
    
@@ -398,13 +393,13 @@ First we will re-run the unit tests with full output so we can see our edits are
 
 .. code-block:: console
 
-   [amr-wind-env] jrood@jrood-38508s spack-build-mynrqjm % spack build-env amr-wind ctest -VV -L unit
-   UpdateCTestConfiguration  from :/Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Parse Config file:/Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   [amr-wind-env] user@user-38508s spack-build-mynrqjm % spack build-env amr-wind ctest -VV -L unit
+   UpdateCTestConfiguration  from :/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Parse Config file:/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
     Add coverage exclude regular expressions.
-   UpdateCTestConfiguration  from :/Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Parse Config file:/Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Test project /Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
+   UpdateCTestConfiguration  from :/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Parse Config file:/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Test project /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
    Constructing a list of tests
    Done constructing a list of tests
    Updating test list for fixtures
@@ -414,8 +409,8 @@ First we will re-run the unit tests with full output so we can see our edits are
    test 1
        Start 1: unit_tests
    
-   1: Test command: /bin/bash "-c" " /Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/amr_wind_unit_tests"
-   1: Working Directory: /Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/test/test_files/unit_tests/
+   1: Test command: /bin/bash "-c" " /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/amr_wind_unit_tests"
+   1: Working Directory: /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/test/test_files/unit_tests/
    1: Test timeout computed to be: 500
    1: [==========] Running 254 tests from 63 test suites.
    1: [----------] Global test environment set-up.
@@ -426,20 +421,21 @@ First we will re-run the unit tests with full output so we can see our edits are
    1: [       OK ] Configuration.Build (0 ms)
    1: [ RUN      ] Configuration.MPI
    1: AMR-Wind not built with MPI support.
-   1: /Users/jrood/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:45: Skipped
+   1: /Users/user/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:45: Skipped
    1: 
    1: 
    1: [  SKIPPED ] Configuration.MPI (0 ms)
+   
    ... etc 
 
 Now we edit the code:
 
 .. code-block:: console
 
-   [amr-wind-env] jrood@jrood-38508s spack-build-mynrqjm % spack cd -c amr-wind
-   [amr-wind-env] jrood@jrood-38508s amr-wind % pwd
-      /Users/jrood/exawind-manager/environments/amr-wind-env/amr-wind
-   [amr-wind-env] jrood@jrood-38508s amr-wind % git diff
+   [amr-wind-env] user@user-38508s spack-build-mynrqjm % spack cd -c amr-wind
+   [amr-wind-env] user@user-38508s amr-wind % pwd
+      /Users/user/exawind-manager/environments/amr-wind-env/amr-wind
+   [amr-wind-env] user@user-38508s amr-wind % git diff
    diff --git a/unit_tests/utest_main.cpp b/unit_tests/utest_main.cpp
    index 3657f075..6c0cad95 100644
    --- a/unit_tests/utest_main.cpp
@@ -465,13 +461,13 @@ Then we rebuild the project:
 
 .. code-block:: console
 
-   [amr-wind-env] jrood@jrood-38508s amr-wind % spack install
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/nghttp2-1.65.0-uzkvaxuygkwrnm2ztnxvsb4xekgqzvf6
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/zlib-1.3.1-kcwseep5tkw7o2t2zfhqnzcheiw42vki
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/curl-8.11.1-k6bl6klc2egdhtfg5xq2gdahjiyc55qh
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/ncurses-6.5-usixkny7snk7mwzaiflebsmizengopml
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/cmake-3.31.6-2vdjg64fv6axfjbpuc7irw7tuwpoju7x
+   [amr-wind-env] user@user-38508s amr-wind % spack install
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/nghttp2-1.65.0-uzkvaxuygkwrnm2ztnxvsb4xekgqzvf6
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/zlib-1.3.1-kcwseep5tkw7o2t2zfhqnzcheiw42vki
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/curl-8.11.1-k6bl6klc2egdhtfg5xq2gdahjiyc55qh
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/ncurses-6.5-usixkny7snk7mwzaiflebsmizengopml
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/cmake-3.31.6-2vdjg64fv6axfjbpuc7irw7tuwpoju7x
    ==> Installing amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj [7/7]
    ==> No binary for amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj found: installing from source
    ==> No patches needed for amr-wind
@@ -481,7 +477,7 @@ Then we rebuild the project:
    ==> amr-wind: Executing phase: 'analysis'
    ==> amr-wind: Successfully installed amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
      Stage: 0.00s.  Cmake: 0.00s.  Build: 8.21s.  Install: 8.02s.  Analysis: 0.78s.  Post-install: 0.17s.  Total: 17.32s
-   [+] /Users/jrood/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
+   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
 
 Note the time in which it took to build ``amr-wind``, showing that the previous build objects were re-used and only the files that changed were built.
 
@@ -490,13 +486,13 @@ Now we can run the unit tests again:
 
 .. code-block:: console
 
-   [amr-wind-env] jrood@jrood-38508s amr-wind % spack cd -b amr-wind && spack build-env amr-wind ctest -VV -L unit
-   UpdateCTestConfiguration  from :/Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Parse Config file:/Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   [amr-wind-env] user@user-38508s amr-wind % spack cd -b amr-wind && spack build-env amr-wind ctest -VV -L unit
+   UpdateCTestConfiguration  from :/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Parse Config file:/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
     Add coverage exclude regular expressions.
-   UpdateCTestConfiguration  from :/Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Parse Config file:/Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Test project /Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
+   UpdateCTestConfiguration  from :/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Parse Config file:/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Test project /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
    Constructing a list of tests
    Done constructing a list of tests
    Updating test list for fixtures
@@ -506,8 +502,8 @@ Now we can run the unit tests again:
    test 1
        Start 1: unit_tests
    
-   1: Test command: /bin/bash "-c" " /Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/amr_wind_unit_tests"
-   1: Working Directory: /Users/jrood/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/test/test_files/unit_tests/
+   1: Test command: /bin/bash "-c" " /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/amr_wind_unit_tests"
+   1: Working Directory: /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/test/test_files/unit_tests/
    1: Test timeout computed to be: 500
    1: Hello new AMR-Wind changes...
    1: [==========] Running 254 tests from 63 test suites.
@@ -519,13 +515,30 @@ Now we can run the unit tests again:
    1: [       OK ] Configuration.Build (0 ms)
    1: [ RUN      ] Configuration.MPI
    1: AMR-Wind not built with MPI support.
-   1: /Users/jrood/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:45: Skipped
+   1: /Users/user/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:45: Skipped
    1: 
    1: 
    1: [  SKIPPED ] Configuration.MPI (0 ms)
    1: [ RUN      ] Configuration.GPU
    1: AMR-Wind not built with GPU support
-   1: /Users/jrood/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:86: Skipped
+   1: /Users/user/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:86: Skipped
    1: 
+   
+   ... etc
 
 We can repeat this process for iterating on the code and create further complex single line commands or scripts for testing our code changes. One very useful thing that is possible with our Spack environment is that we can add more specs to our environment, where ``spack install`` will rebuild the entire environment. So we could have ``amr-wind+cuda`` and ``amr-wind~cuda`` in the same environment and reinstall and test AMR-Wind on the GPU and the CPU with the same command while using the same source code changes. We can also add more develop specs to the ``spack.yaml``, such as dependencies of AMR-Wind. Then we can develop both AMR-Wind and its dependencies while using a single ``spack install`` command to rebuild and test the environment in a very agile way that is adaptable to the developer's use case. This is the key benefit to using Spack for software development and we have found it to be extremely effective in developer productivity.
+
+
+More Exawind-Manager Topics
+===========================
+
+1. Machine configuration files
+2. More Spack-Manager commands and shortcuts
+3. Custom package files and class inheritance
+4. ``CTestPackage`` class and custom Spack phases
+5. Automated nightly testing using CDash
+6. Managing gold files
+7. Containers for CI using Github Actions
+8. Source mirrors
+9. Build caches
+10. Deploying large software environments
