@@ -103,8 +103,6 @@ The first thing we could do is then easily build our entire project using the `d
    exawind-manager darwin
    Using env: /Users/jrood/exawind-manager/environments/exawind-env
    configure args
-   ==> Warning: /Users/jrood/exawind-manager/scripts/deploy.py:102: `platform=darwin` should go before `%apple-clang`, `target=aarch64` should go before `%apple-clang` in `clingo-bootstrap@spack+python %apple-clang platform=darwin target=aarch64 ^python@3.12`
-   ==> Warning: /Users/jrood/exawind-manager/scripts/deploy.py:102: `platform=darwin` should go before `%apple-clang`, `target=aarch64` should go before `%apple-clang` in `clingo-bootstrap@spack+python %apple-clang platform=darwin target=aarch64 ^python@3.12`
    ==> Using cached archive: /Users/jrood/.spack_downloads/blobs/sha256/8b3d4926c5fa7a6e4fc5834a3e7783a0b53b174eb77ef36ade87f423891f8331
    ==> Using cached archive: /Users/jrood/.spack_downloads/blobs/sha256/91214626a86c21fc0d76918884ec819050d4d52b4f78df7cc9769a83fbee2f71
    ==> Installing "clingo-bootstrap@=spack~docs+ipo+optimized+python build_system=cmake build_type=Release generator=make arch=darwin-bigsur-aarch64 %apple-clang@=15.0.0" from a buildcache
@@ -223,8 +221,6 @@ The first thing we could do is then easily build our entire project using the `d
    ==> Installing exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
    ==> No binary for exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a found: installing from source
    ==> Using cached archive: /Users/jrood/.spack_downloads/_source-cache/git//Exawind/exawind-driver.git/4c49c7775c580b6bd2556e6c00fd13c08737d5eb.tar.gz
-   ==> Warning: Using download cache instead of version control
-     The required sources are normally checked out from a version control system, but have been archived in download cache: file:///Users/jrood/.spack_downloads/_source-cache/git//Exawind/exawind-driver.git/4c49c7775c580b6bd2556e6c00fd13c08737d5eb.tar.gz. Spack lacks a tree hash to verify the integrity of this archive. Make sure your download cache is in a secure location.
    ==> No patches needed for exawind
    ==> exawind: Executing phase: 'cmake'
    ==> exawind: Executing phase: 'build'
