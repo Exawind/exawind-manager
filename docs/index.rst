@@ -305,7 +305,7 @@ For our example, we will choose to develop an Exawind package with less dependen
        amr-wind:
          spec: amr-wind@=main
 
-We can see that the Spack environment file ``spack.yaml`` was created for us with ``amr-wind`` listed as a develop spec. Note that the ``include.yaml`` is created by Spack-Manager, which contains the concatenated machine-specific configuration ``yaml`` files in a specifi hierarchy of precedence. This ``include.yaml`` is included in the ``spack.yaml`` file. This means the entire Spack configuration for the machine is generally contained within the Spack environment.
+We can see that the Spack environment file ``spack.yaml`` was created for us with ``amr-wind`` listed as a develop spec. Note that the ``include.yaml`` is created by Spack-Manager, which contains the concatenated machine-specific configuration ``yaml`` files in a specific hierarchy of precedence. This ``include.yaml`` is included in the ``spack.yaml`` file. This means the entire Spack configuration for the machine is generally contained within the Spack environment.
 
 Next we need to concretize this environment so Spack has a concrete list of exactly how it needs to build everything:
 
