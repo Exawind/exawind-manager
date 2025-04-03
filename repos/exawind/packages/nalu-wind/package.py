@@ -15,6 +15,8 @@ class NaluWind(bNaluWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("unit-tests", default=True, description="Activate unit tests")
 
+    depends_on("trilinos@=16.1.0", when="@=2.2.2")
+
     requires("+tests", when="+cdash_submit")
 
     def setup_dependent_run_environment(self, env, dependent_spec):
