@@ -11,6 +11,12 @@ packages:
     require: "@=12.4.1"
   boost:
     require: "@=1.80.0"
+  trilinos:
+    prefer: "@=16.1.0"
+  nalu-wind:
+    prefer: "@=2.2.2"
+  exawind:
+    prefer: "@=1.2.0"
   mpi:
     require: "cray-mpich@8.1.28"
   blas:
