@@ -11,6 +11,8 @@ packages:
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/10.3
         modules:
           - libfabric/1.15.2.0
+  amr-wind:
+    require: "target=x86_64"
   boost:
     require: "@=1.80.0"
   mpi:
@@ -23,3 +25,4 @@ packages:
     prefer:
       - "%oneapi"
       - "build_type=Release"
+      - "target=sapphirerapids"
