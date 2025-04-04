@@ -25,3 +25,4 @@ packages:
     prefer:
       - "%oneapi"
       - "build_type=Release"
+      - "target=sapphirerapids"
