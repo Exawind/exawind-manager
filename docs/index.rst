@@ -549,8 +549,9 @@ More Exawind-Manager Topics
 
 Below is a list of notable Exawind-Manager, Spack-Manager, or Spack topics and useful features where we might expand upon in this documentation.
 
-1. Designing machine configuration files
-2. More Spack-Manager commands and shortcuts
+1. Designing machine configuration files (mostly trial and error or requires an experienced Spack administrator)
+2. How to write `Spack extensions <https://spack.readthedocs.io/en/latest/extensions.html#custom-extensions>`_
+3. More `Spack-Manager commands <https://sandialabs.github.io/spack-manager/user_profiles/developers/developer_workflow.html#creating-an-environment>`_ and shortcuts
 
    a. quick-create
    b. quick-create-dev
@@ -559,16 +560,16 @@ Below is a list of notable Exawind-Manager, Spack-Manager, or Spack topics and u
    e. build-env-dive
    f. spack manager include
 
-3. Custom package files and class inheritance
-4. ``CTestPackage`` class and custom Spack phases
-5. Automated nightly testing using CDash
-6. Managing gold files
-7. Snapshots and containers for CI using Github Actions
-8. Source mirrors
-9. Build caches
-10. Deploying large software environments
-11. Rpath
-12. Relocatable binaries
-13. Automatic generation of module files
-14. Spack views
-15. Spack build artifacts
+4. `Custom package files <https://github.com/Exawind/exawind-manager/tree/main/repos/exawind/packages>`_ and class inheritance
+5. ``CTestPackage`` `class <https://github.com/Exawind/exawind-manager/blob/main/repos/exawind/packages/ctest-package/package.py>`_ and custom Spack phases
+6. `Automated nightly testing using CDash <https://github.com/Exawind/exawind-manager/blob/main/scripts/run-nightly-tests.sh>`_
+7. `Managing gold files <https://github.com/Exawind/exawind-manager/blob/main/scripts/update-golds.sh>`_
+8. Snapshots and `containers <https://gitlab.e4s.io/uo-public/exawind-snapshot/-/blob/main/Dockerfile?ref_type=heads>`_ for `CI using Github Actions <https://github.com/Exawind/exawind-driver/blob/30f1a516f5e74b22326c0dfa0b266f4ccc6b0688/.github/workflows/ci.yml#L37>`_
+9. `Source mirrors <https://spack.readthedocs.io/en/latest/mirrors.html>`_
+10. `Build caches <https://spack.readthedocs.io/en/latest/binary_caches.html>`_
+11. `Deploying large software environments <https://github.com/jrood-nrel/goose>`_
+12. Spack's use of rpath
+13. `Relocatable binaries <https://spack.readthedocs.io/en/latest/binary_caches.html#relocation>`_
+14. `Automatic generation of module files <https://spack.readthedocs.io/en/latest/module_file_support.html>`_
+15. `Spack views <https://spack.readthedocs.io/en/latest/environments.html#environment-views>`_
+16. Spack build artifacts: ``.spack`` directories in install prefix
