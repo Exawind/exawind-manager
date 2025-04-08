@@ -11,6 +11,9 @@ from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
 
 class Trilinos(bTrilinos):
     variant("asan", default=False, description="Turn on address sanitizer")
+    depends_on("kokkos~cuda", when="+kokkos~cuda")
+    depends_on("kokkos~rocm", when="+kokkos~rocm")
+    conflicts("+wrapper", when="~cuda~rocm")
     patch("16-1-0-stk-fpe-exceptions.patch", when="@=16.1.0 +stk platform=darwin")
     patch("16-1-0-stk-size_t.patch", when="@=16.1.0 +stk %oneapi")
 
