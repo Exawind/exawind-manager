@@ -1,24 +1,16 @@
 diff --git a/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp b/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
-index ad1232b5bf7..862b6946cb2 100644
+index ad1232b5bf7..daf3329969b 100644
 --- a/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
 +++ b/packages/stk/stk_util/stk_util/parallel/ReceiveCounter.hpp
-@@ -70,13 +70,13 @@ class ReceiveCounter
- };
+@@ -36,6 +36,7 @@
+ #define stk_util_parallel_ReceiveCounter_hpp
  
- template <typename T>
--constexpr size_t max_elements_per_message(size_t maxMsgSizeInBytes)
-+constexpr std::size_t max_elements_per_message(std::size_t maxMsgSizeInBytes)
- {
-   return maxMsgSizeInBytes / sizeof(T);
- }
+ #include <vector>
++#include <cstddef>
  
- template <typename T>
--std::vector<int>  get_send_counts(std::vector< std::vector<T> > sendLists, size_t maxSendSizeInBytes)
-+std::vector<int>  get_send_counts(std::vector< std::vector<T> > sendLists, std::size_t maxSendSizeInBytes)
- {
-   std::vector<int> sendCounts(sendLists.size());
-   for (unsigned int i=0; i < sendLists.size(); ++i)
-@@ -92,4 +92,4 @@ std::vector<int>  get_send_counts(std::vector< std::vector<T> > sendLists, size_
+ #include "stk_util/parallel/Parallel.hpp"   // for MPI
+ 
+@@ -92,4 +93,4 @@ std::vector<int>  get_send_counts(std::vector< std::vector<T> > sendLists, size_
  }
  
  }  // namespace
