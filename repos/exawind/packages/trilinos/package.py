@@ -14,7 +14,7 @@ class Trilinos(bTrilinos):
     depends_on("kokkos~cuda", when="+kokkos~cuda")
     depends_on("kokkos~rocm", when="+kokkos~rocm")
     patch("16-1-0-stk-fpe-exceptions.patch", when="@=16.1.0 +stk platform=darwin")
-    patch("16-1-0-stk-size_t.patch", when="@=16.1.0 +stk %oneapi")
+    patch("16-1-0-stk-size_t.patch", when="@=16.1.0 +stk")
 
     def setup_build_environment(self, env):
         spec = self.spec
