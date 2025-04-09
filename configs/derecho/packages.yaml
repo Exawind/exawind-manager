@@ -1,0 +1,97 @@
+packages:
+  cray-mpich:
+    externals:
+    - spec: cray-mpich@8.1.29 %gcc
+      prefix: /opt/cray/pe/mpich/8.1.29/ofi/gnu/12.3
+      extra_attributes:
+        environment:
+          append_path:
+            LD_LIBRARY_PATH: /opt/cray/libfabric/1.15.2.0/lib64
+    - spec: cray-mpich@8.1.29 %oneapi
+      prefix: /opt/cray/pe/mpich/8.1.29/ofi/intel/2022.1
+      extra_attributes:
+        environment:
+          append_path:
+            LD_LIBRARY_PATH: /opt/cray/libfabric/1.15.2.0/lib64
+    buildable: false
+  cuda:
+    externals:
+    - spec: cuda@12.3.2
+      prefix: /glade/u/apps/casper/24.12/spack/opt/spack/cuda/12.3.2/gcc/12.4.0/jw45
+    buildable: false
+    require:
+    - +allow-unsupported-compilers
+  cmake:
+    variants:
+    - +ownlibs
+  gcc:
+    externals:
+    - spec: gcc@7.5.0 languages='c,c++,fortran'
+      prefix: /usr
+      extra_attributes:
+        compilers:
+          c: /usr/bin/gcc
+          cxx: /usr/bin/g++
+          fortran: /usr/bin/gfortran
+    - spec: gcc@12.4.0 languages='c,c++,fortran,go'
+      prefix: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c
+      extra_attributes:
+        compilers:
+          c: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/gcc
+          cxx: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/g++
+          fortran: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/gfortran
+        environment:
+          set:
+            NVCCFLAGS: -allow-unsupported-compiler
+            NVCC_PREPEND_FLAGS: -allow-unsupported-compiler
+            # These are needed for kokkos (see kokkos_check_env.cmake)
+            CRAYPE_VERSION: 1
+            CRAYPE_LINK_TYPE: dynamic
+    buildable: false
+    variants:
+    - +piclibs
+    - languages=c,c++,fortran,go
+    require:
+    - '%gcc@7.5.0'
+  all:
+    compiler:
+    - oneapi
+    - gcc
+    providers:
+      mpi:
+      - cray-mpich
+      szip:
+      - libszip
+      pkgconfig:
+      - pkg-config
+      lapack:
+      - openblas
+      - intel-oneapi-mkl
+      - cray-libsci
+      - nvhpc
+      blas:
+      - openblas
+      - intel-oneapi-mkl
+      - cray-libsci
+      - nvhpc
+      zlib-api:
+      - zlib
+      rpc:
+      - libtirpc
+      tbb:
+      - intel-oneapi-tbb
+    target:
+    # This target is lowest-common denominator between Intel and Milans
+    - x86_64_v3
+    prefer:
+    - spec: ^intel-oneapi-mkl
+      when: '%oneapi ^lapack'
+    - spec: ^intel-oneapi-mkl
+      when: '%oneapi ^blas'
+    - spec: ^pkg-config
+      when: ^pkgconfig
+    - spec: cuda_arch=80 ^cuda@12.3.2
+      when: ^cuda
+    - spec: ^libfabric@1.15.2.0
+      when: ^libfabric
+    - "%oneapi"
