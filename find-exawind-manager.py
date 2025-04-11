@@ -79,6 +79,8 @@ machine_list = {
     # ALCF
     "aurora": MachineData(lambda: "aurora" in socket.getfqdn(), "aurora.alcf.anl.gov"),
     "sunspot": MachineData(lambda: "americas.sgi.com" in socket.getfqdn(), "sunspot.alcf.anl.gov"),
+    # NCAR
+    "derecho": MachineData(lambda: os.environ["NCAR_HOST"] == "derecho", "derecho.ucar.edu"),
     # E4S
     "e4s": MachineData(lambda: is_e4s(), "e4s.nodomain.gov"),
     # Azure
