@@ -1,2 +1,3 @@
 config:
+  source_cache: /mnt/vdb/$user/.spack_downloads
   build_jobs: 32
