@@ -83,7 +83,7 @@ function spack-start() {
     fi
 
     export PATH=${PATH}:${EXAWIND_MANAGER}/scripts
-    export PYTHONPATH=${PYTHONPATH}:${EXAWIND_MANAGER}
+    export PYTHONPATH=${PYTHONPATH}:${EXAWIND_MANAGER}:${EXAWIND_MANAGER}/spack/var/spack/repos:${EXAWIND_MANAGER}/spack/lib/spack
 
     if [[ -z $(spack config --scope site blame bootstrap | grep spack-bootstrap-store) ]]; then
       if [[ "$(spack manager find-machine | awk '{print $2}')" == "cee" ]]; then

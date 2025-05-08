@@ -6,7 +6,7 @@
 # for more details.
 
 from spack.package import *
-from spack.pkg.builtin.amr_wind import AmrWind as bAmrWind
+from spack_repo.builtin.packages.amr_wind.package import AmrWind as bAmrWind
 from spack.pkg.exawind.ctest_package import *
 find_machine = importlib.import_module("find-exawind-manager")
 
