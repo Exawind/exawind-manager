@@ -1,6 +1,6 @@
 import os
 from spack.package import *
-from spack_repo.builtin.packages.cuda import Cuda as bCuda
+from spack.pkg.builtin.cuda import Cuda as bCuda
 
 
 class Cuda(bCuda):

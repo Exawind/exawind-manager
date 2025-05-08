@@ -6,7 +6,7 @@
 # for more details.
 
 from spack.package import *
-from spack_repo.builtin.packages.tioga import Tioga as bTioga
+from from spack.pkg.builtin.tioga import Tioga as bTioga
 from spack.pkg.exawind.ctest_package import *
 
 class Tioga(bTioga, CtestPackage):
