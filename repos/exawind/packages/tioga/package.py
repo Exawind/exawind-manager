@@ -27,4 +27,3 @@ class Tioga(bTioga, CtestPackage):
         super().setup_build_environment(env)
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer -fsanitize-blacklist={0}".format(join_path(self.package_dir, "sup.asan")))
-            env.set("LSAN_OPTIONS", "verbosity=1:log_threads=1")
