@@ -6,7 +6,7 @@
 # for more details.
 
 from spack.package import *
-from spack_repo.builtin.packages.exawind.package import Exawind as bExawind
+from spack_repo.builtin.packages.exawind import Exawind as bExawind
 from spack.pkg.exawind.ctest_package import *
 find_machine = importlib.import_module("find-exawind-manager")
 
