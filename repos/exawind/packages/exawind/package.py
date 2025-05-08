@@ -14,6 +14,8 @@ class Exawind(bExawind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("tests", default=False, description="Activate regression tests")
 
+    depends_on("fortran", type="build")
+
     requires("+tests", when="+cdash_submit")
 
     def cmake_args(self):
