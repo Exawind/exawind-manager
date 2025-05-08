@@ -1,5 +1,4 @@
 import os
-from spack import *
 from spack.package import *
 from spack_repo.builtin.packages.cuda.package import Cuda as bCuda
 

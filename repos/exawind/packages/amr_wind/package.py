@@ -5,7 +5,6 @@
 # This software is released under the BSD 3-clause license. See LICENSE file
 # for more details.
 
-from spack import *
 from spack.package import *
 from spack_repo.builtin.packages.amr_wind.package import AmrWind as bAmrWind
 from spack.pkg.exawind.ctest_package import *
