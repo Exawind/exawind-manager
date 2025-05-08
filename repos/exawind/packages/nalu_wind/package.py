@@ -7,9 +7,10 @@
 
 from spack import *
 from spack.package import *
-from spack.pkg.builtin.nalu_wind import NaluWind as bNaluWind
+from spack_repo.builtin.packages.nalu_wind.package import NaluWind as bNaluWind
 from spack.pkg.exawind.ctest_package import *
 find_machine = importlib.import_module("find-exawind-manager")
+
 
 class NaluWind(bNaluWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")

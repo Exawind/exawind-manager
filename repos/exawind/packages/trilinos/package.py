@@ -7,7 +7,7 @@
 
 from spack import *
 from spack.package import *
-from spack.pkg.builtin.trilinos import Trilinos as bTrilinos
+from spack_repo.builtin.packages.trilinos.package import Trilinos as bTtrilinos
 
 class Trilinos(bTrilinos):
     variant("asan", default=False, description="Turn on address sanitizer")
