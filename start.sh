@@ -79,7 +79,7 @@ function spack-start() {
     fi
 
     if [[ -z $(spack repo list | awk '{print $1" "$2}' | grep "exawind $EXAWIND_MANAGER") ]]; then
-      spack -E repo add ${EXAWIND_MANAGER}/repos/exawind
+      spack -E repo add ${EXAWIND_MANAGER}/repos/spack_repo/exawind
     fi
 
     export PATH=${PATH}:${EXAWIND_MANAGER}/scripts
