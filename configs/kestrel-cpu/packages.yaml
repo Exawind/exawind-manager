@@ -1,9 +1,27 @@
 packages:
+  intel-oneapi-compilers:
+    externals:
+      - spec: intel-oneapi-compilers@2023.2.0
+        prefix: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux
+        extra_attributes:
+          compilers:
+            c: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux/bin/icx
+            cxx: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux/bin/icpx
+            fortran: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux/bin/ifx
+  gcc:
+    externals:
+      - spec: gcc@12.1.0
+        prefix: /opt/rh/gcc-toolset-12/root
+        extra_attributes:
+          compilers:
+            c: /opt/rh/gcc-toolset-12/root/bin/gcc
+            cxx: /opt/rh/gcc-toolset-12/root/bin/g++
+            fortran: /opt/rh/gcc-toolset-12/root/bin/gfortran
   cray-mpich:
     require: "@=8.1.28"
     buildable: false
     externals:
-      - spec: "cray-mpich@=8.1.28%oneapi@2023.2.0"
+      - spec: "cray-mpich@=8.1.28%intel-oneapi-compilers@2023.2.0"
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/intel/2022.1
         modules:
           - libfabric/1.15.2.0
@@ -22,7 +40,10 @@ packages:
   lapack:
     require: "netlib-lapack"
   all:
+    providers:
+       c: [intel-oneapi-compilers@2023.2.0, gcc@12.1.0]
+       cxx: [intel-oneapi-compilers@2023.2.0, gcc@12.1.0]
+       fortran: [intel-oneapi-compilers@2023.2.0, gcc@12.1.0]
     prefer:
-      - "%oneapi"
       - "build_type=Release"
       - "target=sapphirerapids"

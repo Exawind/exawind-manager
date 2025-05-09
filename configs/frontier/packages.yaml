@@ -1,4 +1,27 @@
 packages:
+  clang:
+    externals:
+      - spec: clang@17.0.0
+        prefix: /opt/rocm-6.1.3
+        extra_attributes:
+          compilers:
+            c: /opt/rocm-6.1.3/bin/amdclang
+            cxx: /opt/rocm-6.1.3/bin/amdclang++
+            fortran: /opt/rocm-6.1.3/bin/flang
+        modules:
+          - PrgEnv-gnu-amd/8.6.0
+          - amd-mixed/6.1.3
+          - rocm/6.1.3
+          - craype-x86-trento
+  gcc:
+    externals:
+      - spec: gcc@12.1.0
+        prefix: /opt/cray/pe/gcc-native/12
+        extra_attributes:
+          compilers:
+            c: /opt/cray/pe/gcc-native/12/bin/gcc
+            cxx: /opt/cray/pe/gcc-native/12/bin/g++
+            fortran: /opt/cray/pe/gcc-native/12/bin/gfortran
   cray-mpich:
     require: "@8.1.31"
     buildable: false
@@ -81,6 +104,8 @@ packages:
   mpi:
     require: "cray-mpich@8.1.31"
   all:
-    require:
-      - "%clang@17.0.0"
+    providers:
+       c: [clang@17.0.0]
+       cxx: [clang@17.0.0]
+       fortran: [gcc@12.1.0]
     variants: amdgpu_target=gfx90a
