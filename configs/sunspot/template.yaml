@@ -1,8 +1,0 @@
-spack:
-  concretizer:
-    unify: false
-    reuse: false
-  view: false
-  specs:
-    - 'exawind+amr_wind_gpu~nalu_wind_gpu+sycl'
-    - 'exawind~amr_wind_gpu~nalu_wind_gpu~sycl'
