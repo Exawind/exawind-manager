@@ -1,2 +1,3 @@
 repos:
-  - $spack/../repos/spack_repo/exawind
+- $spack/../repos/spack_repo/exawind
+- $spack/var/spack/repos/spack_repo/builtin
