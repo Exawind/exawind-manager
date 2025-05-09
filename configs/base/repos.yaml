@@ -1,2 +1,2 @@
 repos:
-  - $spack/../repos/exawind
+  - $spack/../repos/spack_repo/exawind

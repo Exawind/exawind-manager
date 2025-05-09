@@ -1,4 +1,0 @@
-config:
-  build_jobs: 48
-  #install_tree:
-  #  padded_length: 128

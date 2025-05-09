@@ -78,12 +78,12 @@ function spack-start() {
       spack -E config --scope site add "concretizer:unify:false"
     fi
 
-    if [[ -z $(spack repo list | awk '{print $1" "$2}' | grep "exawind $EXAWIND_MANAGER") ]]; then
-      spack -E repo add ${EXAWIND_MANAGER}/repos/exawind
-    fi
-
     export PATH=${PATH}:${EXAWIND_MANAGER}/scripts
-    export PYTHONPATH=${PYTHONPATH}:${EXAWIND_MANAGER}
+    export PYTHONPATH=${PYTHONPATH}:${EXAWIND_MANAGER}:${EXAWIND_MANAGER}/repos:${EXAWIND_MANAGER}/spack/var/spack/repos:${EXAWIND_MANAGER}/spack/lib/spack
+
+    if [[ -z $(spack repo list | awk '{print $1" "$2}' | grep "exawind $EXAWIND_MANAGER") ]]; then
+      spack -E repo add ${EXAWIND_MANAGER}/repos/spack_repo/exawind
+    fi
 
     if [[ -z $(spack config --scope site blame bootstrap | grep spack-bootstrap-store) ]]; then
       if [[ "$(spack manager find-machine | awk '{print $2}')" == "cee" ]]; then
@@ -92,7 +92,7 @@ function spack-start() {
     fi
 
     if [[ "$(spack manager find-machine | awk '{print $2}')" == "darwin" && ! -f ${SPACK_USER_CONFIG_PATH}/darwin/compilers.yaml ]]; then
-      spack -E compiler find --mixed-toolchain
+      spack -E compiler find
     fi
 
     source ${EXAWIND_MANAGER}/spack-manager/scripts/quick_commands.sh
