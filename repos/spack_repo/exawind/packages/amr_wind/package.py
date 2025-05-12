@@ -11,23 +11,8 @@ from spack_repo.exawind.packages.ctest_package.package import *
 find_machine = importlib.import_module("find-exawind-manager")
 
 class AmrWind(bAmrWind, CtestPackage):
-
-    version(
-        "3.4.2", tag="v3.4.2", commit="ed475a0533dfacf1fdff0b707518ccf99040d9f9", submodules=True
-    )
-    version(
-        "3.4.1", tag="v3.4.1", commit="effe63ca9061e6d2bd5c5e84b690d29c0869f029", submodules=True
-    )
-
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
-
-    # For some reason numpy tends to concretize to a 1.X version
-    # and doesn't build
-    depends_on("py-numpy@2:", when="+netcdf")
-    # New versions of HDF5 have CMake problems finding ZLIB::ZLIB targets
-    # during amr-wind configure
-    depends_on("hdf5@:1.14.4-3", when="+hdf5")
 
     requires("+tests", when="+cdash_submit")
 
