@@ -26,11 +26,13 @@ packages:
     require: "netlib-lapack"
   lapack:
     require: "netlib-lapack"
+  c:
+    require: "gcc@12.1.0"
+  cxx:
+    require: "gcc@12.1.0"
+  fortran:
+    require: "gcc@12.1.0"
   all:
-    providers:
-       c: [gcc@12.1.0]
-       cxx: [gcc@12.1.0]
-       fortran: [gcc@12.1.0]
     prefer:
       - "build_type=Release"
       - "cuda_arch=90"

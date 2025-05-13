@@ -10,7 +10,7 @@ packages:
             fortran: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk/bin/gfortran
   llvm:
     externals:
-      - spec: llvm~flang@17.0.6
+      - spec: llvm@17.0.6
         prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa
         extra_attributes:
           compilers:
@@ -26,10 +26,11 @@ packages:
     require: "mpich"
   cuda:
     require: "@=12.5.1"
+  fortran:
+    require: "gcc@12.3.0"
   all:
     providers:
        c: [gcc@12.3.0, llvm@17.0.6]
        cxx: [gcc@12.3.0, llvm@17.0.6]
-       fortran: [gcc@12.3.0]
     variants: build_type=Release cuda_arch=80
     target: [zen2]

@@ -5,8 +5,9 @@ packages:
     require: "openblas"
   lapack:
     require: "openblas"
-  all:
-    providers:
-       c: [apple-clang]
-       cxx: [apple-clang]
-       fortran: [gcc]
+  c:
+    require: "apple-clang"
+  cxx:
+    require: "apple-clang"
+  fortran:
+    require: "gcc"

@@ -18,8 +18,9 @@ packages:
         modules:
           - mpich/opt/4.3.0rc3
           - libfabric/1.20.1
-  all:
-    providers:
-       c: [intel-oneapi-compilers@2025.0]
-       cxx: [intel-oneapi-compilers@2025.0]
-       fortran: [intel-oneapi-compilers@2025.0]
+  c:
+    require: "intel-oneapi-compilers@2025.0"
+  cxx:
+    require: "intel-oneapi-compilers@2025.0"
+  fortran:
+    require: "intel-oneapi-compilers@2025.0"

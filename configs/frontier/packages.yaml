@@ -103,9 +103,11 @@ packages:
     require: "~trilinos-solvers"
   mpi:
     require: "cray-mpich@8.1.31"
+  c:
+    require: "llvm@17.0.0"
+  cxx:
+    require: "llvm@17.0.0"
+  fortran:
+    require: "gcc@12.1.0"
   all:
-    providers:
-       c: [llvm@17.0.0]
-       cxx: [llvm@17.0.0]
-       fortran: [gcc@12.1.0]
     variants: amdgpu_target=gfx90a
