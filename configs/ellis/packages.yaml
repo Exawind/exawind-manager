@@ -10,13 +10,12 @@ packages:
             fortran: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk/bin/gfortran
   llvm:
     externals:
-      - spec: llvm@17.0.6
+      - spec: llvm~flang@17.0.6
         prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa
         extra_attributes:
           compilers:
             c: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa/bin/clang
             cxx: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa/bin/clang++
-            fortran: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa/bin/flang
   hdf5:
     require: "~fortran"
   h5z-zfp:
