@@ -2,7 +2,7 @@ packages:
   intel-oneapi-compilers:
     externals:
       - spec: intel-oneapi-compilers@2023.2.0
-        prefix: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux
+        prefix: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4
         extra_attributes:
           compilers:
             c: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux/bin/icx
@@ -39,11 +39,13 @@ packages:
     require: "netlib-lapack"
   lapack:
     require: "netlib-lapack"
+  c:
+    require: "intel-oneapi-compilers@2023.2.0"
+  cxx:
+    require: "intel-oneapi-compilers@2023.2.0"
+  fortran:
+    require: "intel-oneapi-compilers@2023.2.0"
   all:
-    providers:
-       c: [intel-oneapi-compilers@2023.2.0, gcc@12.1.0]
-       cxx: [intel-oneapi-compilers@2023.2.0, gcc@12.1.0]
-       fortran: [intel-oneapi-compilers@2023.2.0, gcc@12.1.0]
     prefer:
       - "build_type=Release"
       - "target=sapphirerapids"
