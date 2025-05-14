@@ -35,7 +35,7 @@ packages:
   boost:
     require: "@=1.80.0"
   mpi:
-    require: "cray-mpich@=8.1.28"
+    require: "cray-mpich@=8.1.28%intel-oneapi-compilers@2023.2.0"
   blas:
     require: "netlib-lapack"
   lapack:
@@ -44,3 +44,5 @@ packages:
     prefer:
       - '%intel-oneapi-compilers@=2023.2.0'
       - "build_type=Release"
+    conflict:
+      - '%gcc'
