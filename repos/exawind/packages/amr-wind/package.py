@@ -29,6 +29,7 @@ class AmrWind(bAmrWind, CtestPackage):
     # New versions of HDF5 have CMake problems finding ZLIB::ZLIB targets
     # during amr-wind configure
     depends_on("hdf5@:1.14.4-3", when="+hdf5")
+    depends_on("netcdf-c+mpi", when="+netcdf")
 
     requires("+tests", when="+cdash_submit")
 
