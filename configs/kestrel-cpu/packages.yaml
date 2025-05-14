@@ -8,6 +8,9 @@ packages:
             c: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux/bin/icx
             cxx: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux/bin/icpx
             fortran: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4/compiler/2023.2.0/linux/bin/ifx
+        modules:
+          - PrgEnv-intel/8.5.0
+          - intel/2023.2.0
   gcc:
     externals:
       - spec: gcc@12.1.0
@@ -37,12 +40,7 @@ packages:
     require: "netlib-lapack"
   lapack:
     require: "netlib-lapack"
-  c:
-    require: "intel-oneapi-compilers@=2023.2.0"
-  cxx:
-    require: "intel-oneapi-compilers@=2023.2.0"
-  fortran:
-    require: "intel-oneapi-compilers@=2023.2.0"
   all:
     prefer:
+      - '%intel-oneapi-compilers@=2023.2.0'
       - "build_type=Release"
