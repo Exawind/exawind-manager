@@ -38,11 +38,11 @@ packages:
   lapack:
     require: "netlib-lapack"
   c:
-    prefer: "intel-oneapi-compilers@=2023.2.0"
+    require: "intel-oneapi-compilers@=2023.2.0"
   cxx:
-    prefer: "intel-oneapi-compilers@=2023.2.0"
+    require: "intel-oneapi-compilers@=2023.2.0"
   fortran:
-    prefer: "intel-oneapi-compilers@=2023.2.0"
+    require: "intel-oneapi-compilers@=2023.2.0"
   all:
     prefer:
       - "build_type=Release"
