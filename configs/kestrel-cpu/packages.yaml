@@ -1,7 +1,7 @@
 packages:
   intel-oneapi-compilers:
     externals:
-      - spec: intel-oneapi-compilers@2023.2.0
+      - spec: intel-oneapi-compilers~envmods@2023.2.0
         prefix: /nopt/nrel/apps/cpu_stack/compilers/06-24/linux-rhel8-sapphirerapids/gcc-12.3.0/intel-oneapi-compilers-2023.2.0-52ic5lt6egfvpfkrr2lxy2lvujpy4ay4
         extra_attributes:
           compilers:
@@ -24,7 +24,7 @@ packages:
     require: "@8.1.28"
     buildable: false
     externals:
-      - spec: "cray-mpich@8.1.28%intel-oneapi-compilers@2023.2.0"
+      - spec: "cray-mpich@8.1.28%intel-oneapi-compilers~envmods@2023.2.0"
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/intel/2022.1
         modules:
           - libfabric/1.15.2.0
@@ -42,7 +42,7 @@ packages:
     require: "netlib-lapack"
   all:
     prefer:
-      - "%intel-oneapi-compilers@2023.2.0"
+      - "%intel-oneapi-compilers~envmods@2023.2.0"
       - "build_type=Release"
     conflict:
       - "%gcc"
