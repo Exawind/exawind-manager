@@ -27,13 +27,9 @@ packages:
         modules:
           - mpich/opt/develop-git.6037a7a
           - libfabric/1.22.0
-  c:
-    require: "intel-oneapi-compilers@2025.0.5"
-  cxx:
-    require: "intel-oneapi-compilers@2025.0.5"
-  fortran:
-    require: "intel-oneapi-compilers@2025.0.5"
   mpi:
     require: "mpich"
   all:
-    variants: build_type=Release
+    prefer:
+      - "%intel-oneapi-compilers@2025.0.5"
+      - "build_type=Release"
