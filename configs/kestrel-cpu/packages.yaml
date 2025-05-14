@@ -21,19 +21,19 @@ packages:
             cxx: /opt/rh/gcc-toolset-12/root/bin/g++
             fortran: /opt/rh/gcc-toolset-12/root/bin/gfortran
   cray-mpich:
-    require: "@=8.1.28"
+    require: "@8.1.28"
     buildable: false
     externals:
-      - spec: "cray-mpich@=8.1.28%intel-oneapi-compilers@2023.2.0"
+      - spec: "cray-mpich@8.1.28%intel-oneapi-compilers@2023.2.0"
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/intel/2022.1
         modules:
           - libfabric/1.15.2.0
-      - spec: "cray-mpich@=8.1.28%gcc@12.1.0"
+      - spec: "cray-mpich@8.1.28%gcc@12.1.0"
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/10.3
         modules:
           - libfabric/1.15.2.0
   boost:
-    require: "@=1.80.0"
+    require: "@1.80.0"
   mpi:
     require: "cray-mpich"
   blas:
@@ -42,7 +42,7 @@ packages:
     require: "netlib-lapack"
   all:
     prefer:
-      - "%intel-oneapi-compilers@=2023.2.0"
+      - "%intel-oneapi-compilers@2023.2.0"
       - "build_type=Release"
     conflict:
       - "%gcc"
