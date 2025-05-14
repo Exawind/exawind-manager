@@ -1,13 +1,13 @@
 packages:
   intel-oneapi-compilers:
     externals:
-      - spec: intel-oneapi-compilers~envmods@2025.0.5
-        prefix: /opt/aurora/24.347.0/oneapi/compiler/latest
+      - spec: intel-oneapi-compilers@2025.0.5
+        prefix: /opt/aurora/24.347.0/oneapi
         extra_attributes:
           compilers:
-            c: /opt/aurora/24.347.0/oneapi/compiler/latest/bin/icx
-            cxx: /opt/aurora/24.347.0/oneapi/compiler/latest/bin/icpx
-            fortran: /opt/aurora/24.347.0/oneapi/compiler/latest/bin/ifx
+            c: /opt/aurora/24.347.0/oneapi/compiler/2025.0/bin/icx
+            cxx: /opt/aurora/24.347.0/oneapi/compiler/2025.0/bin/icpx
+            fortran: /opt/aurora/24.347.0/oneapi/compiler/2025.0/bin/ifx
         modules: [oneapi/release/2025.0.5]
   gcc:
     externals:
@@ -31,5 +31,5 @@ packages:
     require: "mpich"
   all:
     prefer:
-      - "%intel-oneapi-compilers~envmods@2025.0.5"
+      - "%intel-oneapi-compilers@2025.0.5"
       - "build_type=Release"
