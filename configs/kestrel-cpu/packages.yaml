@@ -29,23 +29,20 @@ packages:
         prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/10.3
         modules:
           - libfabric/1.15.2.0
-  amr-wind:
-    require: "target=x86_64"
   boost:
     require: "@=1.80.0"
   mpi:
-    require: "cray-mpich@8.1.28"
+    require: "cray-mpich@=8.1.28"
   blas:
     require: "netlib-lapack"
   lapack:
     require: "netlib-lapack"
   c:
-    require: "intel-oneapi-compilers@2023.2.0"
+    prefer: "intel-oneapi-compilers@=2023.2.0"
   cxx:
-    require: "intel-oneapi-compilers@2023.2.0"
+    prefer: "intel-oneapi-compilers@=2023.2.0"
   fortran:
-    require: "intel-oneapi-compilers@2023.2.0"
+    prefer: "intel-oneapi-compilers@=2023.2.0"
   all:
     prefer:
       - "build_type=Release"
-      - "target=sapphirerapids"
