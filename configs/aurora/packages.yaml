@@ -29,6 +29,8 @@ packages:
           - libfabric/1.22.0
   mpi:
     require: "mpich"
+  m4:
+    require: "%gcc"
   all:
     prefer:
       - "%intel-oneapi-compilers@2025.0.5"
