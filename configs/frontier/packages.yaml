@@ -136,5 +136,7 @@ packages:
     require: "llvm@17.0.0"
   fortran:
     require: "gcc@12.1.0"
+  netcdf-c:
+    require: "build_system=cmake"
   all:
     variants: amdgpu_target=gfx90a
