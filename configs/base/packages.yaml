@@ -1,4 +1,6 @@
 packages:
+  hypre:
+    require: "@=2.32.0"
   amr-wind:
     variants: +tiny_profile
   trilinos:

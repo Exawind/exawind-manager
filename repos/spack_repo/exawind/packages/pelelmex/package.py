@@ -3,9 +3,8 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
 from spack.package import *
-from spack.pkg.exawind.ctest_package import *
+from spack_repo.exawind.packages.ctest_package.package import *
 
 
 class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):

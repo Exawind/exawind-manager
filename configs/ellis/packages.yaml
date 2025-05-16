@@ -1,4 +1,21 @@
 packages:
+  gcc:
+    externals:
+      - spec: gcc@12.3.0
+        prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk
+        extra_attributes:
+          compilers:
+            c: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk/bin/gcc
+            cxx: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk/bin/g++
+            fortran: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk/bin/gfortran
+  llvm:
+    externals:
+      - spec: llvm@17.0.6
+        prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa
+        extra_attributes:
+          compilers:
+            c: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa/bin/clang
+            cxx: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa/bin/clang++
   hdf5:
     require: "~fortran"
   h5z-zfp:
@@ -9,7 +26,11 @@ packages:
     require: "mpich"
   cuda:
     require: "@=12.5.1"
+  fortran:
+    require: "gcc@12.3.0"
   all:
-    compiler: [gcc@12.3.0, clang@17.0.6]
+    providers:
+       c: [gcc@12.3.0, llvm@17.0.6]
+       cxx: [gcc@12.3.0, llvm@17.0.6]
     variants: build_type=Release cuda_arch=80
     target: [zen2]

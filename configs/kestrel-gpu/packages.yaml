@@ -1,4 +1,13 @@
 packages:
+  gcc:
+    externals:
+      - spec: gcc@12.1.0
+        prefix: /opt/rh/gcc-toolset-12/root
+        extra_attributes:
+          compilers:
+            c: /opt/rh/gcc-toolset-12/root/bin/gcc
+            cxx: /opt/rh/gcc-toolset-12/root/bin/g++
+            fortran: /opt/rh/gcc-toolset-12/root/bin/gfortran
   cray-mpich:
     require: "@=8.1.28"
     buildable: false
@@ -17,8 +26,13 @@ packages:
     require: "netlib-lapack"
   lapack:
     require: "netlib-lapack"
+  c:
+    require: "gcc@12.1.0"
+  cxx:
+    require: "gcc@12.1.0"
+  fortran:
+    require: "gcc@12.1.0"
   all:
     prefer:
-      - "%gcc"
       - "build_type=Release"
       - "cuda_arch=90"

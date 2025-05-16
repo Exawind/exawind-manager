@@ -5,10 +5,9 @@
 # This software is released under the BSD 3-clause license. See LICENSE file
 # for more details.
 
-from spack import *
 from spack.package import *
-from spack.pkg.builtin.exawind import Exawind as bExawind
-from spack.pkg.exawind.ctest_package import *
+from spack_repo.builtin.packages.exawind.package import Exawind as bExawind
+from spack_repo.exawind.packages.ctest_package.package import *
 find_machine = importlib.import_module("find-exawind-manager")
 
 class Exawind(bExawind, CtestPackage):

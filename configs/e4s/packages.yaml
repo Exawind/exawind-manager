@@ -1,6 +1,8 @@
 packages:
   all:
     target: [x86_64]
-    compiler: [gcc@9.4.0, clang]
     providers:
       mpi: [mpich, openmpi]
+      c: [gcc@9.4.0]
+      cxx: [gcc@9.4.0]
+      fortran: [gcc@9.4.0]

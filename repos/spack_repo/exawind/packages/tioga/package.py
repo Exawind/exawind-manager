@@ -5,10 +5,9 @@
 # This software is released under the BSD 3-clause license. See LICENSE file
 # for more details.
 
-from spack import *
 from spack.package import *
-from spack.pkg.builtin.tioga import Tioga as bTioga
-from spack.pkg.exawind.ctest_package import *
+from spack_repo.builtin.packages.tioga.package import Tioga as bTioga
+from spack_repo.exawind.packages.ctest_package.package import *
 
 class Tioga(bTioga, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
