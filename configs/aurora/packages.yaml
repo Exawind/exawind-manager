@@ -31,6 +31,10 @@ packages:
     require: "mpich"
   m4:
     require: "%gcc"
+  python:
+    require: "%gcc"
+  libtool:
+    require: "%gcc"
   all:
     prefer:
       - "%intel-oneapi-compilers@2025.0.5"
