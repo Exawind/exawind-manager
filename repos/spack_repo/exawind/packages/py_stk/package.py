@@ -6,7 +6,7 @@
 # for more details.
 
 from spack.package import *
-
+from spack_repo.builtin.build_systems.python import PythonPackage
 
 class PyStk(PythonPackage):
     """pySTK is a Python/Cython wrapper to provide a python interface to STK"""
