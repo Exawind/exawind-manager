@@ -20,7 +20,7 @@ import spack.util.log_parse
 
 from spack.phase_callbacks import run_after
 from spack.directives import variant, requires
-from spack.package import CMakePackage
+from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import Executable
 find_machine = importlib.import_module("find-exawind-manager")
 
