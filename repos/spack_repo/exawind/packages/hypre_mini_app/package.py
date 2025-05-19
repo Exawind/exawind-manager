@@ -7,8 +7,8 @@
 
 from spack.package import *
 from spack_repo.builtin.build_systems.cmake import CMakePackage
-from spack_repo.builtin.build_systems.cmake import CudaPackage
-from spack_repo.builtin.build_systems.cmake import ROCmPackage
+from spack_repo.builtin.build_systems.cuda import CudaPackage
+from spack_repo.builtin.build_systems.rocm import ROCmPackage
 
 class HypreMiniApp(CMakePackage, CudaPackage, ROCmPackage):
     """HYPRE mini-app for use with Nalu-Wind linear systems. """
