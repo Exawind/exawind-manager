@@ -6,25 +6,22 @@
 # for more details.
 import llnl.util.tty as tty
 import importlib
-import inspect
 import glob
 import os
 import shutil
 import time
-
 import llnl.util.filesystem as fs
-
 import spack.phase_callbacks
-import spack.build_systems.cmake
 import spack.util.log_parse
 
+from spack.package import *
+from spack_repo.builtin.build_systems.cmake import CMakePackage
+from spack_repo.builtin.build_systems.cmake import CMakeBuilder
 from spack.phase_callbacks import run_after
 from spack.directives import variant, requires
-from spack_repo.builtin.build_systems.cmake import CMakePackage
-from spack.package import Executable
 find_machine = importlib.import_module("find-exawind-manager")
 
-class CTestBuilder(spack.build_systems.cmake.CMakeBuilder):
+class CTestBuilder(CMakeBuilder):
     phases = ("cmake", "build", "install", "analysis")
 
     @property
