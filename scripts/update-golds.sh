@@ -26,25 +26,25 @@ copy() {
 }
 
 cmd "cd ${MYEWM}"
-cmd "source shortcut.sh"
+cmd "source shortcut.sh" || true
 cmd "spack env activate ${DATE}"
 
 for APP in exawind amr-wind nalu-wind
 do
   GOLD_DIR=${MYGOLDS}/${APP}
 
-  #~asan%clang
-  SPEC=${APP}~asan%clang
+  #~asan%llvm
+  SPEC=${APP}~asan%llvm
   GOLD_SPEC_DIR=clang-cpu
   copy ${SPEC} ${GOLD_SPEC_DIR} ${GOLD_DIR}
 
-  #+asan%clang
-  SPEC=${APP}+asan%clang
+  #+asan%llvm
+  SPEC=${APP}+asan%llvm
   GOLD_SPEC_DIR=clang-cpu-asan
   copy ${SPEC} ${GOLD_SPEC_DIR} ${GOLD_DIR}
 
   #~cuda%gcc
-  SPEC=${APP}~cuda%gcc
+  SPEC=${APP}~cuda%gcc^cmake%gcc
   GOLD_SPEC_DIR=gcc-cpu
   copy ${SPEC} ${GOLD_SPEC_DIR} ${GOLD_DIR}
 
