@@ -5,9 +5,8 @@
 # This software is released under the BSD 3-clause license. See LICENSE file
 # for more details.
 
-from spack import *
 from spack.package import *
-
+from spack_repo.builtin.build_systems.python import PythonPackage
 
 class PyStk(PythonPackage):
     """pySTK is a Python/Cython wrapper to provide a python interface to STK"""

@@ -5,9 +5,10 @@
 # This software is released under the BSD 3-clause license. See LICENSE file
 # for more details.
 
-from spack import *
 from spack.package import *
-
+from spack_repo.builtin.build_systems.cmake import CMakePackage
+from spack_repo.builtin.build_systems.cuda import CudaPackage
+from spack_repo.builtin.build_systems.rocm import ROCmPackage
 
 class HypreMiniApp(CMakePackage, CudaPackage, ROCmPackage):
     """HYPRE mini-app for use with Nalu-Wind linear systems. """
