@@ -99,7 +99,7 @@ def configure_env(args, env_name):
 
         accumulator.update_configs()
 
-        concretize("--force -j 1")
+        concretize("--force")
         if args.depfile:
             env("depfile", "-o", os.path.join(e.path, "Makefile"))
         if args.pre_fetch:
