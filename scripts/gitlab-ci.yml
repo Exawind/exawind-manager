@@ -1,0 +1,10 @@
+stages:
+- "0"
+
+create-snapshot-image:
+  stage: "0"
+  tags: [exawind-ci]
+  script:
+  - export EXAWIND_COMMIT=$(curl --request GET --url "https://api.github.com/repos/exawind/exawind-manager/commits/main" | jq -r '.sha')
+  - ./generate-snapshot-image.sh $EXAWIND_COMMIT
+
