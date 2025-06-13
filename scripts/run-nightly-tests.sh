@@ -10,6 +10,7 @@ cmd() {
 
 cmd "source ${EXAWIND_MANAGER}/start.sh"
 cmd "spack-start"
+cmd "spack clean -fmps"
 
 days_to_keep=${DAYS_TO_KEEP:-30}
 nranks=${NRANKS:-8}
