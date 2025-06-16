@@ -11,6 +11,9 @@ cmd() {
 cmd "source ${EXAWIND_MANAGER}/start.sh"
 cmd "spack-start"
 cmd "spack clean -fmps"
+if [[ "$(spack manager find-machine | awk '{print $2}')" == "ellis" ]]
+  cmd "rm -rf /mnt/vdb/home/jrood/.spack_downloads/_source-cache/git"
+fi
 
 days_to_keep=${DAYS_TO_KEEP:-30}
 nranks=${NRANKS:-8}
