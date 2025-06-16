@@ -11,7 +11,7 @@ cmd() {
 cmd "source ${EXAWIND_MANAGER}/start.sh"
 cmd "spack-start"
 cmd "spack clean -fmps"
-if [[ "$(spack manager find-machine | awk '{print $2}')" == "ellis" ]]
+if [[ "$(spack manager find-machine | awk '{print $2}')" == "ellis" ]]; then
   cmd "rm -rf /mnt/vdb/home/jrood/.spack_downloads/_source-cache/git"
 fi
 
