@@ -35,11 +35,9 @@ function spack-start() {
 
   function install_spack_manager(){
     export SPACK_ROOT=${EXAWIND_MANAGER}/spack
-    ORIGINAL_DIR=$(pwd)
-    cd "$EXAWIND_MANAGER"
+    pushd "$EXAWIND_MANAGER" > /dev/null || exit 1
     git submodule update ${SPACK_ROOT}/../spack-manager
-    cd "$ORIGINAL_DIR"
-    unset ORIGINAL_DIR
+    popd > /dev/null
     spack -E config --scope site add "config:extensions:[${EXAWIND_MANAGER}/spack-manager]"
     spack -E manager add ${EXAWIND_MANAGER}
   }
