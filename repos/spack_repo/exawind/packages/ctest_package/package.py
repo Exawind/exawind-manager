@@ -33,7 +33,7 @@ class CTestBuilder(CMakeBuilder):
             trunc_spec_string = trunc_spec_string.replace(" build_system=cmake", "")
             index = trunc_spec_string.find("/")
             trunc_spec_string = trunc_spec_string[:index] + trunc_spec_string[index+32+1:]
-            #trunc_spec_string = trunc_spec_string[:trunc_spec_string.index(" commit=")]
+            trunc_spec_string = trunc_spec_string[:trunc_spec_string.index(" commit=")]
             args.extend([
                         f"-DBUILDNAME={trunc_spec_string}",
                         "-DSITE={}".format(find_machine.cdash_host_name()),
