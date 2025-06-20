@@ -2,7 +2,4 @@ packages:
   all:
     target: [x86_64]
     providers:
-      mpi: [mpich, openmpi]
-      c: [gcc@9.4.0]
-      cxx: [gcc@9.4.0]
-      fortran: [gcc@9.4.0]
+      mpi: [mpich]
