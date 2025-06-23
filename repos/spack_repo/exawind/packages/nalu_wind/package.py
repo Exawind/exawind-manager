@@ -15,7 +15,7 @@ class NaluWind(bNaluWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("unit-tests", default=True, description="Activate unit tests")
 
-    depends_on("trilinos@16.1.0:")
+    depends_on("trilinos+mpi@16.1.0:")
 
     requires("+tests", when="+cdash_submit")
 
