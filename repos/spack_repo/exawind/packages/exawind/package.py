@@ -25,6 +25,9 @@ class Exawind(bExawind, CtestPackage):
             cmake_options.append(self.define("EXAWIND_ENABLE_TESTS", True))
 
         if spec.satisfies("+tests"):
+            machine_name, _ = find_machine.get_current_machine()
+            if machine_name == "kestrel-gpu":
+                cmake_options.append(self.define("MPIEXEC_EXECUTABLE", "srun"))
             cmake_options.append(self.define("EXAWIND_ENABLE_TESTS", True))
             cmake_options.append(self.define("EXAWIND_TEST_WITH_FCOMPARE", True))
             cmake_options.append(self.define("EXAWIND_SAVE_GOLDS", True))
