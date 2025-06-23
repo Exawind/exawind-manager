@@ -34,6 +34,8 @@ packages:
           - libfabric/1.15.2.0
   boost:
     require: "@1.80.0"
+  netcdf-c:
+    require: "build_system=autotools"
   libxml2:
     require: "build_system=autotools"
   mpi:
