@@ -16,6 +16,7 @@ class NaluWind(bNaluWind, CtestPackage):
     variant("unit-tests", default=True, description="Activate unit tests")
 
     depends_on("trilinos+mpi@16.1.0:")
+    requires("+hypre")
 
     requires("+tests", when="+cdash_submit")
 
