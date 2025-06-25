@@ -44,9 +44,12 @@ packages:
     require: "netlib-lapack"
   lapack:
     require: "netlib-lapack"
+  amr-wind:
+    require: "target=x86_64"
   all:
     prefer:
       - "%intel-oneapi-compilers@2023.2.0"
       - "build_type=Release"
+      - "target=sapphirerapids"
     conflict:
       - "%gcc"
