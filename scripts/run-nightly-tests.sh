@@ -13,6 +13,8 @@ cmd "spack-start"
 cmd "spack clean -fmps"
 if [[ "$(spack manager find-machine | awk '{print $2}')" == "ellis" ]]; then
   cmd "rm -rf /mnt/vdb/home/jrood/.spack_downloads/_source-cache/git"
+  cmd "rm -rf /mnt/vdb/home/jrood/exawind/exawind-manager/stage/*"
+  cmd "rm -f /mnt/vdb/home/jrood/exawind/exawind-manager/stage/.lock"
 fi
 
 days_to_keep=${DAYS_TO_KEEP:-30}
