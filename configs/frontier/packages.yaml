@@ -1,128 +1,128 @@
 packages:
   llvm:
     externals:
-      - spec: llvm@17.0.0
-        prefix: /opt/rocm-6.1.3
+      - spec: llvm@19.0.0
+        prefix: /opt/rocm-6.4.1
         extra_attributes:
           compilers:
-            c: /opt/rocm-6.1.3/bin/amdclang
-            cxx: /opt/rocm-6.1.3/bin/amdclang++
-            fortran: /opt/rocm-6.1.3/bin/flang
+            c: /opt/rocm-6.4.1/bin/amdclang
+            cxx: /opt/rocm-6.4.1/bin/amdclang++
+            fortran: /opt/rocm-6.4.1/bin/flang
         modules:
           - PrgEnv-gnu-amd/8.6.0
-          - amd-mixed/6.1.3
-          - rocm/6.1.3
+          - amd-mixed/6.4.1
+          - rocm/6.4.1
           - craype-x86-trento
   gcc:
     externals:
-      - spec: gcc@12.1.0
-        prefix: /opt/cray/pe/gcc-native/12
+      - spec: gcc@14.2.0
+        prefix: /opt/cray/pe/gcc-native/14
         extra_attributes:
           compilers:
-            c: /opt/cray/pe/gcc-native/12/bin/gcc
-            cxx: /opt/cray/pe/gcc-native/12/bin/g++
-            fortran: /opt/cray/pe/gcc-native/12/bin/gfortran
+            c: /opt/cray/pe/gcc-native/14/bin/gcc
+            cxx: /opt/cray/pe/gcc-native/14/bin/g++
+            fortran: /opt/cray/pe/gcc-native/14/bin/gfortran
   cray-mpich:
     require: "@8.1.31"
     buildable: false
     externals:
-      - spec: "cray-mpich@8.1.31%llvm@17.0.0"
+      - spec: "cray-mpich@8.1.31%llvm@19.0.0"
         prefix: /opt/cray/pe/mpich/8.1.31/ofi/amd/6.0
         modules:
           - cray-mpich/8.1.31
           - craype-network-ofi
           - libfabric/1.22.0
           - cray-pmi/6.1.15
-          - xpmem/2.10.6-1.2_gfaa90a94be64
+          - xpmem/2.11.3-1.3_gdbda01a1eb3d
   rocprim:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: rocprim@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: rocprim@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   rocrand:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: rocrand@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: rocrand@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   rocthrust:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: rocthrust@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: rocthrust@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   rocsparse:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: rocsparse@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: rocsparse@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   hip:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: hip@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: hip@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   hsa-rocr-dev:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: hsa-rocr-dev@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: hsa-rocr-dev@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   llvm-amdgpu:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: llvm-amdgpu@6.1.3
-        prefix: /opt/rocm-6.1.3/llvm
+      - spec: llvm-amdgpu@6.4.1
+        prefix: /opt/rocm-6.4.1/llvm
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   rocblas:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: rocblas@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: rocblas@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   rocsolver:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: rocsolver@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: rocsolver@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   hipblaslt:
-    require: "@6.1.3"
+    require: "@6.4.1"
     buildable: false
     externals:
-      - spec: hipblaslt@6.1.3
-        prefix: /opt/rocm-6.1.3
+      - spec: hipblaslt@6.4.1
+        prefix: /opt/rocm-6.4.1
         modules:
-          - rocm/6.1.3
+          - rocm/6.4.1
           - craype-accel-amd-gfx90a
   python:
     require: "~ssl"
@@ -131,11 +131,11 @@ packages:
   mpi:
     require: "cray-mpich@8.1.31"
   c:
-    require: "llvm@17.0.0"
+    require: "llvm@19.0.0"
   cxx:
-    require: "llvm@17.0.0"
+    require: "llvm@19.0.0"
   fortran:
-    require: "gcc@12.1.0"
+    require: "gcc@14.2.0"
   netcdf-c:
     require: "build_system=cmake"
   all:
