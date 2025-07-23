@@ -44,6 +44,8 @@ packages:
     require: "netlib-lapack"
   lapack:
     require: "netlib-lapack"
+  hdf5:
+    require: "~fortran"
   amr-wind:
     require: "target=x86_64"
   all:
