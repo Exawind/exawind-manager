@@ -4,13 +4,13 @@
 #
 # This software is released under the BSD 3-clause license. See LICENSE file
 # for more details.
-import llnl.util.tty as tty
 import importlib
 import glob
 import os
 import shutil
 import time
-import llnl.util.filesystem as fs
+import spack.llnl.util.filesystem as fs
+import spack.llnl.util.tty as tty
 import spack.phase_callbacks
 import spack.util.log_parse
 
