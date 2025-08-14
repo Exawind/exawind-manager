@@ -1,5 +1,5 @@
 from spack.package import *
-from spack_repo.builtin.packages.amr_wind.package import Openturbine as bOpenturbine
+from spack_repo.builtin.packages.openturbine.package import Openturbine as bOpenturbine
 from spack_repo.exawind.packages.ctest_package.package import *
 
 
