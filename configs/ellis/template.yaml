@@ -11,4 +11,4 @@ spack:
     - openturbine+tests+klu %gcc
     - openturbine+tests+klu %llvm
     - openturbine+tests+klu+asan build_type=Debug %llvm
-    - openturbine+tests+klu+cudss+cuda cuda_arch=80 %gcc
+    - openturbine+tests+klu+cuda cuda_arch=80 %gcc
