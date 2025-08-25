@@ -7,6 +7,8 @@ class Openturbine(bOpenturbine, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
 
     depends_on("suite-sparse@7.4:", when="+klu")
+    depends_on("netcdf-c@4.9:")
+    depends_on("yaml-cpp@0.6:")
 
     requires("+tests", when="+cdash_submit")
 
