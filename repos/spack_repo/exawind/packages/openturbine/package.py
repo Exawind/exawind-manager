@@ -6,6 +6,8 @@ from spack_repo.exawind.packages.ctest_package.package import *
 class Openturbine(bOpenturbine, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
 
+    depends_on("suite-sparse@7.4:", when="+klu")
+
     requires("+tests", when="+cdash_submit")
 
     def setup_build_environment(self, env):
