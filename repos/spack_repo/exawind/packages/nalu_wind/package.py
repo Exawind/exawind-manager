@@ -20,6 +20,11 @@ class NaluWind(bNaluWind, CtestPackage):
 
     requires("+tests", when="+cdash_submit")
 
+    def flag_handler(self, name, flags):
+        if name == "cxxflags":
+            flags.append("-DUSE_STK_SIMD_NONE")
+        return (flags, None, None)
+
     def setup_dependent_run_environment(self, env, dependent_spec):
         spec = self.spec
         super().setup_dependent_run_environment(env, dependent_spec)

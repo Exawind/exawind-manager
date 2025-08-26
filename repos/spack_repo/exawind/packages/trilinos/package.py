@@ -11,6 +11,13 @@ from spack_repo.builtin.packages.trilinos.package import Trilinos as bTrilinos
 class Trilinos(bTrilinos):
     variant("asan", default=False, description="Turn on address sanitizer")
 
+    def flag_handler(self, name, flags):
+        super().flag_handler(name, flags)
+        if name == "cxxflags":
+            if "+stk" in self.spec:
+                flags.append("-DUSE_STK_SIMD_NONE")
+        return (flags, None, None)
+
     def setup_build_environment(self, env):
         spec = self.spec
         super().setup_build_environment(env)
