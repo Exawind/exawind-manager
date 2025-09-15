@@ -58,7 +58,7 @@ class NetcdfC(CMakePackage, AutotoolsPackage):
         patch("4.8.1-win-hdf5-with-zlib.patch", when="@4.8.1:4.9.2 platform=windows")
 
         # TODO: https://github.com/Unidata/netcdf-c/pull/2595 contains some of the changes
-        # made in this patch but is not sufficent to replace the patch. There is currently
+        # made in this patch but is not sufficient to replace the patch. There is currently
         # no upstream PR (or set of PRs) covering all changes in this path.
         # When #2595 lands, this patch should be updated to include only
         # the changes not incorporated into that PR
