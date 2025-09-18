@@ -2,9 +2,9 @@ packages:
   mpi:
     require: "mpich"
   blas:
-    require: "openblas"
+    require: "netlib-lapack"
   lapack:
-    require: "openblas"
+    require: "netlib-lapack"
   c:
     require: "apple-clang"
   cxx:
