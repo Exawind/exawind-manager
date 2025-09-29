@@ -5,10 +5,10 @@ spack:
   view: false
   specs:
     - exawind~amr_wind_gpu~nalu_wind_gpu~cuda@master %gcc ^nalu-wind+wind-utils+trilinos-solvers@master ^amr-wind+hypre+hdf5+netcdf+masa+waves2amr@main ^tioga@develop
-    - exawind~amr_wind_gpu~nalu_wind_gpu~cuda@master %llvm ^nalu-wind+wind-utils+trilinos-solvers@master ^amr-wind+hypre+hdf5+netcdf+masa+waves2amr@main ^tioga@develop
-    - exawind~amr_wind_gpu~nalu_wind_gpu~cuda+asan@master build_type=Debug %llvm ^nalu-wind+wind-utils+trilinos-solvers+asan@master build_type=Debug ^amr-wind+hypre+hdf5+netcdf+waves2amr+asan@main build_type=Debug ^tioga+asan@develop build_type=Debug ^trilinos+asan build_type=Debug ^hypre+debug
-    - exawind+amr_wind_gpu+nalu_wind_gpu+cuda@master cuda_arch=80 %gcc ^nalu-wind~wind-utils~trilinos-solvers@master ^amr-wind+hypre+hdf5+netcdf+waves2amr@main ^tioga@develop
-    - openturbine+tests+klu %gcc
-    - openturbine+tests+klu %llvm
-    - openturbine+tests+klu+asan build_type=Debug %llvm
-    - openturbine+tests+klu+cuda cuda_arch=80 %gcc
+    #- exawind~amr_wind_gpu~nalu_wind_gpu~cuda@master %llvm ^nalu-wind+wind-utils+trilinos-solvers@master ^amr-wind+hypre+hdf5+netcdf+masa+waves2amr@main ^tioga@develop
+    #- exawind~amr_wind_gpu~nalu_wind_gpu~cuda+asan@master build_type=Debug %llvm ^nalu-wind+wind-utils+trilinos-solvers+asan@master build_type=Debug ^amr-wind+hypre+hdf5+netcdf+waves2amr+asan@main build_type=Debug ^tioga+asan@develop build_type=Debug ^trilinos+asan build_type=Debug ^hypre+debug
+    #- exawind+amr_wind_gpu+nalu_wind_gpu+cuda@master cuda_arch=80 %gcc ^nalu-wind~wind-utils~trilinos-solvers@master ^amr-wind+hypre+hdf5+netcdf+waves2amr@main ^tioga@develop
+    #- openturbine+tests+klu %gcc
+    #- openturbine+tests+klu %llvm
+    #- openturbine+tests+klu+asan build_type=Debug %llvm
+    #- openturbine+tests+klu+cuda cuda_arch=80 %gcc
