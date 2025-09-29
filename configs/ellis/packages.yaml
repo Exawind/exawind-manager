@@ -1,21 +1,21 @@
 packages:
   gcc:
     externals:
-      - spec: gcc@12.3.0
-        prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk
+      - spec: gcc@12.5.0
+        prefix: /data/ssd1/software/2025-09-25/opt/bootstrap/linux-zen/gcc-12.5.0-rihnasrwn63d4v4fx6fudrhztcedj3nv
         extra_attributes:
           compilers:
-            c: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk/bin/gcc
-            cxx: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk/bin/g++
-            fortran: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/gcc-12.3.0-zotxciurfbgq5pi35vo2v42kwneo6hfk/bin/gfortran
+            c: /data/ssd1/software/2025-09-25/opt/bootstrap/linux-zen/gcc-12.5.0-rihnasrwn63d4v4fx6fudrhztcedj3nv/bin/gcc
+            cxx: /data/ssd1/software/2025-09-25/opt/bootstrap/linux-zen/gcc-12.5.0-rihnasrwn63d4v4fx6fudrhztcedj3nv/bin/g++
+            fortran: /data/ssd1/software/2025-09-25/opt/bootstrap/linux-zen/gcc-12.5.0-rihnasrwn63d4v4fx6fudrhztcedj3nv/bin/gfortran
   llvm:
     externals:
-      - spec: llvm@17.0.6
-        prefix: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa
+      - spec: llvm@20.1.8
+        prefix: /data/ssd1/software/2025-09-25/opt/compilers/linux-zen2/llvm-20.1.8-hb7th6clwqfn45odo2h2w6flnd6zvgg7
         extra_attributes:
           compilers:
-            c: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa/bin/clang
-            cxx: /data/ssd1/software/2024-05-01/opt/compilers/linux-rocky8-zen2/gcc-12.3.0/llvm-17.0.6-fzo52dlnsdgyyb3wgxrrlxmnvepk6esa/bin/clang++
+            c: /data/ssd1/software/2025-09-25/opt/compilers/linux-zen2/llvm-20.1.8-hb7th6clwqfn45odo2h2w6flnd6zvgg7/bin/clang
+            cxx: /data/ssd1/software/2025-09-25/opt/compilers/linux-zen2/llvm-20.1.8-hb7th6clwqfn45odo2h2w6flnd6zvgg7/bin/clang++
   hdf5:
     require: "~fortran"
   h5z-zfp:
@@ -25,12 +25,12 @@ packages:
   mpi:
     require: "mpich"
   cuda:
-    require: "@=12.5.1"
+    require: "@=12.9.0"
   fortran:
-    require: "gcc@12.3.0"
+    require: "gcc@12.5.0"
   all:
     providers:
-       c: [gcc@12.3.0, llvm@17.0.6]
-       cxx: [gcc@12.3.0, llvm@17.0.6]
+       c: [gcc@12.5.0, llvm@20.1.8]
+       cxx: [gcc@12.5.0, llvm@20.1.8]
     variants: build_type=Release cuda_arch=80
     target: [zen2]
