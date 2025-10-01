@@ -25,7 +25,7 @@ packages:
   mpi:
     require: "mpich"
   cuda:
-    require: "@=12.9.0"
+    require: "@=12.5.1"
   fortran:
     require: "gcc@12.5.0"
   all:
