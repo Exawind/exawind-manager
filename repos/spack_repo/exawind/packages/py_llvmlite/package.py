@@ -31,7 +31,9 @@ class PyLlvmlite(PythonPackage):
     version("0.38.0", sha256="a99d166ccf3b116f3b9ed23b9b70ba2415640a9c978f3aaa13fad49c58f4965c")
     version("0.37.0", sha256="6392b870cd018ec0c645d6bbb918d6aa0eeca8c62674baaee30862d6b6865b15")
 
-    depends_on("cxx", type="build")  # generated
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("cmake", type="build")
 
     depends_on("py-setuptools", type="build")
     depends_on("python@3.10:3.13", when="@0.44:", type=("build", "run"))
@@ -41,8 +43,8 @@ class PyLlvmlite(PythonPackage):
     depends_on("python@:3.9", when="@0.36:0.37", type=("build", "run"))
 
     # https://github.com/numba/llvmlite#compatibility
-    depends_on("llvm@20:", when="@0.45:")
-    depends_on("llvm@15:16", when="@0.44:")
+    depends_on("llvm@20", when="@0.45:")
+    depends_on("llvm@15:16", when="@0.44")
     depends_on("llvm@14", when="@0.41:0.43")
     depends_on("llvm@11:14", when="@0.40")
     depends_on("llvm@11", when="@0.37:0.39")
