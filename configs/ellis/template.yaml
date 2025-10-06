@@ -11,4 +11,4 @@ spack:
     - kynema+tests+klu %gcc
     - kynema+tests+klu %llvm
     - kynema+tests+klu+asan build_type=Debug %llvm
-    #- kynema+tests+klu+cuda cuda_arch=80 %gcc
+    - kynema+tests+klu+cuda cuda_arch=80 %gcc
