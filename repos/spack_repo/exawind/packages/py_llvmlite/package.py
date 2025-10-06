@@ -16,6 +16,8 @@ class PyLlvmlite(PythonPackage):
 
     license("BSD-2-Clause")
 
+    version("0.45.1", sha256="09430bb9d0bb58fc45a45a57c7eae912850bedc095cd0810a57de109c69e1c32")
+    version("0.45.0", sha256="ceb0bcd20da949178bd7ab78af8de73e9f3c483ac46b5bef39f06a4862aa8336")
     version("0.44.0", sha256="07667d66a5d150abed9157ab6c0b9393c9356f229784a4385c02f99e94fc94d4")
     version("0.43.0", sha256="ae2b5b5c3ef67354824fb75517c8db5fbe93bc02cd9671f3c62271626bc041d5")
     version("0.42.0", sha256="f92b09243c0cc3f457da8b983f67bd8e1295d0f5b3746c7a1861d7a99403854a")
@@ -39,7 +41,8 @@ class PyLlvmlite(PythonPackage):
     depends_on("python@:3.9", when="@0.36:0.37", type=("build", "run"))
 
     # https://github.com/numba/llvmlite#compatibility
-    depends_on("llvm@15", when="@0.44:")
+    depends_on("llvm@20:", when="@0.45:")
+    depends_on("llvm@15:16", when="@0.44:")
     depends_on("llvm@14", when="@0.41:0.43")
     depends_on("llvm@11:14", when="@0.40")
     depends_on("llvm@11", when="@0.37:0.39")
