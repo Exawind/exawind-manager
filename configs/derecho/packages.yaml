@@ -40,58 +40,40 @@ packages:
           c: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/gcc
           cxx: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/g++
           fortran: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/gfortran
-        environment:
-          set:
-            NVCCFLAGS: -allow-unsupported-compiler
-            NVCC_PREPEND_FLAGS: -allow-unsupported-compiler
-            # These are needed for kokkos (see kokkos_check_env.cmake)
-            CRAYPE_VERSION: 1
-            CRAYPE_LINK_TYPE: dynamic
     buildable: false
     variants:
     - +piclibs
     - languages=c,c++,fortran,go
-    require:
-    - '%gcc@7.5.0'
+  intel-oneapi-compilers:
+    externals:
+    - spec: intel-oneapi-compilers@2024.2.1
+      prefix: /glade/u/apps/casper/24.12/spack/opt/spack/intel-oneapi-compilers/2024.2.1/gcc/12.4.0/iq3b
+      extra_attributes:
+        compilers:
+          c: /glade/u/apps/casper/24.12/spack/opt/spack/intel-oneapi-compilers/2024.2.1/gcc/12.4.0/iq3b/compiler/latest/bin/icx
+          cxx: /glade/u/apps/casper/24.12/spack/opt/spack/intel-oneapi-compilers/2024.2.1/gcc/12.4.0/iq3b/compiler/latest/bin/icpx
+          fortran: /glade/u/apps/casper/24.12/spack/opt/spack/intel-oneapi-compilers/2024.2.1/gcc/12.4.0/iq3b/compiler/latest/bin/ifx
+    buildable: false
+    variants:
+    - +envmods
+    - +nvidia
+  mpi:
+    require: cray-mpich
+  blas:
+    require: intel-oneapi-mkl
+  lapack:
+    require: intel-oneapi-mkl
+  pkgconfig:
+    require: pkg-config
+  tbb:
+    require: intel-oneapi-tbb
   all:
-    compiler:
-    - oneapi
-    - gcc
-    providers:
-      mpi:
-      - cray-mpich
-      szip:
-      - libszip
-      pkgconfig:
-      - pkg-config
-      lapack:
-      - openblas
-      - intel-oneapi-mkl
-      - cray-libsci
-      - nvhpc
-      blas:
-      - openblas
-      - intel-oneapi-mkl
-      - cray-libsci
-      - nvhpc
-      zlib-api:
-      - zlib
-      rpc:
-      - libtirpc
-      tbb:
-      - intel-oneapi-tbb
     target:
     # This target is lowest-common denominator between Intel and Milans
     - x86_64_v3
     prefer:
-    - spec: ^intel-oneapi-mkl
-      when: '%oneapi ^lapack'
-    - spec: ^intel-oneapi-mkl
-      when: '%oneapi ^blas'
-    - spec: ^pkg-config
-      when: ^pkgconfig
     - spec: cuda_arch=80 ^cuda@12.3.2
       when: ^cuda
     - spec: ^libfabric@1.15.2.0
       when: ^libfabric
-    - "%oneapi"
+    - '%intel-oneapi-compilers'

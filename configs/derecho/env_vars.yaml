@@ -1,0 +1,7 @@
+env_vars:
+  set:
+    NVCCFLAGS: -allow-unsupported-compiler
+    NVCC_PREPEND_FLAGS: -allow-unsupported-compiler
+    # These are needed for kokkos (see kokkos_check_env.cmake)
+    CRAYPE_VERSION: "1"
+    CRAYPE_LINK_TYPE: dynamic
