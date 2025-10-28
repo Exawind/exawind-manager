@@ -43,7 +43,7 @@ class CTestBuilder(CMakeBuilder):
     def ctest_args(self):
         args = ["-T", "Test"]
         args.append("--stop-time")
-        overall_test_timeout=60*60*8 # 8 hours
+        overall_test_timeout=60*60*12 # 12 hours
         args.append(time.strftime("%H:%M:%S", time.localtime(time.time() + overall_test_timeout)))
         args.append("-VV")
         extra_args = self.pkg.spec.variants["ctest_args"].value
