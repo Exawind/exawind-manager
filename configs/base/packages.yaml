@@ -1,6 +1,8 @@
 packages:
   hypre:
     require: "@=2.32.0"
+  tar:
+    require: "zip=gzip"
   amr-wind:
     variants: +tiny_profile
   trilinos:
