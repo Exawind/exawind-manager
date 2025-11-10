@@ -1,6 +1,6 @@
 packages:
   hypre:
-    require: "@=2.32.0"
+    require: "@=2.32.0+shared"
   tar:
     require: "zip=gzip"
   amr-wind:
