@@ -11,10 +11,6 @@ from spack_repo.exawind.packages.ctest_package.package import *
 find_machine = importlib.import_module("find-exawind-manager")
 
 class AmrWind(bAmrWind, CtestPackage):
-    version("3.8.1", tag="v3.8.1", commit="464ce0891979dbef9972c5b868facee1c974779d", submodules=True)
-    version("3.8.0", tag="v3.8.0", commit="35d63755ce213caedc1c1e96e93e9a4bfe5bffc3", submodules=True)
-    version("3.7.0", tag="v3.7.0", commit="243e620c263761d34b3ef54694cfd3f787321c24", submodules=True)
-
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
 
