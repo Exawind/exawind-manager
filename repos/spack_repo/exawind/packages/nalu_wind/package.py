@@ -12,6 +12,8 @@ find_machine = importlib.import_module("find-exawind-manager")
 
 
 class NaluWind(bNaluWind, CtestPackage):
+    version("2.5.0", tag="v2.5.0", commit="2382077a7112a1aeb90f850994eb92d76abe0434", submodules=True)
+
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("unit-tests", default=True, description="Activate unit tests")
 
