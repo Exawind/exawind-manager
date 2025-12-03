@@ -12,10 +12,11 @@ find_machine = importlib.import_module("find-exawind-manager")
 
 
 class NaluWind(bNaluWind, CtestPackage):
+    version("2.6.0", tag="v2.6.0", commit="9272856bb6b8dae54a369395654c7c0933e87457")
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("unit-tests", default=True, description="Activate unit tests")
 
-    depends_on("trilinos+mpi@16.1.0:")
+    depends_on("trilinos+mpi@16.2.0:")
     requires("+hypre")
 
     requires("+tests", when="+cdash_submit")
@@ -60,6 +61,9 @@ class NaluWind(bNaluWind, CtestPackage):
         spec = self.spec
 
         cmake_options = super().cmake_args()
+
+        if spec.satisfies("+kynema"):
+            cmake_options.append(self.define("ENABLE_KYNEMA_SIXDOF", True))
 
         if spec.satisfies("+tests") or self.run_tests or spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
