@@ -9,6 +9,7 @@ from spack.package import *
 from spack_repo.builtin.packages.trilinos.package import Trilinos as bTrilinos
 
 class Trilinos(bTrilinos):
+    url = "https://github.com/trilinos/Trilinos/archive/refs/tags/16.2.0.tar.gz"
     version("16.2.0", sha256="a5dd61e7752b6c0c53e89495aa68e099a5f68b6b775fff49e324c3b177174488")
     variant("asan", default=False, description="Turn on address sanitizer")
 
