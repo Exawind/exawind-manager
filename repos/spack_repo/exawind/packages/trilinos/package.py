@@ -10,7 +10,7 @@ from spack_repo.builtin.packages.trilinos.package import Trilinos as bTrilinos
 
 class Trilinos(bTrilinos):
     url = "https://github.com/trilinos/Trilinos/archive/refs/tags/16.2.0.tar.gz"
-    version("16.2.0", sha256="a5dd61e7752b6c0c53e89495aa68e099a5f68b6b775fff49e324c3b177174488")
+    version("16.2.0", sha256="543aa56232d7c0cbe73705fab2d3b5524f11b15fef8917aa14de02d23a5ca418")
     variant("asan", default=False, description="Turn on address sanitizer")
 
     depends_on("kokkos@=4.7.01", when="@16.2 +kokkos")
