@@ -1,4 +1,6 @@
 packages:
+  curl:
+    require: "@=8.15.0"
   hypre:
     require: "@=2.32.0+shared"
   tar:
