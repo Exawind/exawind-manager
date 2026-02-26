@@ -8,6 +8,9 @@ class Kynema(bKynema, CtestPackage):
 
     depends_on("c", type="build")
 
+    depends_on("kokkos@4.6:4.7")
+    depends_on("kokkos-kernels@4.6:4.7")
+
     requires("+tests", when="+cdash_submit")
 
     def setup_build_environment(self, env):
