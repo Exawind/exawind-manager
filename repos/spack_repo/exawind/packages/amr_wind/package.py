@@ -14,6 +14,7 @@ class AmrWind(bAmrWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
 
+    depends_on("kynema+klu", when="+kynema")
     depends_on("netcdf-c+mpi", when="+netcdf")
     requires("+tests", when="+cdash_submit")
 
