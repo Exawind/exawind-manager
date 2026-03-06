@@ -77,18 +77,18 @@ class PackageVariantAccumulator:
 
     def update_configs(self):
         for name, variants in self.data.items():
-            print(config("add", f"packages:{name}:variants:\"{variants}\""), end="")
+            config("add", f"packages:{name}:variants:\"{variants}\"")
 
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
         accumulator = PackageVariantAccumulator()
-        print(config("add", "config:install_tree:root:{}".format(
+        config("add", "config:install_tree:root:{}".format(
                spack_path_resolve("$EXAWIND_MANAGER/opt/{}".format(e.name))
-               )), end="")
+               ))
         if args.daily:
-            print(config("add", "modules:default:tcl:all:suffixes:all:daily"), end="")
+            config("add", "modules:default:tcl:all:suffixes:all:daily")
         else:
-            print(config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name)), end="")
+            config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
 
         if args.regression_tests:
             for pkg in args.regression_tests:
@@ -100,7 +100,7 @@ def configure_env(args, env_name):
 
         accumulator.update_configs()
 
-        print(concretize("--force"), end="")
+        print(concretize("--force"), end="", flush=True)
         if args.depfile:
             print(env("depfile", "-o", os.path.join(e.path, "Makefile")), end="")
         if args.pre_fetch:
@@ -120,7 +120,7 @@ def local_install(args, env_name):
             print("make",*make_args(e, args.ranks))
             make(*make_args(e, args.ranks))
         else:
-            print(spack_install(), end="")
+            print(spack_install(), end="", flush=True)
 
 def create_slurm_file(args, env_name):
     e = ev.read(env_name)
@@ -148,7 +148,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     env_name = get_env_name(args)
     environment_setup(args, env_name)
-    print("configure args")
+    print("configure env")
     configure_env(args, env_name)
     if args.slurm_args:
         print("create slurm args")
