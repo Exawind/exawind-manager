@@ -148,7 +148,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     env_name = get_env_name(args)
     environment_setup(args, env_name)
-    print("configure env")
+    print("bootstrap and concretize")
     configure_env(args, env_name)
     if args.slurm_args:
         print("create slurm args")
