@@ -17,6 +17,7 @@ class AmrWind(bAmrWind, CtestPackage):
     depends_on("netcdf-c+mpi", when="+netcdf")
     requires("+tests", when="+cdash_submit")
     requires("+mpi", when="+kynema")
+    requires("+mpi", when="+openfast")
 
     def setup_build_environment(self, env):
         spec = self.spec
