@@ -50,6 +50,7 @@ def get_env_name(args):
 
 def environment_setup(args, env_name):
     out=manager("find-machine")
+    print(out, end="")
     project, machine = out.strip().split()
     template = os.path.expandvars("$EXAWIND_MANAGER/configs/{}/template.yaml".format(machine))
 
@@ -57,10 +58,10 @@ def environment_setup(args, env_name):
         template = os.path.expandvars("$EXAWIND_MANAGER/configs/base/template.yaml")
 
     if args.overwrite and ev.exists(env_name):
-        env("rm", env_name, "-y")
+        print(env("rm", env_name, "-y"), end="")
 
     if not ev.exists(env_name):
-        manager("create-env", "-n", env_name, "-y", template)
+        print(manager("create-env", "-n", env_name, "-y", template), end="")
 
     print("Using env:", ev.read(env_name).path)
 
@@ -76,18 +77,18 @@ class PackageVariantAccumulator:
 
     def update_configs(self):
         for name, variants in self.data.items():
-            config("add", f"packages:{name}:variants:\"{variants}\"")
+            print(config("add", f"packages:{name}:variants:\"{variants}\""), end="")
 
 def configure_env(args, env_name):
     with ev.read(env_name) as e:
         accumulator = PackageVariantAccumulator()
-        config("add", "config:install_tree:root:{}".format(
+        print(config("add", "config:install_tree:root:{}".format(
                spack_path_resolve("$EXAWIND_MANAGER/opt/{}".format(e.name))
-               ))
+               )), end="")
         if args.daily:
-            config("add", "modules:default:tcl:all:suffixes:all:daily")
+            print(config("add", "modules:default:tcl:all:suffixes:all:daily"), end="")
         else:
-            config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name))
+            print(config("add", "modules:default:tcl:all:suffixes:all:'{}'".format(e.name)), end="")
 
         if args.regression_tests:
             for pkg in args.regression_tests:
@@ -99,11 +100,11 @@ def configure_env(args, env_name):
 
         accumulator.update_configs()
 
-        concretize("--force")
+        print(concretize("--force"), end="")
         if args.depfile:
-            env("depfile", "-o", os.path.join(e.path, "Makefile"))
+            print(env("depfile", "-o", os.path.join(e.path, "Makefile")), end="")
         if args.pre_fetch:
-            fetch()
+            print(fetch(), end="")
 
 def make_args(env, ranks):
     args = [
@@ -119,7 +120,7 @@ def local_install(args, env_name):
             print("make",*make_args(e, args.ranks))
             make(*make_args(e, args.ranks))
         else:
-            spack_install()
+            print(spack_install(), end="")
 
 def create_slurm_file(args, env_name):
     e = ev.read(env_name)
@@ -140,7 +141,7 @@ def create_slurm_file(args, env_name):
 
 def module_gen(args, env_name):
     with ev.read(env_name) as e:
-        module("tcl", "refresh", "-y")
+        print(module("tcl", "refresh", "-y"), end="")
 
 
 if __name__ == "__main__":
