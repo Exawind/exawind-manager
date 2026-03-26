@@ -1,4 +1,6 @@
 packages:
+  hypre:
+    prefer: [build_system=autotools]
   amr-wind:
     variants: +tiny_profile
   trilinos:

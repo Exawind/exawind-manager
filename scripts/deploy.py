@@ -100,10 +100,11 @@ def configure_env(args, env_name):
 
         accumulator.update_configs()
 
-        concretize("--force", capture=False)
         if args.depfile:
+            concretize("--force", capture=False)
             env("depfile", "-o", os.path.join(e.path, "Makefile"), capture=False)
         if args.pre_fetch:
+            concretize("--force", capture=False)
             fetch(capture=False)
 
 def make_args(env, ranks):
