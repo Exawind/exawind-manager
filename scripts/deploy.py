@@ -58,7 +58,7 @@ def environment_setup(args, env_name):
         template = os.path.expandvars("$EXAWIND_MANAGER/configs/base/template.yaml")
 
     if args.overwrite and ev.exists(env_name):
-        print(env("rm", env_name, "-y"), end="")
+        env("rm", env_name, "-y", capture=False)
 
     if not ev.exists(env_name):
         print(manager("create-env", "-n", env_name, "-y", template), end="")
@@ -100,11 +100,12 @@ def configure_env(args, env_name):
 
         accumulator.update_configs()
 
-        print(concretize("--force"), end="", flush=True)
         if args.depfile:
-            print(env("depfile", "-o", os.path.join(e.path, "Makefile")), end="")
+            concretize("--force", capture=False)
+            env("depfile", "-o", os.path.join(e.path, "Makefile"), capture=False)
         if args.pre_fetch:
-            print(fetch(), end="")
+            concretize("--force", capture=False)
+            fetch(capture=False)
 
 def make_args(env, ranks):
     args = [
@@ -117,10 +118,10 @@ def local_install(args, env_name):
     with ev.read(env_name) as e:
         os.chdir(e.path)
         if args.depfile:
-            print("make",*make_args(e, args.ranks))
+            print("make", *make_args(e, args.ranks))
             make(*make_args(e, args.ranks))
         else:
-            print(spack_install(), end="", flush=True)
+            spack_install(capture=False)
 
 def create_slurm_file(args, env_name):
     e = ev.read(env_name)
@@ -141,19 +142,16 @@ def create_slurm_file(args, env_name):
 
 def module_gen(args, env_name):
     with ev.read(env_name) as e:
-        print(module("tcl", "refresh", "-y"), end="")
+        module("tcl", "refresh", "-y", capture=False)
 
 
 if __name__ == "__main__":
     args = parser.parse_args()
     env_name = get_env_name(args)
     environment_setup(args, env_name)
-    print("bootstrap and concretize")
     configure_env(args, env_name)
     if args.slurm_args:
-        print("create slurm args")
         create_slurm_file(args, env_name)
     else:
-        print("install")
         local_install(args, env_name)
         module_gen(args, env_name)

@@ -16,6 +16,7 @@ class NaluWind(bNaluWind, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("unit-tests", default=True, description="Activate unit tests")
 
+    depends_on("hypre@:2.33.0", when="@:2.6.0")
     depends_on("trilinos+mpi@16.2.0:")
     requires("+hypre")
 
