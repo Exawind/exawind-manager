@@ -1,6 +1,6 @@
 packages:
   hypre:
-    prefer: [build_system=autotools]
+    prefer: [build_system=cmake]
   amr-wind:
     variants: +tiny_profile
   trilinos:
