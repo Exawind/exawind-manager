@@ -15,6 +15,7 @@ class Trilinos(bTrilinos):
 
     depends_on("kokkos@=4.7.01", when="@16.2 +kokkos")
     depends_on("kokkos-kernels@=4.7.01", when="@16.2 +kokkos")
+    depends_on("cgns~shared", when="~shared+exodus+cuda")
 
     def flag_handler(self, name, flags):
         super().flag_handler(name, flags)
@@ -30,3 +31,13 @@ class Trilinos(bTrilinos):
         if spec.satisfies("+asan"):
             env.append_flags("CXXFLAGS", "-fsanitize=address -fno-omit-frame-pointer")
             env.set("LSAN_OPTIONS", "suppressions={0}".format(join_path(self.package_dir, "sup.asan")))
+
+    def cmake_args(self):
+        spec = self.spec
+
+        cmake_options = super().cmake_args()
+
+        if spec.satisfies("+cuda"):
+            cmake_options.append(self.define("Trilinos_ENABLE_Triutils", False))
+
+        return cmake_options

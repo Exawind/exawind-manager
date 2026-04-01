@@ -36,6 +36,9 @@ class Exawind(bExawind, CtestPackage):
             cmake_options.append(self.define("EXAWIND_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
             cmake_options.append(self.define("FCOMPARE_EXE", join_path(spec["amr-wind"].prefix.bin, "amrex_fcompare")))
 
+        if spec.satisfies("+nalu_wind_gpu"):
+            cmake_options.append(self.define("EXAWIND_ENABLE_CUDA_RDC", True))
+
         return cmake_options
 
     def setup_build_environment(self, env):

@@ -12,6 +12,7 @@ find_machine = importlib.import_module("find-exawind-manager")
 
 
 class NaluWind(bNaluWind, CtestPackage):
+    version("2.7.1", tag="v2.7.1", commit="18ac7985b681a5c3e3b9f99395a0b66339e39c37")
     version("2.7.0", tag="v2.7.0", commit="f5a99a0d8d20ac8cc3496e36e6265015e169c11b")
     version("2.6.0", tag="v2.6.0", commit="9272856bb6b8dae54a369395654c7c0933e87457")
     variant("asan", default=False, description="Turn on address sanitizer")
@@ -20,7 +21,7 @@ class NaluWind(bNaluWind, CtestPackage):
     depends_on("hypre@:2.33.0", when="@:2.6.0")
     depends_on("trilinos+mpi@16.2.0:")
     requires("+hypre")
-
+    requires("+umpire", when="+hypre+cuda")
     requires("+tests", when="+cdash_submit")
 
     def flag_handler(self, name, flags):
