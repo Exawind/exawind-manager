@@ -1,29 +1,29 @@
 packages:
   intel-oneapi-compilers:
     externals:
-      - spec: intel-oneapi-compilers@2025.0.5
-        prefix: /opt/aurora/24.347.0/oneapi
+      - spec: intel-oneapi-compilers@2025.3.2
+        prefix: /opt/aurora/26.26.0/oneapi/
         extra_attributes:
           compilers:
-            c: /opt/aurora/24.347.0/oneapi/compiler/2025.0/bin/icx
-            cxx: /opt/aurora/24.347.0/oneapi/compiler/2025.0/bin/icpx
-            fortran: /opt/aurora/24.347.0/oneapi/compiler/2025.0/bin/ifx
-        modules: [oneapi/release/2025.0.5]
+            c: /opt/aurora/26.26.0/oneapi/compiler/2025.3/bin/icx
+            cxx: /opt/aurora/26.26.0/oneapi/compiler/2025.3/bin/icpx
+            fortran: /opt/aurora/26.26.0/oneapi/compiler/2025.3/bin/ifx
+        modules: [oneapi/release/2025.3.2]
   gcc:
     externals:
-      - spec: gcc@13.3.0
-        prefix: /opt/aurora/24.347.0/spack/unified/0.9.2/install/linux-sles15-x86_64/gcc-13.3.0/gcc-13.3.0-4enwbrb
+      - spec: gcc@13.4.0
+        prefix: /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/gcc-13.4.0-hgnyg4p
         extra_attributes:
           compilers:
-            c: /opt/aurora/24.347.0/spack/unified/0.9.2/install/linux-sles15-x86_64/gcc-13.3.0/gcc-13.3.0-4enwbrb/bin/gcc
-            cxx: /opt/aurora/24.347.0/spack/unified/0.9.2/install/linux-sles15-x86_64/gcc-13.3.0/gcc-13.3.0-4enwbrb/bin/g++
-            fortran: /opt/aurora/24.347.0/spack/unified/0.9.2/install/linux-sles15-x86_64/gcc-13.3.0/gcc-13.3.0-4enwbrb/bin/gfortran
+            c: /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/gcc-13.4.0-hgnyg4p/bin/gcc
+            cxx: /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/gcc-13.4.0-hgnyg4p/bin/g++
+            fortran: /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/gcc-13.4.0-hgnyg4p/bin/gfortran
   mpich:
     require: "@develop"
     buildable: false
     externals:
       - spec: "mpich@develop"
-        prefix: /opt/aurora/24.347.0/spack/unified/0.9.2/install/linux-sles15-x86_64/oneapi-2025.0.5/mpich-develop-git.6037a7a-sxnhr7p
+        prefix: /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-develop-git.6037a7a-vjywemb
         modules:
           - mpich/opt/develop-git.6037a7a
           - libfabric/1.22.0
@@ -37,5 +37,5 @@ packages:
     require: "%gcc"
   all:
     prefer:
-      - "%intel-oneapi-compilers@2025.0.5"
+      - "%intel-oneapi-compilers@2025.3.2"
       - "build_type=Release"
