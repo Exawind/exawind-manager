@@ -20,7 +20,7 @@ class NaluWind(bNaluWind, CtestPackage):
     depends_on("hypre@:2.33.0", when="@:2.6.0")
     depends_on("trilinos+mpi@16.2.0:")
     requires("+hypre")
-
+    requires("+umpire", when="+hypre+cuda")
     requires("+tests", when="+cdash_submit")
 
     def flag_handler(self, name, flags):
