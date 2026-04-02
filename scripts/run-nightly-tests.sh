@@ -18,7 +18,7 @@ if [[ "$(spack manager find-machine | awk '{print $2}')" == "ellis" ]]; then
 fi
 
 days_to_keep=${DAYS_TO_KEEP:-30}
-nranks=${NRANKS:-8}
+nranks=${NRANKS:-32}
 
 date_spack_envs() {
   env_output=$(spack env ls)
@@ -40,4 +40,4 @@ prune_envs() {
 cmd "prune_envs"
 
 packages_to_test="exawind amr-wind nalu-wind kynema"
-cmd "time ${EXAWIND_MANAGER}/scripts/deploy.py --depfile --daily --cdash ${packages_to_test} --ranks ${nranks} --overwrite --regression_tests ${packages_to_test}"
+cmd "time ${EXAWIND_MANAGER}/scripts/deploy.py --daily --cdash ${packages_to_test} --ranks ${nranks} --overwrite --regression_tests ${packages_to_test}"
