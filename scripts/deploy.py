@@ -121,7 +121,7 @@ def local_install(args, env_name):
             print("make", *make_args(e, args.ranks))
             make(*make_args(e, args.ranks))
         else:
-            spack_install(capture=False)
+            spack_install(f"-j {args.ranks}", capture=False)
 
 def create_slurm_file(args, env_name):
     e = ev.read(env_name)
