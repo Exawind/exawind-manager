@@ -40,7 +40,7 @@ packages:
   tbb:
     require: intel-oneapi-tbb
   intel-oneapi-mkl:
-    require: "2024.2.1"
+    require: "@2024.2.1"
   all:
     target:
     # This target is lowest-common denominator between Intel and Milans
