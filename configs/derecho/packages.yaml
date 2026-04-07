@@ -3,6 +3,8 @@ packages:
     externals:
     - spec: cray-mpich@8.1.29
       prefix: /opt/cray/pe/mpich/8.1.29/ofi/intel/2022.1
+      modules:
+        - cray-mpich/8.1.29
       extra_attributes:
         environment:
           append_path:
@@ -32,15 +34,13 @@ packages:
   mpi:
     require: cray-mpich
   blas:
-    require: intel-oneapi-mkl
+    require: netlib-lapack
   lapack:
-    require: intel-oneapi-mkl
+    require: netlib-lapack
   pkgconfig:
     require: pkg-config
   tbb:
     require: intel-oneapi-tbb
-  intel-oneapi-mkl:
-    require: "@2024.2.1"
   all:
     target:
     # This target is lowest-common denominator between Intel and Milans
