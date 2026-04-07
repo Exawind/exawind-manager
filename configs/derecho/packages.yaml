@@ -1,49 +1,24 @@
 packages:
   cray-mpich:
     externals:
-    - spec: cray-mpich@8.1.29 %gcc
-      prefix: /opt/cray/pe/mpich/8.1.29/ofi/gnu/12.3
-      extra_attributes:
-        environment:
-          append_path:
-            LD_LIBRARY_PATH: /opt/cray/libfabric/1.15.2.0/lib64
-    - spec: cray-mpich@8.1.29 %oneapi
+    - spec: cray-mpich@8.1.29
       prefix: /opt/cray/pe/mpich/8.1.29/ofi/intel/2022.1
+      modules:
+        - cray-mpich/8.1.29
       extra_attributes:
         environment:
           append_path:
             LD_LIBRARY_PATH: /opt/cray/libfabric/1.15.2.0/lib64
     buildable: false
-  cuda:
-    externals:
-    - spec: cuda@12.3.2
-      prefix: /glade/u/apps/casper/24.12/spack/opt/spack/cuda/12.3.2/gcc/12.4.0/jw45
-    buildable: false
-    require:
-    - +allow-unsupported-compilers
-  cmake:
-    variants:
-    - +ownlibs
   gcc:
     externals:
-    - spec: gcc@7.5.0 languages='c,c++,fortran'
-      prefix: /usr
-      extra_attributes:
-        compilers:
-          c: /usr/bin/gcc
-          cxx: /usr/bin/g++
-          fortran: /usr/bin/gfortran
-    - spec: gcc@12.4.0 languages='c,c++,fortran,go'
+    - spec: gcc@12.4.0
       prefix: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c
       extra_attributes:
         compilers:
           c: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/gcc
           cxx: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/g++
           fortran: /glade/u/apps/casper/24.12/spack/opt/spack/gcc/12.4.0/5b5c/bin/gfortran
-    buildable: false
-    variants:
-    - +piclibs
-    - languages=c,c++,fortran,go
   intel-oneapi-compilers:
     externals:
     - spec: intel-oneapi-compilers@2024.2.1
@@ -53,16 +28,15 @@ packages:
           c: /glade/u/apps/casper/24.12/spack/opt/spack/intel-oneapi-compilers/2024.2.1/gcc/12.4.0/iq3b/compiler/latest/bin/icx
           cxx: /glade/u/apps/casper/24.12/spack/opt/spack/intel-oneapi-compilers/2024.2.1/gcc/12.4.0/iq3b/compiler/latest/bin/icpx
           fortran: /glade/u/apps/casper/24.12/spack/opt/spack/intel-oneapi-compilers/2024.2.1/gcc/12.4.0/iq3b/compiler/latest/bin/ifx
-    buildable: false
     variants:
     - +envmods
     - +nvidia
   mpi:
     require: cray-mpich
   blas:
-    require: intel-oneapi-mkl
+    require: netlib-lapack
   lapack:
-    require: intel-oneapi-mkl
+    require: netlib-lapack
   pkgconfig:
     require: pkg-config
   tbb:
@@ -72,8 +46,4 @@ packages:
     # This target is lowest-common denominator between Intel and Milans
     - x86_64_v3
     prefer:
-    - spec: cuda_arch=80 ^cuda@12.3.2
-      when: ^cuda
-    - spec: ^libfabric@1.15.2.0
-      when: ^libfabric
-    - '%intel-oneapi-compilers'
+    - '%intel-oneapi-compilers@2024.2.1'
