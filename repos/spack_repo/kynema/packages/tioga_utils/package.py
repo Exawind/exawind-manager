@@ -17,7 +17,7 @@ class TiogaUtils(CtestPackage):
     depends_on("trilinos")
     depends_on("yaml-cpp")
     depends_on("tioga~nodegid")
-    depends_on("nalu-wind")
+    depends_on("kynema-ugf")
     depends_on("yaml-cpp@0.6.0:0.6.3")
  
     def cmake_args(self):

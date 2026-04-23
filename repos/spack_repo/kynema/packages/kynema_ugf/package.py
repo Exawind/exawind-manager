@@ -1,17 +1,10 @@
-# Copyright (c) 2022, National Technology & Engineering Solutions of Sandia,
-# LLC (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
-# Government retains certain rights in this software.
-#
-# This software is released under the BSD 3-clause license. See LICENSE file
-# for more details.
-
 from spack.package import *
-from spack_repo.builtin.packages.nalu_wind.package import NaluWind as bNaluWind
+from spack_repo.builtin.packages.nalu_wind.package import KynemaUGF as bKynemaUGF
 from spack_repo.kynema.packages.ctest_package.package import *
 find_machine = importlib.import_module("find-kynema-manager")
 
 
-class NaluWind(bNaluWind, CtestPackage):
+class KynemaUGF(bKynemaUGF, CtestPackage):
     version("2.7.1", tag="v2.7.1", commit="18ac7985b681a5c3e3b9f99395a0b66339e39c37")
     version("2.7.0", tag="v2.7.0", commit="f5a99a0d8d20ac8cc3496e36e6265015e169c11b")
     version("2.6.0", tag="v2.6.0", commit="9272856bb6b8dae54a369395654c7c0933e87457")
@@ -65,15 +58,15 @@ class NaluWind(bNaluWind, CtestPackage):
 
         cmake_options = super().cmake_args()
 
-        if spec.satisfies("+kynema"):
+        if spec.satisfies("+kynema-fmb"):
             cmake_options.append(self.define("ENABLE_KYNEMA_SIXDOF", True))
 
         if spec.satisfies("+tests") or self.run_tests or spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS",True))
             cmake_options.append(self.define("ENABLE_TESTS", True))
-            cmake_options.append(self.define("NALU_WIND_SAVE_GOLDS", True))
-            cmake_options.append(self.define("NALU_WIND_SAVED_GOLDS_DIR", super().saved_golds_dir))
-            cmake_options.append(self.define("NALU_WIND_REFERENCE_GOLDS_DIR", super().reference_golds_dir))
+            cmake_options.append(self.define("KYNEMA_UGF_SAVE_GOLDS", True))
+            cmake_options.append(self.define("KYNEMA_UGF_SAVED_GOLDS_DIR", super().saved_golds_dir))
+            cmake_options.append(self.define("KYNEMA_UGF_REFERENCE_GOLDS_DIR", super().reference_golds_dir))
             if spec.satisfies("+cuda"):
                 cmake_options.append(self.define("TEST_ABS_TOL", 1.0e-8))
                 cmake_options.append(self.define("TEST_REL_TOL", 1.0e-6))

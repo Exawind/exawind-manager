@@ -1,9 +1,9 @@
 from spack.package import *
-from spack_repo.builtin.packages.kynema.package import Kynema as bKynema
+from spack_repo.builtin.packages.kynema_fmb.package import KynemaFMB as bKynemaFMB
 from spack_repo.kynema.packages.ctest_package.package import *
 
 
-class Kynema(bKynema, CtestPackage):
+class KynemaFMB(bKynemaFMB, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
 
     depends_on("c", type="build")
@@ -23,7 +23,7 @@ class Kynema(bKynema, CtestPackage):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(Kynema, self).cmake_args()
+        cmake_options = super(KynemaFMB, self).cmake_args()
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
