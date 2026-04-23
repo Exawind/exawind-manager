@@ -1,10 +1,10 @@
 from spack.package import *
-from spack_repo.builtin.packages.nalu_wind.package import KynemaUGF as bKynemaUGF
+from spack_repo.builtin.packages.kynema_ugf.package import KynemaUgf as bKynemaUgf
 from spack_repo.kynema.packages.ctest_package.package import *
 find_machine = importlib.import_module("find-kynema-manager")
 
 
-class KynemaUGF(bKynemaUGF, CtestPackage):
+class KynemaUgf(bKynemaUgf, CtestPackage):
     version("2.7.1", tag="v2.7.1", commit="18ac7985b681a5c3e3b9f99395a0b66339e39c37")
     version("2.7.0", tag="v2.7.0", commit="f5a99a0d8d20ac8cc3496e36e6265015e169c11b")
     version("2.6.0", tag="v2.6.0", commit="9272856bb6b8dae54a369395654c7c0933e87457")
