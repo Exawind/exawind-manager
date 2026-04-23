@@ -1,3 +1,2 @@
 # Overview
-This is intended to be a drop in replacement for the former version of `spack-manager`.
-Replace the `SPACK_MANAGER` environment variable with `KYNEMA_MANAGER`.
+This is the official build system for the Kynema project which is based on `spack-manager` and Spack.
