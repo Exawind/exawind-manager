@@ -9,7 +9,7 @@ spack:
   - core:
     - nalu-wind+openfast+hypre ^openmpi@4.0.2
     - amr-wind+openfast+hypre ^openmpi@4.0.2
-    - exawind~openfast~hypre ^openmpi@4.0.2
+    - kynema~openfast~hypre ^openmpi@4.0.2
   specs:
   - matrix:
     - [$core]

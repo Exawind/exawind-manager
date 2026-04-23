@@ -6,13 +6,13 @@
 # for more details.
 
 from spack.package import *
-from spack_repo.exawind.packages.ctest_package.package import *
+from spack_repo.kynema.packages.ctest_package.package import *
 
 
 class TiogaUtils(CtestPackage):
     git = "https://github.com/Exawind/tioga_utils.git"
 
-    version("exawind", branch="exawind", submodules=True)
+    version("kynema", branch="kynema", submodules=True)
 
     depends_on("trilinos")
     depends_on("yaml-cpp")

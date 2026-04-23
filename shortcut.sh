@@ -8,9 +8,9 @@
 #
 #---------------------------------------------------
 # This script is an easy entry point for using 
-# the exawind manager in the current directory
+# the kynema manager in the current directory
 # and makes it easier to manager multiple instances
-# of exawind-manager
+# of kynema-manager
 #---------------------------------------------------
 export EXAWIND_MANAGER=`pwd`
 source ${EXAWIND_MANAGER}/start.sh

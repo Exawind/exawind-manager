@@ -15,7 +15,7 @@ cmd() {
 
 BUILD_DATE=$(printf '%(%Y-%m-%d)T' -1)
 REGISTRY=${REGISTRY:-ecpe4s}
-OUTPUT_IMAGE_REPO="${REGISTRY}/exawind-snapshot"
+OUTPUT_IMAGE_REPO="${REGISTRY}/kynema-snapshot"
 DATED_IMAGE="${OUTPUT_IMAGE_REPO}:${BUILD_DATE}"
 LATEST_IMAGE="${OUTPUT_IMAGE_REPO}:latest"
 

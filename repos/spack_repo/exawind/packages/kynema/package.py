@@ -1,6 +1,6 @@
 from spack.package import *
 from spack_repo.builtin.packages.kynema.package import Kynema as bKynema
-from spack_repo.exawind.packages.ctest_package.package import *
+from spack_repo.kynema.packages.ctest_package.package import *
 
 
 class Kynema(bKynema, CtestPackage):

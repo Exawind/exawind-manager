@@ -1,7 +1,7 @@
 #!/bin/bash
 
 module load aue/python
-export EXAWIND_MANAGER=/projects/wind/exawind-manager
+export EXAWIND_MANAGER=/projects/wind/kynema-manager
 if hostname | grep -q "ecw"; then
   export NPROCS=60
 else

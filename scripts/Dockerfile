@@ -3,13 +3,13 @@ FROM ecpe4s/ubuntu20.04-runner-x86_64:2022-05-01
 ARG BUILD_DATE
 ARG COMMIT
 
-RUN git clone --recursive https://github.com/exawind/exawind-manager \
- && git -C exawind-manager checkout $COMMIT
+RUN git clone --recursive https://github.com/kynema/kynema-manager \
+ && git -C kynema-manager checkout $COMMIT
 
 ENV E4S_MACHINE=1 
-ENV EXAWIND_MANAGER=/exawind-manager
+ENV EXAWIND_MANAGER=/kynema-manager
 
-WORKDIR /exawind-manager/scripts
+WORKDIR /kynema-manager/scripts
 RUN ["/bin/bash", "./ci-creator.sh"]
 
 WORKDIR /

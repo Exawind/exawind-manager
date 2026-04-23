@@ -4,6 +4,6 @@ spack:
     reuse: false
   view: false
   specs:
-    - 'exawind+amr_wind_gpu+nalu_wind_gpu+rocm'
-    - 'exawind+amr_wind_gpu~nalu_wind_gpu+rocm'
-    - 'exawind~amr_wind_gpu~nalu_wind_gpu~rocm'
+    - 'kynema+amr_wind_gpu+nalu_wind_gpu+rocm'
+    - 'kynema+amr_wind_gpu~nalu_wind_gpu+rocm'
+    - 'kynema~amr_wind_gpu~nalu_wind_gpu~rocm'

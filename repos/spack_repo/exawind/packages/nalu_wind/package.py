@@ -7,8 +7,8 @@
 
 from spack.package import *
 from spack_repo.builtin.packages.nalu_wind.package import NaluWind as bNaluWind
-from spack_repo.exawind.packages.ctest_package.package import *
-find_machine = importlib.import_module("find-exawind-manager")
+from spack_repo.kynema.packages.ctest_package.package import *
+find_machine = importlib.import_module("find-kynema-manager")
 
 
 class NaluWind(bNaluWind, CtestPackage):

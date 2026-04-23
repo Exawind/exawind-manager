@@ -3,8 +3,8 @@
 set -e
 
 MYHOME=/data/ssd1/home/${USER}
-MYEW=${MYHOME}/exawind
-MYEWM=${MYEW}/exawind-manager
+MYEW=${MYHOME}/kynema
+MYEWM=${MYEW}/kynema-manager
 MYGOLDS=${MYEW}/golds/current
 DATE=$(date -I)
 
@@ -29,7 +29,7 @@ cmd "cd ${MYEWM}"
 cmd "source shortcut.sh" || true
 cmd "spack env activate ${DATE}"
 
-for APP in exawind amr-wind nalu-wind
+for APP in kynema amr-wind nalu-wind
 do
   GOLD_DIR=${MYGOLDS}/${APP}
 
