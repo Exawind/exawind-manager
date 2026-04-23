@@ -1,9 +1,9 @@
 from spack.package import *
-from spack_repo.builtin.packages.kynema_sgf.package import KynemaSGF as bKynemaSGF
+from spack_repo.builtin.packages.kynema_sgf.package import KynemaSgf as bKynemaSgf
 from spack_repo.kynema.packages.ctest_package.package import *
 find_machine = importlib.import_module("find-kynema-manager")
 
-class KynemaSGF(bKynemaSGF, CtestPackage):
+class KynemaSgf(bKynemaSgf, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
 
@@ -39,7 +39,7 @@ class KynemaSGF(bKynemaSGF, CtestPackage):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(KynemaSGF, self).cmake_args()
+        cmake_options = super(KynemaSgf, self).cmake_args()
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
