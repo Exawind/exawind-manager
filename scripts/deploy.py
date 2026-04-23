@@ -52,10 +52,10 @@ def environment_setup(args, env_name):
     out=manager("find-machine")
     print(out, end="")
     project, machine = out.strip().split()
-    template = os.path.expandvars("$EXAWIND_MANAGER/configs/{}/template.yaml".format(machine))
+    template = os.path.expandvars("$KYNEMA_MANAGER/configs/{}/template.yaml".format(machine))
 
     if not os.path.isfile(template):
-        template = os.path.expandvars("$EXAWIND_MANAGER/configs/base/template.yaml")
+        template = os.path.expandvars("$KYNEMA_MANAGER/configs/base/template.yaml")
 
     if args.overwrite and ev.exists(env_name):
         env("rm", env_name, "-y", capture=False)
@@ -83,7 +83,7 @@ def configure_env(args, env_name):
     with ev.read(env_name) as e:
         accumulator = PackageVariantAccumulator()
         config("add", "config:install_tree:root:{}".format(
-               spack_path_resolve("$EXAWIND_MANAGER/opt/{}".format(e.name))
+               spack_path_resolve("$KYNEMA_MANAGER/opt/{}".format(e.name))
                ))
         if args.daily:
             config("add", "modules:default:tcl:all:suffixes:all:daily")

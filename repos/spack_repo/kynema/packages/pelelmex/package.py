@@ -7,13 +7,14 @@ from spack.package import *
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack_repo.builtin.build_systems.cuda import CudaPackage
 from spack_repo.builtin.build_systems.rocm import ROCmPackage
-from spack_repo.exawind.packages.ctest_package.package import *
+from spack_repo.kynema.packages.ctest_package.package import *
 
-class Pelec(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
+
+class Pelelmex(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
     """An AMR code for compressible reacting flow simulations."""
 
-    homepage = "https://github.com/AMReX-Combustion/PeleC"
-    git = "https://github.com/AMReX-Combustion/PeleC.git"
+    homepage = "https://github.com/AMReX-Combustion/PeleLMeX"
+    git = "https://github.com/AMReX-Combustion/PeleLMeX.git"
 
     maintainers("jrood-nrel")
 
@@ -40,7 +41,7 @@ class Pelec(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
         multi=False
     )
     variant("ascent", default=False, description="Enable Ascent integration")
-    variant("masa", default=False, description="Enable MASA integration")
+    variant("eb", default=True, description="Enable embedded boundaries")
     variant("mpi", default=True, description="Enable MPI support")
     variant("openmp", default=False, description="Enable OpenMP for CPU builds")
     variant("particles", default=False, description="Enable AMReX particles")
@@ -48,20 +49,27 @@ class Pelec(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
     variant("tiny_profile", default=True, description="Activate tiny profile")
     variant("hdf5", default=False, description="Enable HDF5 plots with ZFP compression")
     variant("sycl", default=False, description="Enable SYCL backend")
+    variant("hypre", default=False, description="Enable hypre integration")
 
     depends_on("mpi", when="+mpi")
     depends_on("hdf5~mpi", when="+hdf5~mpi")
     depends_on("hdf5+mpi", when="+hdf5+mpi")
     depends_on("h5z-zfp", when="+hdf5")
     depends_on("zfp", when="+hdf5")
-    depends_on("masa", when="+masa")
     depends_on("ascent~mpi", when="+ascent~mpi")
     depends_on("ascent+mpi", when="+ascent+mpi")
-    depends_on("py-matplotlib", when="+masa")
-    depends_on("py-pandas", when="+masa")
+    depends_on("hypre@2.20.0:", when="+hypre")
+    depends_on("hypre+mpi", when="+hypre+mpi")
+    depends_on("hypre+sycl", when="+hypre+sycl")
 
     for arch in CudaPackage.cuda_arch_values:
         depends_on("ascent+cuda cuda_arch=%s" % arch, when="+ascent+cuda cuda_arch=%s" % arch)
+    for arch in CudaPackage.cuda_arch_values:
+        depends_on("hypre+cuda cuda_arch=%s" % arch, when="+cuda+hypre cuda_arch=%s" % arch)
+    for arch in ROCmPackage.amdgpu_targets:
+        depends_on(
+            "hypre+rocm amdgpu_target=%s" % arch, when="+rocm+hypre amdgpu_target=%s" % arch
+        )
 
     conflicts("+openmp", when="+cuda")
     conflicts("+openmp", when="+rocm")
@@ -80,11 +88,12 @@ class Pelec(CtestPackage, CMakePackage, CudaPackage, ROCmPackage):
         vs = [
             "ascent",
             "cuda",
-            "masa",
+            "eb",
             "mpi",
             "openmp",
             "particles",
             "sycl",
+            "hypre",
             "tiny_profile",
         ]
         args = [self.define_from_variant("PELE_ENABLE_%s" % v.upper(), v) for v in vs]

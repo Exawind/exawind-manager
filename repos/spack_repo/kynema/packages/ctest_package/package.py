@@ -19,7 +19,7 @@ from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack_repo.builtin.build_systems.cmake import CMakeBuilder
 from spack.phase_callbacks import run_after
 from spack.directives import variant, requires
-find_machine = importlib.import_module("find-exawind-manager")
+find_machine = importlib.import_module("find-kynema-manager")
 
 class CTestBuilder(CMakeBuilder):
     phases = ("cmake", "build", "install", "analysis")
@@ -132,7 +132,7 @@ class CtestPackage(CMakePackage):
     requires("generator=ninja", when="+ninja")
 
     def setup_build_environment(self, env):
-        env.prepend_path("PYTHONPATH", os.environ["EXAWIND_MANAGER"])
+        env.prepend_path("PYTHONPATH", os.environ["KYNEMA_MANAGER"])
 
     def do_clean(self):
         super().do_clean()

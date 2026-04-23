@@ -1,12 +1,12 @@
 ===============
-Exawind-Manager
+Kynema-Manager
 ===============
 
-Exawind-Manager is a project specialization of `Spack-Manager <https://github.com/sandialabs/spack-manager>`_.  Spack-Manager is a light-weight extension to `Spack <https://spack.io>`_ that is intended to streamline the software development and deployment cycle for software projects on specific machines.  A given software project, especially in high performance computing (HPC), typically requires managing multiple software dependencies using multiple compilers and processing devices across many machines.  Spack-Manager is quite literal in its name, in that it provides a way to manage and organize these configurations across multiple machines, and multiple projects. Exawind-Manager is specialized towards the `ExaWind <https://github.com/exawind>`_ project, which is a set of complex coupled applications for modeling the physics of entire wind farms at high fidelities. However, much of what Exawind-Manager accomplishes is merely an example of how Spack-Manager can be specialized towards any single project or projects.
+Kynema-Manager is a project specialization of `Spack-Manager <https://github.com/sandialabs/spack-manager>`_.  Spack-Manager is a light-weight extension to `Spack <https://spack.io>`_ that is intended to streamline the software development and deployment cycle for software projects on specific machines.  A given software project, especially in high performance computing (HPC), typically requires managing multiple software dependencies using multiple compilers and processing devices across many machines.  Spack-Manager is quite literal in its name, in that it provides a way to manage and organize these configurations across multiple machines, and multiple projects. Kynema-Manager is specialized towards the `Kynema <https://github.com/kynema>`_ project, which is a set of complex coupled applications for modeling the physics of entire wind farms at high fidelities. However, much of what Kynema-Manager accomplishes is merely an example of how Spack-Manager can be specialized towards any single project or projects.
 
 More information on Spack-Manager itself can be found `here <https://github.com/sandialabs/spack-manager>`_. Features of Spack-Manager also generally continue to be developed in Spack itself by the Spack-Manager author. Spack-Manager itself is designed as a fully integrated extension of Spack.
 
-Spack-Manager and Exawind-Manager also provide several shortcut commands for automating simple tasks of setting up environments and building and deploying them. In the tutorial we will only use a few.
+Spack-Manager and Kynema-Manager also provide several shortcut commands for automating simple tasks of setting up environments and building and deploying them. In the tutorial we will only use a few.
 
 Tutorial
 ========
@@ -16,7 +16,7 @@ In this tutorial we will learn the most used features and workflows for doing de
 Prerequisites
 -------------
 
-We will walk through this tutorial using an Apple Macbook Pro M1. To set up such a machine for using Exawind-Manager, we need to satisfy these requirements:
+We will walk through this tutorial using an Apple Macbook Pro M1. To set up such a machine for using Kynema-Manager, we need to satisfy these requirements:
 
 1. Install XCode and its command line tools
 2. Install `Homebrew <https://brew.sh>`_
@@ -30,17 +30,17 @@ We will walk through this tutorial using an Apple Macbook Pro M1. To set up such
 Machine Configurations
 ----------------------
 
-For most HPC machines, we want to find a way for Exawind-Manager to figure out which machine it is on and we need the Spack configuration files set up for that machine in a way that might typically require a Spack expert to design. In this tutorial we will assume we already have a robust configuration.
+For most HPC machines, we want to find a way for Kynema-Manager to figure out which machine it is on and we need the Spack configuration files set up for that machine in a way that might typically require a Spack expert to design. In this tutorial we will assume we already have a robust configuration.
 
 Cloning
 -------
 
-To begin we start by cloning exawind-manager:
+To begin we start by cloning kynema-manager:
 
 .. code-block:: console
 
-   user@user-38508s ~ % git clone -c feature.manyFiles=true --depth=1 --shallow-submodules --recursive https://github.com/Exawind/exawind-manager.git
-   Cloning into 'exawind-manager'...
+   user@user-38508s ~ % git clone -c feature.manyFiles=true --depth=1 --shallow-submodules --recursive https://github.com/Kynema/kynema-manager.git
+   Cloning into 'kynema-manager'...
    remote: Enumerating objects: 167, done.
    remote: Counting objects: 100% (167/167), done.
    remote: Compressing objects: 100% (135/135), done.
@@ -49,14 +49,14 @@ To begin we start by cloning exawind-manager:
    Resolving deltas: 100% (15/15), done.
    Submodule 'spack' (https://github.com/spack/spack) registered for path 'spack'
    Submodule 'spack-manager' (https://github.com/sandialabs/spack-manager.git) registered for path 'spack-manager'
-   Cloning into '/Users/user/exawind-manager/spack'...
+   Cloning into '/Users/user/kynema-manager/spack'...
    remote: Enumerating objects: 21263, done.        
    remote: Counting objects: 100% (21263/21263), done.        
    remote: Compressing objects: 100% (12210/12210), done.        
    remote: Total 21263 (delta 980), reused 13494 (delta 917), pack-reused 0 (from 0)        
    Receiving objects: 100% (21263/21263), 14.82 MiB | 7.91 MiB/s, done.
    Resolving deltas: 100% (980/980), done.
-   Cloning into '/Users/user/exawind-manager/spack-manager'...
+   Cloning into '/Users/user/kynema-manager/spack-manager'...
    remote: Enumerating objects: 98, done.        
    remote: Counting objects: 100% (98/98), done.        
    remote: Compressing objects: 100% (92/92), done.        
@@ -75,21 +75,21 @@ To begin we start by cloning exawind-manager:
    Submodule path 'spack': checked out '313b7d4cdbbf0610b9b449d5855cb0f52c6df1eb'
    Submodule path 'spack-manager': checked out '9a02da44788c943c1f1d4fcbe85b7397abe0a724'
 
-Loading Exawind-Manager
+Loading Kynema-Manager
 -----------------------
 
-To invoke Exawind-Manager we merely ``source shortcut.sh`` which sets the ``EXAWIND_MANAGER`` environment variable and also invokes Spack's shell support through our own ``spack-start`` command:
+To invoke Kynema-Manager we merely ``source shortcut.sh`` which sets the ``KYNEMA_MANAGER`` environment variable and also invokes Spack's shell support through our own ``spack-start`` command:
 
 .. code-block:: console
 
-   user@user-38508s ~ % cd exawind-manager 
-   user@user-38508s exawind-manager % source shortcut.sh 
-   /Users/user/exawind-manager/.bootstrap
-   ==> Added repo with namespace 'exawind'.
-   ==> Added 2 new compilers to /Users/user/exawind-manager/.spack/darwin/compilers.yaml
+   user@user-38508s ~ % cd kynema-manager 
+   user@user-38508s kynema-manager % source shortcut.sh 
+   /Users/user/kynema-manager/.bootstrap
+   ==> Added repo with namespace 'kynema'.
+   ==> Added 2 new compilers to /Users/user/kynema-manager/.spack/darwin/compilers.yaml
        gcc@14.2.0  apple-clang@15.0.0
    ==> Compilers are defined in the following files:
-       /Users/user/exawind-manager/.spack/darwin/compilers.yaml
+       /Users/user/kynema-manager/.spack/darwin/compilers.yaml
 
 Note Spack-Manager will register our custom Spack package file repo during this process and set up locations such as where Spack stores its bootstrap files. On MacOS we just let Spack find our compilers for us.
 
@@ -97,41 +97,41 @@ Note Spack-Manager will register our custom Spack package file repo during this 
 Machine Fingerprint
 -------------------
 
-Next, we can probe the machine to see what Exawind-Manager thinks the machine is. Note for our project we have a set list of machines in which we curate our own configurations. They are defined and queried in the `find-exawind-manager.py <https://github.com/Exawind/exawind-manager/blob/main/find-exawind-manager.py>`_ file. This file maps the machine to a known lowercase name identifier where the Spack ``yaml`` config files are referenced. Here we query which configuration files Exawind-Manager will choose:
+Next, we can probe the machine to see what Kynema-Manager thinks the machine is. Note for our project we have a set list of machines in which we curate our own configurations. They are defined and queried in the `find-kynema-manager.py <https://github.com/Kynema/kynema-manager/blob/main/find-kynema-manager.py>`_ file. This file maps the machine to a known lowercase name identifier where the Spack ``yaml`` config files are referenced. Here we query which configuration files Kynema-Manager will choose:
 
 .. code-block:: console
 
-   user@user-38508s exawind-manager % spack manager find-machine
-   exawind-manager darwin
+   user@user-38508s kynema-manager % spack manager find-machine
+   kynema-manager darwin
 
-Therefore Exawind-Manager will implement the ``yaml`` files from the ``darwin`` (MacOS) `configuration <https://github.com/Exawind/exawind-manager/tree/main/configs/darwin>`_ directory. Note the `base <https://github.com/Exawind/exawind-manager/tree/main/configs/base>`_ configuration files will always be used at a low precedence, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, Spack's temporary build stage is located, etc. Any of these can be overridden by the machine-specific configuration.
+Therefore Kynema-Manager will implement the ``yaml`` files from the ``darwin`` (MacOS) `configuration <https://github.com/Kynema/kynema-manager/tree/main/configs/darwin>`_ directory. Note the `base <https://github.com/Kynema/kynema-manager/tree/main/configs/base>`_ configuration files will always be used at a low precedence, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, Spack's temporary build stage is located, etc. Any of these can be overridden by the machine-specific configuration.
 
 Within the machine-specific config or the base config, we have a ``template.yaml`` file which contains the default ``spack.yaml`` file that will be used for that machine if none is created or specified by the user. The ``spack.yaml`` file generally contains the spec or specs that will be built for the project on that machine by default. For the base template we see the default ``template.yaml`` below:
 
 .. code-block:: console
 
-   user@user-38508s exawind-manager % cat configs/base/template.yaml 
+   user@user-38508s kynema-manager % cat configs/base/template.yaml 
    spack:
      specs:
-     - exawind
+     - kynema
 
 Deploying the Project
 ---------------------
 
-The first thing we could do is then easily build our entire project using the `deploy.py <https://github.com/Exawind/exawind-manager/blob/main/scripts/deploy.py>`_ script.
+The first thing we could do is then easily build our entire project using the `deploy.py <https://github.com/Kynema/kynema-manager/blob/main/scripts/deploy.py>`_ script.
 
 .. code-block:: console
 
-   user@user-38508s exawind-manager % nice deploy.py --ranks 32 --depfile --overwrite --name exawind-env
-   exawind-manager darwin
-   Using env: /Users/user/exawind-manager/environments/exawind-env
+   user@user-38508s kynema-manager % nice deploy.py --ranks 32 --depfile --overwrite --name kynema-env
+   kynema-manager darwin
+   Using env: /Users/user/kynema-manager/environments/kynema-env
    configure args
    ==> Using cached archive: /Users/user/.spack_downloads/blobs/sha256/8b3d4926c5fa7a6e4fc5834a3e7783a0b53b174eb77ef36ade87f423891f8331
    ==> Using cached archive: /Users/user/.spack_downloads/blobs/sha256/91214626a86c21fc0d76918884ec819050d4d52b4f78df7cc9769a83fbee2f71
    ==> Installing "clingo-bootstrap@=spack~docs+ipo+optimized+python build_system=cmake build_type=Release generator=make arch=darwin-bigsur-aarch64 %apple-clang@=15.0.0" from a buildcache
    ==> Starting concretization
    ==> Concretized 1 spec:
-    -   mz2hzbn  exawind@1.2.0~amr_wind_gpu~asan~cdash_submit~cuda~gpu-aware-mpi~ipo~nalu_wind_gpu~ninja~rocm~sycl~tests build_system=cmake build_type=Release ctest_args='-R unit' generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@15.0.0
+    -   mz2hzbn  kynema@1.2.0~amr_wind_gpu~asan~cdash_submit~cuda~gpu-aware-mpi~ipo~nalu_wind_gpu~ninja~rocm~sycl~tests build_system=cmake build_type=Release ctest_args='-R unit' generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   u433tbl      ^amr-wind@3.4.0~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa+mpi+netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   dw42jis          ^netcdf-c@4.9.2~blosc~byterange~dap~fsync~hdf4~ipo~jna~logging+mpi~nczarr_zip+optimize+parallel-netcdf+pic+shared+szip+zstd build_system=cmake build_type=Release generator=make patches=0161eb8,3b09181 arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   gi2hasa              ^bzip2@1.0.8~debug~pic+shared build_system=generic arch=darwin-ventura-m1 %apple-clang@15.0.0
@@ -218,14 +218,14 @@ The first thing we could do is then easily build our entire project using the `d
    
    install
    make -j32 SPACK_INSTALL_FLAGS='--show-log-on-error'
-   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /uf5swtz56kty36hs6uhs3w26x7ho2myn # gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
-   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /eabkdvhseshxsuukgi4pznupmuwhrtmh # gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
-   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /4aj5ju7jryr7qtawfjfruuw5yngib3gq # apple-libuuid@1353.100.2 build_system=bundle arch=darwin-ventura-m1 %apple-clang@=15.0.0
-   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/exawind-env' install  '--show-log-on-error' --only-concrete --only=package /qrsyolzjhfza5njdvr6l66y3kcc332ag # ca-certificates-mozilla@2025-02-25 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/kynema-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/kynema-manager/environments/kynema-env' install  '--show-log-on-error' --only-concrete --only=package /uf5swtz56kty36hs6uhs3w26x7ho2myn # gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/kynema-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/kynema-manager/environments/kynema-env' install  '--show-log-on-error' --only-concrete --only=package /eabkdvhseshxsuukgi4pznupmuwhrtmh # gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/kynema-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/kynema-manager/environments/kynema-env' install  '--show-log-on-error' --only-concrete --only=package /4aj5ju7jryr7qtawfjfruuw5yngib3gq # apple-libuuid@1353.100.2 build_system=bundle arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/kynema-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/kynema-manager/environments/kynema-env' install  '--show-log-on-error' --only-concrete --only=package /qrsyolzjhfza5njdvr6l66y3kcc332ag # ca-certificates-mozilla@2025-02-25 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
    [+] /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk (external apple-libuuid-1353.100.2-4aj5ju7jryr7qtawfjfruuw5yngib3gq)
    ==> Installing gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
    ==> No binary for gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh found: installing from source
-   ==> Updating view at /Users/user/exawind-manager/environments/exawind-env/.spack-env/view
+   ==> Updating view at /Users/user/kynema-manager/environments/kynema-env/.spack-env/view
    ==> Installing ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag
    ==> No binary for ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag found: installing from source
    ==> Installing gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn
@@ -237,23 +237,23 @@ The first thing we could do is then easily build our entire project using the `d
    ==> ca-certificates-mozilla: Executing phase: 'install'
    ==> ca-certificates-mozilla: Successfully installed ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag
      Stage: 0.00s.  Install: 0.00s.  Post-install: 0.01s.  Total: 0.07s
-   [+] /Users/user/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag
+   [+] /Users/user/kynema-manager/opt/kynema-env/darwin-ventura-m1/apple-clang-15.0.0/ca-certificates-mozilla-2025-02-25-qrsyolzjhfza5njdvr6l66y3kcc332ag
 
    ... lots more building
 
-   ==> Installing exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
-   ==> No binary for exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a found: installing from source
-   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/git//Exawind/exawind-driver.git/4c49c7775c580b6bd2556e6c00fd13c08737d5eb.tar.gz
-   ==> No patches needed for exawind
-   ==> exawind: Executing phase: 'cmake'
-   ==> exawind: Executing phase: 'build'
-   ==> exawind: Executing phase: 'install'
-   ==> exawind: Executing phase: 'analysis'
-   ==> exawind: Successfully installed exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
+   ==> Installing kynema-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
+   ==> No binary for kynema-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a found: installing from source
+   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/git//Kynema/kynema-driver.git/4c49c7775c580b6bd2556e6c00fd13c08737d5eb.tar.gz
+   ==> No patches needed for kynema
+   ==> kynema: Executing phase: 'cmake'
+   ==> kynema: Executing phase: 'build'
+   ==> kynema: Executing phase: 'install'
+   ==> kynema: Executing phase: 'analysis'
+   ==> kynema: Successfully installed kynema-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
      Stage: 1.38s.  Cmake: 9.12s.  Build: 6.24s.  Install: 0.33s.  Analysis: 0.05s.  Post-install: 0.07s.  Total: 17.47s
-   [+] /Users/user/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
+   [+] /Users/user/kynema-manager/opt/kynema-env/darwin-ventura-m1/apple-clang-15.0.0/kynema-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
 
-This displays the most simple method for deploying the project binaries and checking if the project will build. We can rerun the deploy command numerous times after modifying the machine configurations if necessary to iterate on the configuration. Notice the complexity and size of the ``exawind`` directed acyclic graph (DAG) that Spack generates in which Spack will build all of these packages and their options automatically for us.
+This displays the most simple method for deploying the project binaries and checking if the project will build. We can rerun the deploy command numerous times after modifying the machine configurations if necessary to iterate on the configuration. Notice the complexity and size of the ``kynema`` directed acyclic graph (DAG) that Spack generates in which Spack will build all of these packages and their options automatically for us.
 
 Loading a Spack Environment and Project Binaries
 ------------------------------------------------
@@ -262,11 +262,11 @@ To load and run the project binaries starting from a new terminal, we can load t
 
 .. code-block:: console
 
-   user@user-38508s exawind-manager % source shortcut.sh 
-   user@user-38508s exawind-manager % spack env activate exawind-env 
-   user@user-38508s exawind-manager % spack load exawind
-   user@user-38508s exawind-manager % which exawind
-   /Users/user/exawind-manager/opt/exawind-env/darwin-ventura-m1/apple-clang-15.0.0/exawind-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a/bin/exawind
+   user@user-38508s kynema-manager % source shortcut.sh 
+   user@user-38508s kynema-manager % spack env activate kynema-env 
+   user@user-38508s kynema-manager % spack load kynema
+   user@user-38508s kynema-manager % which kynema
+   /Users/user/kynema-manager/opt/kynema-env/darwin-ventura-m1/apple-clang-15.0.0/kynema-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a/bin/kynema
 
 Developing Code Within a Project
 --------------------------------
@@ -275,16 +275,16 @@ When building with Spack by default such as when using the ``deploy.py`` script,
 
 Source code development works best with packages that use the CMake build system. This is because CMake is designed to be built out of source, when build systems like Autotools are typically built in source. Spack has built-in compatibility with CMake build directories where Spack places a hash on the build directories and are mapped to each spec. This allows for multiple specs to be built simultaneously in a Spack environment and not cause conflicts in the build directory like Autotools packages can.
 
-For our example, we will choose to develop an Exawind package with less dependencies, which is the `AMR-Wind <https://github.com/Exawind/amr-wind>`_ application. To do so we will use Spack-Manager's ``quick-create-dev`` shortcut command which creates an environment with develop specs and clones or unpacks the code. Then it activates the environment it created:
+For our example, we will choose to develop an Kynema package with less dependencies, which is the `AMR-Wind <https://github.com/Kynema/amr-wind>`_ application. To do so we will use Spack-Manager's ``quick-create-dev`` shortcut command which creates an environment with develop specs and clones or unpacks the code. Then it activates the environment it created:
 
 .. code-block:: console
 
-   user@user-38508s exawind-manager % source shortcut.sh 
-   user@user-38508s exawind-manager % quick-create-dev -n amr-wind-env -s amr-wind~mpi@main
+   user@user-38508s kynema-manager % source shortcut.sh 
+   user@user-38508s kynema-manager % quick-create-dev -n amr-wind-env -s amr-wind~mpi@main
    + spack manager create-dev-env -n amr-wind-env -s amr-wind~mpi@main
    ==> Cloning source code for amr-wind@=main
-   + spack env activate --dir /Users/user/exawind-manager/environments/amr-wind-env --prompt
-   [amr-wind-env] user@user-38508s exawind-manager % cd environments/amr-wind-env 
+   + spack env activate --dir /Users/user/kynema-manager/environments/amr-wind-env --prompt
+   [amr-wind-env] user@user-38508s kynema-manager % cd environments/amr-wind-env 
    [amr-wind-env] user@user-38508s amr-wind-env % ls             
    amr-wind include.yaml spack.yaml
    [amr-wind-env] user@user-38508s amr-wind-env % cat spack.yaml 
@@ -313,7 +313,7 @@ Next we need to concretize this environment so Spack has a concrete list of exac
 
    [amr-wind-env] user@user-38508s amr-wind-env % spack concretize -f
    ==> Concretized 1 spec:
-    -   mynrqjm  amr-wind@main~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa~mpi~netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' dev_path=/Users/user/exawind-manager/environments/amr-wind-env/amr-wind generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@15.0.0
+    -   mynrqjm  amr-wind@main~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa~mpi~netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' dev_path=/Users/user/kynema-manager/environments/amr-wind-env/amr-wind generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   2vdjg64      ^cmake@3.31.6~doc+ncurses+ownlibs~qtgui build_system=generic build_type=Release arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   k6bl6kl          ^curl@8.11.1~gssapi~ldap~libidn2~librtmp~libssh~libssh2+nghttp2 build_system=autotools libs=shared,static tls=secure_transport arch=darwin-ventura-m1 %apple-clang@15.0.0
     -   eabkdvh              ^gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@15.0.0
@@ -340,8 +340,8 @@ Here is how we do it using our previously concretized ``amr-wind-env`` environme
    [amr-wind-env] user@user-38508s amr-wind-env % ls
    Makefile     amr-wind     include.yaml spack.lock   spack.yaml
    [amr-wind-env] user@user-38508s amr-wind-env % nice make -j8
-   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /uf5swtz56kty36hs6uhs3w26x7ho2myn # gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
-   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /eabkdvhseshxsuukgi4pznupmuwhrtmh # gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/kynema-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/kynema-manager/environments/amr-wind-env' install   --only-concrete --only=package /uf5swtz56kty36hs6uhs3w26x7ho2myn # gmake@4.4.1~guile build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/kynema-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/kynema-manager/environments/amr-wind-env' install   --only-concrete --only=package /eabkdvhseshxsuukgi4pznupmuwhrtmh # gnuconfig@2024-07-27 build_system=generic arch=darwin-ventura-m1 %apple-clang@=15.0.0
    ==> Installing gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
    ==> Installing gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn
    ==> No binary for gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn found: installing from source
@@ -352,13 +352,13 @@ Here is how we do it using our previously concretized ``amr-wind-env`` environme
    ==> gnuconfig: Executing phase: 'install'
    ==> gnuconfig: Successfully installed gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
      Stage: 0.01s.  Install: 0.00s.  Post-install: 0.01s.  Total: 0.09s
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/gnuconfig-2024-07-27-eabkdvhseshxsuukgi4pznupmuwhrtmh
    ==> No patches needed for gmake
    ==> gmake: Executing phase: 'install'
 
    ... more building
 
-   /Users/user/exawind-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/exawind-manager/environments/amr-wind-env' install   --only-concrete --only=package /mynrqjmh342mfhabxi5spxglxpdw5imj # amr-wind@main~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa~mpi~netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' dev_path=/Users/user/exawind-manager/environments/amr-wind-env/amr-wind generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@=15.0.0
+   /Users/user/kynema-manager/spack/bin/spack -c config:install_status:false -e '/Users/user/kynema-manager/environments/amr-wind-env' install   --only-concrete --only=package /mynrqjmh342mfhabxi5spxglxpdw5imj # amr-wind@main~asan~ascent~cdash_submit~clangtidy~cuda~fft~gpu-aware-mpi~hdf5~helics~hypre~ipo~masa~mpi~netcdf~ninja~openfast~openmp~rocm+shared~sycl+tests+tiny_profile~umpire~waves2amr build_system=cmake build_type=Release ctest_args='-R unit' dev_path=/Users/user/kynema-manager/environments/amr-wind-env/amr-wind generator=make reference_golds=default arch=darwin-ventura-m1 %apple-clang@=15.0.0
    ==> Installing amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
    ==> No binary for amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj found: installing from source
    ==> No patches needed for amr-wind
@@ -368,7 +368,7 @@ Here is how we do it using our previously concretized ``amr-wind-env`` environme
    ==> amr-wind: Executing phase: 'analysis'
    ==> amr-wind: Successfully installed amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
      Stage: 0.00s.  Cmake: 2.86s.  Build: 1m 39.30s.  Install: 10.22s.  Analysis: 1.66s.  Post-install: 0.20s.  Total: 1m 54.34s
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
 
 Notice the makefile is running several Spack instances while also providing build parallelism within each package. Using depfiles is the fastest way to build a large amount of dependencies in Spack typically at the beginning of building an entire environment. Once we start developing ``amr-wind``, it's simpler to use the ``spack install`` command to rebuild the projects listed as develop specs. Note Spack will always rebuild develop specs.
 
@@ -382,7 +382,7 @@ Once we built the project, we can run its tests. AMR-Wind uses CTest, so the pro
 
    [amr-wind-env] user@user-38508s amr-wind-env % spack cd -b amr-wind
    [amr-wind-env] user@user-38508s spack-build-mynrqjm % spack build-env amr-wind ctest -L unit           
-   Test project /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
+   Test project /Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
        Start 1: unit_tests
    1/1 Test #1: unit_tests .......................   Passed    0.22 sec
    
@@ -405,12 +405,12 @@ First we will re-run the unit tests with full output so we can see our edits are
 .. code-block:: console
 
    [amr-wind-env] user@user-38508s spack-build-mynrqjm % spack build-env amr-wind ctest -VV -L unit
-   UpdateCTestConfiguration  from :/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Parse Config file:/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   UpdateCTestConfiguration  from :/Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Parse Config file:/Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
     Add coverage exclude regular expressions.
-   UpdateCTestConfiguration  from :/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Parse Config file:/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Test project /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
+   UpdateCTestConfiguration  from :/Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Parse Config file:/Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Test project /Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
    Constructing a list of tests
    Done constructing a list of tests
    Updating test list for fixtures
@@ -420,8 +420,8 @@ First we will re-run the unit tests with full output so we can see our edits are
    test 1
        Start 1: unit_tests
    
-   1: Test command: /bin/bash "-c" " /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/amr_wind_unit_tests"
-   1: Working Directory: /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/test/test_files/unit_tests/
+   1: Test command: /bin/bash "-c" " /Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/amr_wind_unit_tests"
+   1: Working Directory: /Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/test/test_files/unit_tests/
    1: Test timeout computed to be: 500
    1: [==========] Running 254 tests from 63 test suites.
    1: [----------] Global test environment set-up.
@@ -432,7 +432,7 @@ First we will re-run the unit tests with full output so we can see our edits are
    1: [       OK ] Configuration.Build (0 ms)
    1: [ RUN      ] Configuration.MPI
    1: AMR-Wind not built with MPI support.
-   1: /Users/user/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:45: Skipped
+   1: /Users/user/kynema-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:45: Skipped
    1: 
    1: 
    1: [  SKIPPED ] Configuration.MPI (0 ms)
@@ -445,7 +445,7 @@ Now we edit the code:
 
    [amr-wind-env] user@user-38508s spack-build-mynrqjm % spack cd -c amr-wind
    [amr-wind-env] user@user-38508s amr-wind % pwd
-      /Users/user/exawind-manager/environments/amr-wind-env/amr-wind
+      /Users/user/kynema-manager/environments/amr-wind-env/amr-wind
    [amr-wind-env] user@user-38508s amr-wind % git diff
    diff --git a/unit_tests/utest_main.cpp b/unit_tests/utest_main.cpp
    index 3657f075..6c0cad95 100644
@@ -473,12 +473,12 @@ Then we rebuild the project:
 .. code-block:: console
 
    [amr-wind-env] user@user-38508s amr-wind % spack install
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/nghttp2-1.65.0-uzkvaxuygkwrnm2ztnxvsb4xekgqzvf6
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/zlib-1.3.1-kcwseep5tkw7o2t2zfhqnzcheiw42vki
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/curl-8.11.1-k6bl6klc2egdhtfg5xq2gdahjiyc55qh
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/ncurses-6.5-usixkny7snk7mwzaiflebsmizengopml
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/cmake-3.31.6-2vdjg64fv6axfjbpuc7irw7tuwpoju7x
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/nghttp2-1.65.0-uzkvaxuygkwrnm2ztnxvsb4xekgqzvf6
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/zlib-1.3.1-kcwseep5tkw7o2t2zfhqnzcheiw42vki
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/gmake-4.4.1-uf5swtz56kty36hs6uhs3w26x7ho2myn
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/curl-8.11.1-k6bl6klc2egdhtfg5xq2gdahjiyc55qh
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/ncurses-6.5-usixkny7snk7mwzaiflebsmizengopml
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/cmake-3.31.6-2vdjg64fv6axfjbpuc7irw7tuwpoju7x
    ==> Installing amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj [7/7]
    ==> No binary for amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj found: installing from source
    ==> No patches needed for amr-wind
@@ -488,7 +488,7 @@ Then we rebuild the project:
    ==> amr-wind: Executing phase: 'analysis'
    ==> amr-wind: Successfully installed amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
      Stage: 0.00s.  Cmake: 0.00s.  Build: 8.21s.  Install: 8.02s.  Analysis: 0.78s.  Post-install: 0.17s.  Total: 17.32s
-   [+] /Users/user/exawind-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
+   [+] /Users/user/kynema-manager/spack/opt/spack/darwin-ventura-m1/apple-clang-15.0.0/amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj
 
 Note the time in which it took to build ``amr-wind`` (17s), showing that the previous build objects were reused and only the files that changed were built.
 
@@ -498,12 +498,12 @@ Now we can run the unit tests again:
 .. code-block:: console
 
    [amr-wind-env] user@user-38508s amr-wind % spack cd -b amr-wind && spack build-env amr-wind ctest -VV -L unit
-   UpdateCTestConfiguration  from :/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Parse Config file:/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   UpdateCTestConfiguration  from :/Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Parse Config file:/Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
     Add coverage exclude regular expressions.
-   UpdateCTestConfiguration  from :/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Parse Config file:/Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
-   Test project /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
+   UpdateCTestConfiguration  from :/Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Parse Config file:/Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/DartConfiguration.tcl
+   Test project /Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm
    Constructing a list of tests
    Done constructing a list of tests
    Updating test list for fixtures
@@ -513,8 +513,8 @@ Now we can run the unit tests again:
    test 1
        Start 1: unit_tests
    
-   1: Test command: /bin/bash "-c" " /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/amr_wind_unit_tests"
-   1: Working Directory: /Users/user/exawind-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/test/test_files/unit_tests/
+   1: Test command: /bin/bash "-c" " /Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/amr_wind_unit_tests"
+   1: Working Directory: /Users/user/kynema-manager/stage/spack-stage-amr-wind-main-mynrqjmh342mfhabxi5spxglxpdw5imj/spack-build-mynrqjm/test/test_files/unit_tests/
    1: Test timeout computed to be: 500
    1: Hello new AMR-Wind changes...
    1: [==========] Running 254 tests from 63 test suites.
@@ -526,13 +526,13 @@ Now we can run the unit tests again:
    1: [       OK ] Configuration.Build (0 ms)
    1: [ RUN      ] Configuration.MPI
    1: AMR-Wind not built with MPI support.
-   1: /Users/user/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:45: Skipped
+   1: /Users/user/kynema-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:45: Skipped
    1: 
    1: 
    1: [  SKIPPED ] Configuration.MPI (0 ms)
    1: [ RUN      ] Configuration.GPU
    1: AMR-Wind not built with GPU support
-   1: /Users/user/exawind-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:86: Skipped
+   1: /Users/user/kynema-manager/environments/amr-wind-env/amr-wind/unit_tests/test_config.cpp:86: Skipped
    1: 
    
    ... etc
@@ -544,10 +544,10 @@ One very useful thing that is possible with our Spack environment is that we can
 We can also add more develop specs to ``spack.yaml``, such as dependencies of AMR-Wind. Then we can develop both AMR-Wind and its dependencies while using a single ``spack install`` command to rebuild and test the environment in a very agile way that is adaptable to the developer's use case. This is the key benefit to using Spack for software development and we have found it to be extremely effective in developer productivity.
 
 
-More Exawind-Manager Topics
+More Kynema-Manager Topics
 ===========================
 
-Below is a list of notable Exawind-Manager, Spack-Manager, or Spack topics and useful features where we might expand upon in this documentation.
+Below is a list of notable Kynema-Manager, Spack-Manager, or Spack topics and useful features where we might expand upon in this documentation.
 
 1. Designing machine configuration files (mostly trial and error or requires an experienced Spack administrator)
 2. How to write `Spack extensions <https://spack.readthedocs.io/en/latest/extensions.html#custom-extensions>`_
@@ -560,11 +560,11 @@ Below is a list of notable Exawind-Manager, Spack-Manager, or Spack topics and u
    e. build-env-dive
    f. spack manager include
 
-4. `Custom package files <https://github.com/Exawind/exawind-manager/tree/main/repos/exawind/packages>`_ and class inheritance
-5. ``CTestPackage`` `class <https://github.com/Exawind/exawind-manager/blob/main/repos/exawind/packages/ctest-package/package.py>`_ and custom Spack phases
-6. `Automated nightly testing using CDash <https://github.com/Exawind/exawind-manager/blob/main/scripts/run-nightly-tests.sh>`_
-7. `Managing gold files <https://github.com/Exawind/exawind-manager/blob/main/scripts/update-golds.sh>`_
-8. Snapshots and `containers <https://gitlab.e4s.io/uo-public/exawind-snapshot/-/blob/main/Dockerfile?ref_type=heads>`_ for `CI using Github Actions <https://github.com/Exawind/exawind-driver/blob/30f1a516f5e74b22326c0dfa0b266f4ccc6b0688/.github/workflows/ci.yml#L37>`_
+4. `Custom package files <https://github.com/Kynema/kynema-manager/tree/main/repos/kynema/packages>`_ and class inheritance
+5. ``CTestPackage`` `class <https://github.com/Kynema/kynema-manager/blob/main/repos/kynema/packages/ctest-package/package.py>`_ and custom Spack phases
+6. `Automated nightly testing using CDash <https://github.com/Kynema/kynema-manager/blob/main/scripts/run-nightly-tests.sh>`_
+7. `Managing gold files <https://github.com/Kynema/kynema-manager/blob/main/scripts/update-golds.sh>`_
+8. Snapshots and `containers <https://gitlab.e4s.io/uo-public/kynema-snapshot/-/blob/main/Dockerfile?ref_type=heads>`_ for `CI using Github Actions <https://github.com/Kynema/kynema-driver/blob/30f1a516f5e74b22326c0dfa0b266f4ccc6b0688/.github/workflows/ci.yml#L37>`_
 9. `Source mirrors <https://spack.readthedocs.io/en/latest/mirrors.html>`_
 10. `Build caches <https://spack.readthedocs.io/en/latest/binary_caches.html>`_
 11. `Deploying large software environments <https://github.com/jrood-nrel/goose>`_

@@ -1,22 +1,15 @@
-# Copyright (c) 2022, National Technology & Engineering Solutions of Sandia,
-# LLC (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
-# Government retains certain rights in this software.
-#
-# This software is released under the BSD 3-clause license. See LICENSE file
-# for more details.
-
 from spack.package import *
-from spack_repo.builtin.packages.amr_wind.package import AmrWind as bAmrWind
-from spack_repo.exawind.packages.ctest_package.package import *
-find_machine = importlib.import_module("find-exawind-manager")
+from spack_repo.builtin.packages.kynema_sgf.package import KynemaSGF as bKynemaSGF
+from spack_repo.kynema.packages.ctest_package.package import *
+find_machine = importlib.import_module("find-kynema-manager")
 
-class AmrWind(bAmrWind, CtestPackage):
+class KynemaSGF(bKynemaSGF, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
 
     depends_on("netcdf-c+mpi", when="+netcdf")
     requires("+tests", when="+cdash_submit")
-    requires("+mpi", when="+kynema")
+    requires("+mpi", when="+kynema-fmb")
     requires("+mpi", when="+openfast")
 
     def setup_build_environment(self, env):
@@ -46,18 +39,18 @@ class AmrWind(bAmrWind, CtestPackage):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(AmrWind, self).cmake_args()
+        cmake_options = super(KynemaSGF, self).cmake_args()
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
 
         if spec.satisfies("+clangtidy"):
-            cmake_options.append(self.define("AMR_WIND_ENABLE_CLANG_TIDY", True))
+            cmake_options.append(self.define("KYNEMA_SGF_ENABLE_CLANG_TIDY", True))
 
         if spec.satisfies("+tests"):
-            cmake_options.append(self.define("AMR_WIND_TEST_WITH_FCOMPARE", True))
-            cmake_options.append(self.define("AMR_WIND_SAVE_GOLDS", True))
-            cmake_options.append(self.define("AMR_WIND_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
-            cmake_options.append(self.define("AMR_WIND_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
+            cmake_options.append(self.define("KYNEMA_SGF_TEST_WITH_FCOMPARE", True))
+            cmake_options.append(self.define("KYNEMA_SGF_SAVE_GOLDS", True))
+            cmake_options.append(self.define("KYNEMA_SGF_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
+            cmake_options.append(self.define("KYNEMA_SGF_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
 
         return cmake_options

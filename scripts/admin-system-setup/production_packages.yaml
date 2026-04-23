@@ -3,13 +3,13 @@ spack:
   - packages.yaml
   - compilers.yaml
   - config.yaml
-  - $EXAWIND_MANAGER/configs/base/packages.yaml
+  - $KYNEMA_MANAGER/configs/base/packages.yaml
   definitions:
   - compilers: ['%gcc', '%clang']
   - core:
     - nalu-wind+openfast+hypre ^openmpi@4.0.2
     - amr-wind+openfast+hypre ^openmpi@4.0.2
-    - exawind~openfast~hypre ^openmpi@4.0.2
+    - kynema~openfast~hypre ^openmpi@4.0.2
   specs:
   - matrix:
     - [$core]

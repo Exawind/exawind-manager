@@ -4,7 +4,7 @@ spack:
     reuse: false
   view: false
   specs:
-  - exawind@master+fsi%oneapi
+  - kynema@master+fsi%oneapi
   - amr-wind@main+openfast
   modules:
     default:

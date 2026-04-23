@@ -4,8 +4,8 @@ spack:
    - compilers.yaml
    - modules.yaml
    - config.yaml
-   - $EXAWIND_MANAGER/scripts/nrel-modules/ellis_packages.yaml
-   - $EXAWIND_MANAGER/configs/base/packages.yaml
+   - $KYNEMA_MANAGER/scripts/nrel-modules/ellis_packages.yaml
+   - $KYNEMA_MANAGER/configs/base/packages.yaml
    definitions:
    #- compilers: ['%gcc', '%clang']
    - compilers: ['%gcc@10.4.0']

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 module load aue/python
-export EXAWIND_MANAGER=/projects/wind/exawind-manager
+export KYNEMA_MANAGER=/projects/wind/kynema-manager
 if hostname | grep -q "ecw"; then
   export NPROCS=60
 else
@@ -9,4 +9,4 @@ else
   exit 1
 fi
 
-${EXAWIND_MANAGER}/scripts/run-nightly-tests.sh | tee /projects/wind/testing-logs/cee/$(date -I)-tests.log
+${KYNEMA_MANAGER}/scripts/run-nightly-tests.sh | tee /projects/wind/testing-logs/cee/$(date -I)-tests.log

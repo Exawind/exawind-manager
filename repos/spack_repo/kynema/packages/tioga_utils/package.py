@@ -6,18 +6,18 @@
 # for more details.
 
 from spack.package import *
-from spack_repo.exawind.packages.ctest_package.package import *
+from spack_repo.kynema.packages.ctest_package.package import *
 
 
 class TiogaUtils(CtestPackage):
-    git = "https://github.com/Exawind/tioga_utils.git"
+    git = "https://github.com/Kynema/tioga_utils.git"
 
-    version("exawind", branch="exawind", submodules=True)
+    version("kynema", branch="kynema", submodules=True)
 
     depends_on("trilinos")
     depends_on("yaml-cpp")
     depends_on("tioga~nodegid")
-    depends_on("nalu-wind")
+    depends_on("kynema-ugf")
     depends_on("yaml-cpp@0.6.0:0.6.3")
  
     def cmake_args(self):
