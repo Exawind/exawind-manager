@@ -3,7 +3,7 @@ spack:
   - packages.yaml
   - compilers.yaml
   - config.yaml
-  - $EXAWIND_MANAGER/configs/base/packages.yaml
+  - $KYNEMA_MANAGER/configs/base/packages.yaml
   definitions:
   - compilers: ['%gcc', '%clang']
   - core:

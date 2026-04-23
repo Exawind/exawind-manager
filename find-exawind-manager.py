@@ -155,6 +155,6 @@ def reference_golds_default(spec):
         if specific_path:
             return specific_path
     # secondary path
-    gold_dir = os.path.join(os.environ["EXAWIND_MANAGER"], "golds", "current", spec.name)
+    gold_dir = os.path.join(os.environ["KYNEMA_MANAGER"], "golds", "current", spec.name)
     os.makedirs(gold_dir, exist_ok=True)
     return gold_dir

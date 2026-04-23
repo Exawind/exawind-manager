@@ -13,8 +13,8 @@ from spack_repo.builtin.build_systems.rocm import ROCmPackage
 class HypreMiniApp(CMakePackage, CudaPackage, ROCmPackage):
     """HYPRE mini-app for use with Nalu-Wind linear systems. """
 
-    homepage = "https://github.com/Exawind/hypre-mini-app"
-    git      = "https://github.com/Exawind/hypre-mini-app.git"
+    homepage = "https://github.com/Kynema/hypre-mini-app"
+    git      = "https://github.com/Kynema/hypre-mini-app.git"
 
     maintainers = ["jrood-nrel"]
 

@@ -2,7 +2,7 @@ extensions = ["myst_parser"]
 myst_heading_anchors = 3
 templates_path = ["_templates"]
 master_doc = "index"
-project = "Exawind-Manager"
+project = "Kynema-Manager"
 copyright = "Phil Sakievich and Jon Rood"
 author = "Phil Sakievich and Jon Rood"
 version = "0.1"
@@ -20,16 +20,16 @@ html_show_copyright = False
 htmlhelp_basename = "kynema-manager-doc"
 latex_elements = {}
 latex_documents = [
-    (master_doc, "kynema-manager.tex", "Exawind-Manager Documentation", author, "manual")
+    (master_doc, "kynema-manager.tex", "Kynema-Manager Documentation", author, "manual")
 ]
-man_pages = [(master_doc, "kynema-manager", "Exawind-Manager Documentation", [author], 1)]
+man_pages = [(master_doc, "kynema-manager", "Kynema-Manager Documentation", [author], 1)]
 texinfo_documents = [
     (
         master_doc,
         "kynema-manager",
-        "Exawind-Manager Documentation",
+        "Kynema-Manager Documentation",
         author,
-        "Exawind-Manager",
+        "Kynema-Manager",
         "One line description of project.",
         "Miscellaneous",
     )

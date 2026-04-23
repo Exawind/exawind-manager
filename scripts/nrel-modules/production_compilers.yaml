@@ -4,7 +4,7 @@ spack:
    - compilers.yaml
    - modules.yaml
    - config.yaml
-   - $EXAWIND_MANAGER/configs/base/packages.yaml
+   - $KYNEMA_MANAGER/configs/base/packages.yaml
    specs:
    - binutils+gold
    - cuda@11.8.0

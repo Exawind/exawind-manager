@@ -4,7 +4,7 @@ import spack.util.spack_yaml as spack_yaml
 from spack.spec import Spec
 
 def get_golds_yaml():
-    path = os.path.join(os.environ["EXAWIND_MANAGER"], "golds.yaml")
+    path = os.path.join(os.environ["KYNEMA_MANAGER"], "golds.yaml")
     assert os.path.isfile(path)
     with open(path, "r") as f:
         yaml = spack_yaml.load(f)

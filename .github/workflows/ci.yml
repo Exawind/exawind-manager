@@ -1,4 +1,4 @@
-name: Exawind-Manager-CI
+name: Kynema-Manager-CI
 
 on:
   push:

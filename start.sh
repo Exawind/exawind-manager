@@ -19,7 +19,7 @@ function cd-sm(){
     echo "Convenience function for navigating to the spack-manager directory"
     return
   fi
-  cd ${EXAWIND_MANAGER}
+  cd ${KYNEMA_MANAGER}
 }
 
 # function to initialize spack-manager's spack instance
@@ -31,13 +31,13 @@ function spack-start() {
   
   # https://stackoverflow.com/questions/4774054/reliable-way-for-a-bash-script-to-get-the-full-path-to-itself
   # for zsh we follow: https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
-  export EXAWIND_MANAGER="$( cd -- "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" >/dev/null 2>&1 ; pwd -P )"
+  export KYNEMA_MANAGER="$( cd -- "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" >/dev/null 2>&1 ; pwd -P )"
 
   function install_spack_manager(){
-    export SPACK_ROOT=${EXAWIND_MANAGER}/spack
-    (cd "${EXAWIND_MANAGER}" && git submodule update ${SPACK_ROOT}/../spack-manager)
-    spack -E config --scope site add "config:extensions:[${EXAWIND_MANAGER}/spack-manager]"
-    spack -E manager add ${EXAWIND_MANAGER}
+    export SPACK_ROOT=${KYNEMA_MANAGER}/spack
+    (cd "${KYNEMA_MANAGER}" && git submodule update ${SPACK_ROOT}/../spack-manager)
+    spack -E config --scope site add "config:extensions:[${KYNEMA_MANAGER}/spack-manager]"
+    spack -E manager add ${KYNEMA_MANAGER}
   }
 
   if ! $(type '_spack_start_called' 2>/dev/null | grep -q 'function'); then
@@ -46,9 +46,9 @@ function spack-start() {
       module load cray-python
     fi
 
-    export SPACK_ROOT=${EXAWIND_MANAGER}/spack
-    export SPACK_USER_CACHE_PATH=${EXAWIND_MANAGER}/.cache
-    export SPACK_USER_CONFIG_PATH=${EXAWIND_MANAGER}/.spack
+    export SPACK_ROOT=${KYNEMA_MANAGER}/spack
+    export SPACK_USER_CACHE_PATH=${KYNEMA_MANAGER}/.cache
+    export SPACK_USER_CONFIG_PATH=${KYNEMA_MANAGER}/.spack
 
     if [ -n "$SPACK_ENV" ]; then 
       OLD_SPACK_ENV=${SPACK_ENV}
@@ -62,12 +62,12 @@ function spack-start() {
     #spack clean -m
     
     # move the bootstrap store outside the user config path
-    if [[ -z $(spack config blame bootstrap | grep "root: ${EXAWIND_MANAGER}/.bootstrap") ]]; then
-      spack -E bootstrap root ${EXAWIND_MANAGER}/.bootstrap
+    if [[ -z $(spack config blame bootstrap | grep "root: ${KYNEMA_MANAGER}/.bootstrap") ]]; then
+      spack -E bootstrap root ${KYNEMA_MANAGER}/.bootstrap
     fi
 
-    if [[ -z $(spack config --scope site blame config | grep "environments_root: ${EXAWIND_MANAGER}/environments") ]]; then
-      spack -E config --scope site add config:environments_root:${EXAWIND_MANAGER}/environments
+    if [[ -z $(spack config --scope site blame config | grep "environments_root: ${KYNEMA_MANAGER}/environments") ]]; then
+      spack -E config --scope site add config:environments_root:${KYNEMA_MANAGER}/environments
     fi
 
     if [[ -z $(spack config --scope site blame config | grep spack-manager) ]]; then
@@ -78,11 +78,11 @@ function spack-start() {
       spack -E config --scope site add "concretizer:unify:false"
     fi
 
-    export PATH=${PATH}:${EXAWIND_MANAGER}/scripts
-    export PYTHONPATH=${PYTHONPATH}:${EXAWIND_MANAGER}:${EXAWIND_MANAGER}/repos:${EXAWIND_MANAGER}/spack/var/spack/repos:${EXAWIND_MANAGER}/spack/lib/spack
+    export PATH=${PATH}:${KYNEMA_MANAGER}/scripts
+    export PYTHONPATH=${PYTHONPATH}:${KYNEMA_MANAGER}:${KYNEMA_MANAGER}/repos:${KYNEMA_MANAGER}/spack/var/spack/repos:${KYNEMA_MANAGER}/spack/lib/spack
 
-    if [[ -z $(spack repo list | awk '{print $2" "$4}' | grep "kynema $EXAWIND_MANAGER") ]]; then
-      spack -E repo add ${EXAWIND_MANAGER}/repos/spack_repo/kynema
+    if [[ -z $(spack repo list | awk '{print $2" "$4}' | grep "kynema $KYNEMA_MANAGER") ]]; then
+      spack -E repo add ${KYNEMA_MANAGER}/repos/spack_repo/kynema
     fi
 
     if [[ -z $(spack config --scope site blame bootstrap | grep spack-bootstrap-store) ]]; then
@@ -95,7 +95,7 @@ function spack-start() {
       spack -E compiler find
     fi
 
-    source ${EXAWIND_MANAGER}/spack-manager/scripts/quick_commands.sh
+    source ${KYNEMA_MANAGER}/spack-manager/scripts/quick_commands.sh
     # define a function since environment variables are sometimes preserved in a subshell but functions aren't
     # see https://github.com/psakievich/spack-manager/issues/210
     function _spack_start_called(){

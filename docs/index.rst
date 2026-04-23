@@ -1,12 +1,12 @@
 ===============
-Exawind-Manager
+Kynema-Manager
 ===============
 
-Exawind-Manager is a project specialization of `Spack-Manager <https://github.com/sandialabs/spack-manager>`_.  Spack-Manager is a light-weight extension to `Spack <https://spack.io>`_ that is intended to streamline the software development and deployment cycle for software projects on specific machines.  A given software project, especially in high performance computing (HPC), typically requires managing multiple software dependencies using multiple compilers and processing devices across many machines.  Spack-Manager is quite literal in its name, in that it provides a way to manage and organize these configurations across multiple machines, and multiple projects. Exawind-Manager is specialized towards the `ExaWind <https://github.com/kynema>`_ project, which is a set of complex coupled applications for modeling the physics of entire wind farms at high fidelities. However, much of what Exawind-Manager accomplishes is merely an example of how Spack-Manager can be specialized towards any single project or projects.
+Kynema-Manager is a project specialization of `Spack-Manager <https://github.com/sandialabs/spack-manager>`_.  Spack-Manager is a light-weight extension to `Spack <https://spack.io>`_ that is intended to streamline the software development and deployment cycle for software projects on specific machines.  A given software project, especially in high performance computing (HPC), typically requires managing multiple software dependencies using multiple compilers and processing devices across many machines.  Spack-Manager is quite literal in its name, in that it provides a way to manage and organize these configurations across multiple machines, and multiple projects. Kynema-Manager is specialized towards the `ExaWind <https://github.com/kynema>`_ project, which is a set of complex coupled applications for modeling the physics of entire wind farms at high fidelities. However, much of what Kynema-Manager accomplishes is merely an example of how Spack-Manager can be specialized towards any single project or projects.
 
 More information on Spack-Manager itself can be found `here <https://github.com/sandialabs/spack-manager>`_. Features of Spack-Manager also generally continue to be developed in Spack itself by the Spack-Manager author. Spack-Manager itself is designed as a fully integrated extension of Spack.
 
-Spack-Manager and Exawind-Manager also provide several shortcut commands for automating simple tasks of setting up environments and building and deploying them. In the tutorial we will only use a few.
+Spack-Manager and Kynema-Manager also provide several shortcut commands for automating simple tasks of setting up environments and building and deploying them. In the tutorial we will only use a few.
 
 Tutorial
 ========
@@ -16,7 +16,7 @@ In this tutorial we will learn the most used features and workflows for doing de
 Prerequisites
 -------------
 
-We will walk through this tutorial using an Apple Macbook Pro M1. To set up such a machine for using Exawind-Manager, we need to satisfy these requirements:
+We will walk through this tutorial using an Apple Macbook Pro M1. To set up such a machine for using Kynema-Manager, we need to satisfy these requirements:
 
 1. Install XCode and its command line tools
 2. Install `Homebrew <https://brew.sh>`_
@@ -30,7 +30,7 @@ We will walk through this tutorial using an Apple Macbook Pro M1. To set up such
 Machine Configurations
 ----------------------
 
-For most HPC machines, we want to find a way for Exawind-Manager to figure out which machine it is on and we need the Spack configuration files set up for that machine in a way that might typically require a Spack expert to design. In this tutorial we will assume we already have a robust configuration.
+For most HPC machines, we want to find a way for Kynema-Manager to figure out which machine it is on and we need the Spack configuration files set up for that machine in a way that might typically require a Spack expert to design. In this tutorial we will assume we already have a robust configuration.
 
 Cloning
 -------
@@ -39,7 +39,7 @@ To begin we start by cloning kynema-manager:
 
 .. code-block:: console
 
-   user@user-38508s ~ % git clone -c feature.manyFiles=true --depth=1 --shallow-submodules --recursive https://github.com/Exawind/kynema-manager.git
+   user@user-38508s ~ % git clone -c feature.manyFiles=true --depth=1 --shallow-submodules --recursive https://github.com/Kynema/kynema-manager.git
    Cloning into 'kynema-manager'...
    remote: Enumerating objects: 167, done.
    remote: Counting objects: 100% (167/167), done.
@@ -75,10 +75,10 @@ To begin we start by cloning kynema-manager:
    Submodule path 'spack': checked out '313b7d4cdbbf0610b9b449d5855cb0f52c6df1eb'
    Submodule path 'spack-manager': checked out '9a02da44788c943c1f1d4fcbe85b7397abe0a724'
 
-Loading Exawind-Manager
+Loading Kynema-Manager
 -----------------------
 
-To invoke Exawind-Manager we merely ``source shortcut.sh`` which sets the ``EXAWIND_MANAGER`` environment variable and also invokes Spack's shell support through our own ``spack-start`` command:
+To invoke Kynema-Manager we merely ``source shortcut.sh`` which sets the ``KYNEMA_MANAGER`` environment variable and also invokes Spack's shell support through our own ``spack-start`` command:
 
 .. code-block:: console
 
@@ -97,14 +97,14 @@ Note Spack-Manager will register our custom Spack package file repo during this 
 Machine Fingerprint
 -------------------
 
-Next, we can probe the machine to see what Exawind-Manager thinks the machine is. Note for our project we have a set list of machines in which we curate our own configurations. They are defined and queried in the `find-kynema-manager.py <https://github.com/Exawind/kynema-manager/blob/main/find-kynema-manager.py>`_ file. This file maps the machine to a known lowercase name identifier where the Spack ``yaml`` config files are referenced. Here we query which configuration files Exawind-Manager will choose:
+Next, we can probe the machine to see what Kynema-Manager thinks the machine is. Note for our project we have a set list of machines in which we curate our own configurations. They are defined and queried in the `find-kynema-manager.py <https://github.com/Kynema/kynema-manager/blob/main/find-kynema-manager.py>`_ file. This file maps the machine to a known lowercase name identifier where the Spack ``yaml`` config files are referenced. Here we query which configuration files Kynema-Manager will choose:
 
 .. code-block:: console
 
    user@user-38508s kynema-manager % spack manager find-machine
    kynema-manager darwin
 
-Therefore Exawind-Manager will implement the ``yaml`` files from the ``darwin`` (MacOS) `configuration <https://github.com/Exawind/kynema-manager/tree/main/configs/darwin>`_ directory. Note the `base <https://github.com/Exawind/kynema-manager/tree/main/configs/base>`_ configuration files will always be used at a low precedence, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, Spack's temporary build stage is located, etc. Any of these can be overridden by the machine-specific configuration.
+Therefore Kynema-Manager will implement the ``yaml`` files from the ``darwin`` (MacOS) `configuration <https://github.com/Kynema/kynema-manager/tree/main/configs/darwin>`_ directory. Note the `base <https://github.com/Kynema/kynema-manager/tree/main/configs/base>`_ configuration files will always be used at a low precedence, with the machine-specific configuration taking precedence. The base files set many preferences as defaults such as where downloads are cached, Spack's temporary build stage is located, etc. Any of these can be overridden by the machine-specific configuration.
 
 Within the machine-specific config or the base config, we have a ``template.yaml`` file which contains the default ``spack.yaml`` file that will be used for that machine if none is created or specified by the user. The ``spack.yaml`` file generally contains the spec or specs that will be built for the project on that machine by default. For the base template we see the default ``template.yaml`` below:
 
@@ -118,7 +118,7 @@ Within the machine-specific config or the base config, we have a ``template.yaml
 Deploying the Project
 ---------------------
 
-The first thing we could do is then easily build our entire project using the `deploy.py <https://github.com/Exawind/kynema-manager/blob/main/scripts/deploy.py>`_ script.
+The first thing we could do is then easily build our entire project using the `deploy.py <https://github.com/Kynema/kynema-manager/blob/main/scripts/deploy.py>`_ script.
 
 .. code-block:: console
 
@@ -243,7 +243,7 @@ The first thing we could do is then easily build our entire project using the `d
 
    ==> Installing kynema-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a
    ==> No binary for kynema-1.2.0-mz2hzbnhcqnrrqnxqch2guw53ep3fi4a found: installing from source
-   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/git//Exawind/kynema-driver.git/4c49c7775c580b6bd2556e6c00fd13c08737d5eb.tar.gz
+   ==> Using cached archive: /Users/user/.spack_downloads/_source-cache/git//Kynema/kynema-driver.git/4c49c7775c580b6bd2556e6c00fd13c08737d5eb.tar.gz
    ==> No patches needed for kynema
    ==> kynema: Executing phase: 'cmake'
    ==> kynema: Executing phase: 'build'
@@ -275,7 +275,7 @@ When building with Spack by default such as when using the ``deploy.py`` script,
 
 Source code development works best with packages that use the CMake build system. This is because CMake is designed to be built out of source, when build systems like Autotools are typically built in source. Spack has built-in compatibility with CMake build directories where Spack places a hash on the build directories and are mapped to each spec. This allows for multiple specs to be built simultaneously in a Spack environment and not cause conflicts in the build directory like Autotools packages can.
 
-For our example, we will choose to develop an Exawind package with less dependencies, which is the `AMR-Wind <https://github.com/Exawind/amr-wind>`_ application. To do so we will use Spack-Manager's ``quick-create-dev`` shortcut command which creates an environment with develop specs and clones or unpacks the code. Then it activates the environment it created:
+For our example, we will choose to develop an Kynema package with less dependencies, which is the `AMR-Wind <https://github.com/Kynema/amr-wind>`_ application. To do so we will use Spack-Manager's ``quick-create-dev`` shortcut command which creates an environment with develop specs and clones or unpacks the code. Then it activates the environment it created:
 
 .. code-block:: console
 
@@ -544,10 +544,10 @@ One very useful thing that is possible with our Spack environment is that we can
 We can also add more develop specs to ``spack.yaml``, such as dependencies of AMR-Wind. Then we can develop both AMR-Wind and its dependencies while using a single ``spack install`` command to rebuild and test the environment in a very agile way that is adaptable to the developer's use case. This is the key benefit to using Spack for software development and we have found it to be extremely effective in developer productivity.
 
 
-More Exawind-Manager Topics
+More Kynema-Manager Topics
 ===========================
 
-Below is a list of notable Exawind-Manager, Spack-Manager, or Spack topics and useful features where we might expand upon in this documentation.
+Below is a list of notable Kynema-Manager, Spack-Manager, or Spack topics and useful features where we might expand upon in this documentation.
 
 1. Designing machine configuration files (mostly trial and error or requires an experienced Spack administrator)
 2. How to write `Spack extensions <https://spack.readthedocs.io/en/latest/extensions.html#custom-extensions>`_
@@ -560,11 +560,11 @@ Below is a list of notable Exawind-Manager, Spack-Manager, or Spack topics and u
    e. build-env-dive
    f. spack manager include
 
-4. `Custom package files <https://github.com/Exawind/kynema-manager/tree/main/repos/kynema/packages>`_ and class inheritance
-5. ``CTestPackage`` `class <https://github.com/Exawind/kynema-manager/blob/main/repos/kynema/packages/ctest-package/package.py>`_ and custom Spack phases
-6. `Automated nightly testing using CDash <https://github.com/Exawind/kynema-manager/blob/main/scripts/run-nightly-tests.sh>`_
-7. `Managing gold files <https://github.com/Exawind/kynema-manager/blob/main/scripts/update-golds.sh>`_
-8. Snapshots and `containers <https://gitlab.e4s.io/uo-public/kynema-snapshot/-/blob/main/Dockerfile?ref_type=heads>`_ for `CI using Github Actions <https://github.com/Exawind/kynema-driver/blob/30f1a516f5e74b22326c0dfa0b266f4ccc6b0688/.github/workflows/ci.yml#L37>`_
+4. `Custom package files <https://github.com/Kynema/kynema-manager/tree/main/repos/kynema/packages>`_ and class inheritance
+5. ``CTestPackage`` `class <https://github.com/Kynema/kynema-manager/blob/main/repos/kynema/packages/ctest-package/package.py>`_ and custom Spack phases
+6. `Automated nightly testing using CDash <https://github.com/Kynema/kynema-manager/blob/main/scripts/run-nightly-tests.sh>`_
+7. `Managing gold files <https://github.com/Kynema/kynema-manager/blob/main/scripts/update-golds.sh>`_
+8. Snapshots and `containers <https://gitlab.e4s.io/uo-public/kynema-snapshot/-/blob/main/Dockerfile?ref_type=heads>`_ for `CI using Github Actions <https://github.com/Kynema/kynema-driver/blob/30f1a516f5e74b22326c0dfa0b266f4ccc6b0688/.github/workflows/ci.yml#L37>`_
 9. `Source mirrors <https://spack.readthedocs.io/en/latest/mirrors.html>`_
 10. `Build caches <https://spack.readthedocs.io/en/latest/binary_caches.html>`_
 11. `Deploying large software environments <https://github.com/jrood-nrel/goose>`_

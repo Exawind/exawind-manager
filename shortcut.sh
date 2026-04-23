@@ -12,6 +12,6 @@
 # and makes it easier to manager multiple instances
 # of kynema-manager
 #---------------------------------------------------
-export EXAWIND_MANAGER=`pwd`
-source ${EXAWIND_MANAGER}/start.sh
+export KYNEMA_MANAGER=`pwd`
+source ${KYNEMA_MANAGER}/start.sh
 spack-start

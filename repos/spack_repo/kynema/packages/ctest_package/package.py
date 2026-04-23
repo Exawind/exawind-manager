@@ -132,7 +132,7 @@ class CtestPackage(CMakePackage):
     requires("generator=ninja", when="+ninja")
 
     def setup_build_environment(self, env):
-        env.prepend_path("PYTHONPATH", os.environ["EXAWIND_MANAGER"])
+        env.prepend_path("PYTHONPATH", os.environ["KYNEMA_MANAGER"])
 
     def do_clean(self):
         super().do_clean()

@@ -1,14 +1,14 @@
 #!/bin/bash -l
 
 #Example crontab:
-#1 0 * * * /bin/bash -l -c "export EXAWIND_MANAGER=/data/ssd1/home/jrood/kynema/kynema-manager && mkdir -p \${EXAWIND_MANAGER}/logs && cd \${EXAWIND_MANAGER} && (cd \${EXAWIND_MANAGER}/spack && git checkout lib && cd - && git fetch --all && git reset --hard origin/main && git submodule update && git clean -df && git status -uno) &> \${EXAWIND_MANAGER}/logs/kynema-manager-repo-update-$(date -I).txt && sed -i 's/timeout=60/timeout=7200/' \${EXAWIND_MANAGER}/spack/lib/spack/spack/stage.py && NRANKS=36 nice -n19 ionice -c3 \${EXAWIND_MANAGER}/scripts/run-nightly-tests.sh &> \${EXAWIND_MANAGER}/logs/kynema-tests-log-$(date -I).txt"
+#1 0 * * * /bin/bash -l -c "export KYNEMA_MANAGER=/data/ssd1/home/jrood/kynema/kynema-manager && mkdir -p \${KYNEMA_MANAGER}/logs && cd \${KYNEMA_MANAGER} && (cd \${KYNEMA_MANAGER}/spack && git checkout lib && cd - && git fetch --all && git reset --hard origin/main && git submodule update && git clean -df && git status -uno) &> \${KYNEMA_MANAGER}/logs/kynema-manager-repo-update-$(date -I).txt && sed -i 's/timeout=60/timeout=7200/' \${KYNEMA_MANAGER}/spack/lib/spack/spack/stage.py && NRANKS=36 nice -n19 ionice -c3 \${KYNEMA_MANAGER}/scripts/run-nightly-tests.sh &> \${KYNEMA_MANAGER}/logs/kynema-tests-log-$(date -I).txt"
 
 cmd() {
   echo "+ $@"
   eval "$@"
 }
 
-cmd "source ${EXAWIND_MANAGER}/start.sh"
+cmd "source ${KYNEMA_MANAGER}/start.sh"
 cmd "spack-start"
 cmd "spack clean -fmps"
 if [[ "$(spack manager find-machine | awk '{print $2}')" == "ellis" ]]; then
@@ -40,4 +40,4 @@ prune_envs() {
 cmd "prune_envs"
 
 packages_to_test="kynema amr-wind nalu-wind kynema"
-cmd "time ${EXAWIND_MANAGER}/scripts/deploy.py --daily --cdash ${packages_to_test} --ranks ${nranks} --overwrite --regression_tests ${packages_to_test}"
+cmd "time ${KYNEMA_MANAGER}/scripts/deploy.py --daily --cdash ${packages_to_test} --ranks ${nranks} --overwrite --regression_tests ${packages_to_test}"
