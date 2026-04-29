@@ -6,11 +6,11 @@
 # for more details.
 
 from spack.package import *
-from spack_repo.builtin.packages.kynema.package import Kynema as bKynema
+from spack_repo.builtin.packages.kynema_driver.package import KynemaDriver as bKynemaDriver
 from spack_repo.kynema.packages.ctest_package.package import *
 find_machine = importlib.import_module("find-kynema-manager")
 
-class Kynema(bKynema, CtestPackage):
+class KynemaDriver(bKynemaDriver, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("tests", default=False, description="Activate regression tests")
 
@@ -18,7 +18,7 @@ class Kynema(bKynema, CtestPackage):
 
     def cmake_args(self):
         spec = self.spec
-        cmake_options = super(Kynema, self).cmake_args()
+        cmake_options = super(KynemaDriver, self).cmake_args()
 
         machine_name, _ = find_machine.get_current_machine()
         if machine_name == "kestrel-gpu":
@@ -26,18 +26,18 @@ class Kynema(bKynema, CtestPackage):
 
         if spec.satisfies("dev_path=*"):
             cmake_options.append(self.define("CMAKE_EXPORT_COMPILE_COMMANDS", True))
-            cmake_options.append(self.define("KYNEMA_ENABLE_TESTS", True))
+            cmake_options.append(self.define("KYNEMA_DRIVER_ENABLE_TESTS", True))
 
         if spec.satisfies("+tests"):
-            cmake_options.append(self.define("KYNEMA_ENABLE_TESTS", True))
-            cmake_options.append(self.define("KYNEMA_TEST_WITH_FCOMPARE", True))
-            cmake_options.append(self.define("KYNEMA_SAVE_GOLDS", True))
-            cmake_options.append(self.define("KYNEMA_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
-            cmake_options.append(self.define("KYNEMA_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
-            cmake_options.append(self.define("FCOMPARE_EXE", join_path(spec["amr-wind"].prefix.bin, "amrex_fcompare")))
+            cmake_options.append(self.define("KYNEMA_DRIVER_ENABLE_TESTS", True))
+            cmake_options.append(self.define("KYNEMA_DRIVER_TEST_WITH_FCOMPARE", True))
+            cmake_options.append(self.define("KYNEMA_DRIVER_SAVE_GOLDS", True))
+            cmake_options.append(self.define("KYNEMA_DRIVER_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
+            cmake_options.append(self.define("KYNEMA_DRIVER_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
+            cmake_options.append(self.define("FCOMPARE_EXE", join_path(spec["kynema-sgf"].prefix.bin, "amrex_fcompare")))
 
-        if spec.satisfies("+nalu_wind_gpu"):
-            cmake_options.append(self.define("KYNEMA_ENABLE_CUDA_RDC", True))
+        if spec.satisfies("+kynema_ugf_gpu"):
+            cmake_options.append(self.define("KYNEMA_DRIVER_ENABLE_CUDA_RDC", True))
 
         return cmake_options
 
