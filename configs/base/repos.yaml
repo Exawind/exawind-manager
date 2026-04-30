@@ -1,2 +1,5 @@
 repos:
   - $spack/../repos/spack_repo/kynema
+  builtin:
+    git: https://github.com/jrood-nrel/spack-packages.git
+    branch: jrood/kynema1
