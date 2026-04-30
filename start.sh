@@ -83,6 +83,7 @@ function spack-start() {
 
     if [[ -z $(spack repo list | awk '{print $2" "$4}' | grep "kynema $KYNEMA_MANAGER") ]]; then
       spack -E repo add ${KYNEMA_MANAGER}/repos/spack_repo/kynema
+      spack -E repo add https://github.com/jrood-nrel/spack-packages.git
     fi
 
     if [[ -z $(spack config --scope site blame bootstrap | grep spack-bootstrap-store) ]]; then
