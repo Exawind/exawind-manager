@@ -8,7 +8,7 @@ spack:
     - kynema-driver~amr_wind_gpu~nalu_wind_gpu~cuda@master %llvm ^nalu-wind+wind-utils+trilinos-solvers@master ^amr-wind+hypre+hdf5+netcdf+masa+waves2amr@main ^tioga@develop
     - kynema-driver~amr_wind_gpu~nalu_wind_gpu~cuda+asan@master build_type=Debug %llvm ^nalu-wind+wind-utils+trilinos-solvers+asan@master build_type=Debug ^amr-wind+hypre+hdf5+netcdf+waves2amr+asan@main build_type=Debug ^tioga+asan@develop build_type=Debug ^trilinos+asan build_type=Debug ^hypre+debug
     - kynema-driver+amr_wind_gpu+nalu_wind_gpu+cuda@master cuda_arch=80 %gcc ^nalu-wind~wind-utils~trilinos-solvers@master ^amr-wind+hypre+hdf5+netcdf+waves2amr@main ^tioga@develop
-    - kynema-driver+tests+klu %gcc
-    - kynema-driver+tests+klu %llvm
-    - kynema-driver+tests+klu+asan build_type=Debug %llvm
-    - kynema-driver+tests+klu+cuda cuda_arch=80 %gcc
+    - kynema-fmb+tests+klu %gcc
+    - kynema-fmb+tests+klu %llvm
+    - kynema-fmb+tests+klu+asan build_type=Debug %llvm
+    - kynema-fmb+tests+klu+cuda cuda_arch=80 %gcc
