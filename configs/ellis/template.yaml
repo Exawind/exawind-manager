@@ -4,11 +4,11 @@ spack:
     reuse: false
   view: false
   specs:
-    - kynema-driver~kynema_sgf_gpu~kynema_ugf_gpu~cuda@master %gcc ^kynema-ugf+trilinos-solvers@master ^kynema-sgf+hypre+hdf5+netcdf+masa+waves2amr@main ^tioga@develop
-    - kynema-driver~kynema_sgf_gpu~kynema_ugf_gpu~cuda@master %llvm ^kynema-ugf+trilinos-solvers@master ^kynema-sgf+hypre+hdf5+netcdf+masa+waves2amr@main ^tioga@develop
-    - kynema-driver~kynema_sgf_gpu~kynema_ugf_gpu~cuda+asan@master build_type=Debug %llvm ^kynema-ugf+trilinos-solvers+asan@master build_type=Debug ^kynema-sgf+hypre+hdf5+netcdf+waves2amr+asan@main build_type=Debug ^tioga+asan@develop build_type=Debug ^trilinos+asan build_type=Debug ^hypre+debug
-    - kynema-driver+kynema_sgf_gpu+kynema_ugf_gpu+cuda@master cuda_arch=80 %gcc ^kynema-ugf~trilinos-solvers@master ^kynema-sgf+hypre+hdf5+netcdf+waves2amr@main ^tioga@develop
-    - kynema-fmb+tests+klu %gcc
-    - kynema-fmb+tests+klu %llvm
-    - kynema-fmb+tests+klu+asan build_type=Debug %llvm
-    - kynema-fmb+tests+klu+cuda cuda_arch=80 %gcc
+    - kynema-driver~kynema_sgf_gpu~kynema_ugf_gpu~cuda@main %gcc ^kynema-ugf+trilinos-solvers@main ^kynema-sgf+hypre+hdf5+netcdf+masa+waves2amr@main ^tioga@main
+    - kynema-driver~kynema_sgf_gpu~kynema_ugf_gpu~cuda@main %llvm ^kynema-ugf+trilinos-solvers@main ^kynema-sgf+hypre+hdf5+netcdf+masa+waves2amr@main ^tioga@main
+    - kynema-driver~kynema_sgf_gpu~kynema_ugf_gpu~cuda+asan@main build_type=Debug %llvm ^kynema-ugf+trilinos-solvers+asan@main build_type=Debug ^kynema-sgf+hypre+hdf5+netcdf+waves2amr+asan@main build_type=Debug ^tioga+asan@main build_type=Debug ^trilinos+asan build_type=Debug ^hypre+debug
+    - kynema-driver+kynema_sgf_gpu+kynema_ugf_gpu+cuda@main cuda_arch=80 %gcc ^kynema-ugf~trilinos-solvers@main ^kynema-sgf+hypre+hdf5+netcdf+waves2amr@main ^tioga@main
+    - kynema-fmb@main+tests+klu %gcc
+    - kynema-fmb@main+tests+klu %llvm
+    - kynema-fmb@main+tests+klu+asan build_type=Debug %llvm
+    - kynema-fmb@main+tests+klu+cuda cuda_arch=80 %gcc
