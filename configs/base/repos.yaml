@@ -1,4 +1,2 @@
 repos:
-  builtin:
-    git: https://github.com/spack/spack-packages.git
   kynema: $spack/../repos/spack_repo/kynema
