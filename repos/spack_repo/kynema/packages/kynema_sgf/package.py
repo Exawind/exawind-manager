@@ -6,6 +6,7 @@ find_machine = importlib.import_module("find-kynema-manager")
 class KynemaSgf(bKynemaSgf, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")
     variant("clangtidy", default=False, description="Turn on clang-tidy")
+    variant("single-precision", default=False, description="Use single precision")
 
     depends_on("netcdf-c+mpi", when="+netcdf")
     requires("+tests", when="+cdash_submit")
@@ -52,5 +53,8 @@ class KynemaSgf(bKynemaSgf, CtestPackage):
             cmake_options.append(self.define("KYNEMA_SGF_SAVE_GOLDS", True))
             cmake_options.append(self.define("KYNEMA_SGF_SAVED_GOLDS_DIRECTORY", super().saved_golds_dir))
             cmake_options.append(self.define("KYNEMA_SGF_REFERENCE_GOLDS_DIRECTORY", super().reference_golds_dir))
+
+        if spec.satisfies("+single-precision"):
+            cmake_options.append(self.define("KYNEMA_SGF_PRECISION", "SINGLE"))
 
         return cmake_options
