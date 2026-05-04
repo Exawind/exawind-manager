@@ -1,7 +1,7 @@
 #!/bin/bash -l
 
 #Example crontab:
-#1 0 * * * /bin/bash -l -c "export KYNEMA_MANAGER=/data/ssd1/home/jrood/kynema/kynema-manager && mkdir -p \${KYNEMA_MANAGER}/logs && cd \${KYNEMA_MANAGER} && (cd \${KYNEMA_MANAGER}/spack && git checkout lib && cd - && git fetch --all && git reset --hard origin/main && git submodule update && git clean -df && git status -uno) &> \${KYNEMA_MANAGER}/logs/kynema-manager-repo-update-$(date -I).txt && sed -i 's/timeout=60/timeout=7200/' \${KYNEMA_MANAGER}/spack/lib/spack/spack/stage.py && NRANKS=36 nice -n19 ionice -c3 \${KYNEMA_MANAGER}/scripts/run-nightly-tests.sh &> \${KYNEMA_MANAGER}/logs/kynema-tests-log-$(date -I).txt"
+#0 2 * * * /bin/bash -l -c "export KYNEMA_MANAGER=/data/ssd1/home/jrood/kynema/kynema-manager && mkdir -p \${KYNEMA_MANAGER}/logs && cd \${KYNEMA_MANAGER} && (cd \${KYNEMA_MANAGER}/spack && git checkout lib && cd - && git fetch --all && git reset --hard origin/main && git submodule update && git clean -df && git status -uno) &> \${KYNEMA_MANAGER}/logs/kynema-manager-repo-update-$(date -I).txt && sed -i 's/timeout=60/timeout=7200/' \${KYNEMA_MANAGER}/spack/lib/spack/spack/stage.py && sed -i 's/self.cache_enabled and bool(self.commit)/False/' \${KYNEMA_MANAGER}/spack/lib/spack/spack/fetch_strategy.py && NRANKS=64 nice -n19 ionice -c3 \${KYNEMA_MANAGER}/scripts/run-nightly-tests.sh &> \${KYNEMA_MANAGER}/logs/kynema-tests-log-$(date -I).txt"
 
 cmd() {
   echo "+ $@"
@@ -39,5 +39,5 @@ prune_envs() {
 
 cmd "prune_envs"
 
-packages_to_test="kynema amr-wind nalu-wind kynema"
+packages_to_test="kynema-driver kynema-sgf kynema-ugf kynema-fmb"
 cmd "time ${KYNEMA_MANAGER}/scripts/deploy.py --daily --cdash ${packages_to_test} --ranks ${nranks} --overwrite --regression_tests ${packages_to_test}"

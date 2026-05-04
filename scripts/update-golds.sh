@@ -29,7 +29,7 @@ cmd "cd ${MYEWM}"
 cmd "source shortcut.sh" || true
 cmd "spack env activate ${DATE}"
 
-for APP in kynema amr-wind nalu-wind
+for APP in kynema-driver kynema-sgf kynema-ugf
 do
   GOLD_DIR=${MYGOLDS}/${APP}
 
