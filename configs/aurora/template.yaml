@@ -4,5 +4,5 @@ spack:
     reuse: false
   view: false
   specs:
-    - 'kynema+amr_wind_gpu~nalu_wind_gpu+sycl'
-    - 'kynema~amr_wind_gpu~nalu_wind_gpu~sycl'
+    - 'kynema+kynema_sgf_gpu~kynema_ugf_gpu+sycl'
+    - 'kynema~kynema_sgf_gpu~kynema_ugf_gpu~sycl'

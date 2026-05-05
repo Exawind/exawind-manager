@@ -126,7 +126,7 @@ packages:
           - craype-accel-amd-gfx90a
   python:
     require: "~ssl"
-  nalu-wind:
+  kynema-ugf:
     require: "~trilinos-solvers"
   mpi:
     require: "cray-mpich@8.1.31"

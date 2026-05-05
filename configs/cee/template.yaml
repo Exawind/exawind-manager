@@ -4,5 +4,5 @@ spack:
     reuse: false
   view: false
   specs:
-  - amr-wind@main%gcc+openfast
-  - amr-wind@main%clang+openfast
+  - kynema-sgf@main%gcc+openfast
+  - kynema-sgf@main%clang+openfast

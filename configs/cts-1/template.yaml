@@ -4,8 +4,8 @@ spack:
     reuse: false
   view: false
   specs:
-  - kynema@master+fsi%oneapi
-  - amr-wind@main+openfast
+  - kynema-driver@master+fsi%oneapi
+  - kynema-sgf@main+openfast
   modules:
     default:
       arch_folder: true
