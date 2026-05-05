@@ -4,6 +4,6 @@ spack:
     reuse: false 
   view: false
   specs:
-    - 'kynema+hypre+amr_wind_gpu+nalu_wind_gpu+cuda cuda_arch=80'
-    - 'kynema+hypre~amr_wind_gpu~nalu_wind_gpu~cuda'
-    #- 'kynema~hypre+amr_wind_gpu~nalu_wind_gpu+cuda cuda_arch=80 ^nalu-wind+hypre ^amr-wind~hypre'
+    - 'kynema+hypre+kynema_sgf_gpu+kynema_ugf_gpu+cuda cuda_arch=80'
+    - 'kynema+hypre~kynema_sgf_gpu~kynema_ugf_gpu~cuda'
+    #- 'kynema~hypre+kynema_sgf_gpu~kynema_ugf_gpu+cuda cuda_arch=80 ^kynema-ugf+hypre ^kynema-sgf~hypre'
