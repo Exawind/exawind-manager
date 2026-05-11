@@ -1,0 +1,41 @@
+compilers:
+  - compiler:
+      spec: oneapi@2024.1.0
+      paths:
+        cc: /projects/aue/hpc/builds/x86_64/rhel8/2410comp/intel-2024.1.0/install/linux-rhel8-x86_64/gcc-12.1.0/intel-oneapi-compilers-2024.1.0-rlvysu3/compiler/2024.1/bin/icx
+        cxx: /projects/aue/hpc/builds/x86_64/rhel8/2410comp/intel-2024.1.0/install/linux-rhel8-x86_64/gcc-12.1.0/intel-oneapi-compilers-2024.1.0-rlvysu3/compiler/2024.1/bin/icpx
+        f77: /projects/aue/hpc/builds/x86_64/rhel8/2410comp/intel-2024.1.0/install/linux-rhel8-x86_64/gcc-12.1.0/intel-oneapi-compilers-2024.1.0-rlvysu3/compiler/2024.1/bin/ifx
+        fc: /projects/aue/hpc/builds/x86_64/rhel8/2410comp/intel-2024.1.0/install/linux-rhel8-x86_64/gcc-12.1.0/intel-oneapi-compilers-2024.1.0-rlvysu3/compiler/2024.1/bin/ifx
+      flags:
+        cflags: '-fp-model=precise -fPIC '
+        cxxflags: '-fp-model=precise -fPIC '
+        fflags: '-fPIC -cpp '
+        ldlibs: -lm -lz -ldl
+        ldflags: -Wl,--undefined-version
+      operating_system: rhel8
+      target: x86_64
+      modules:
+      - aue/intel-oneapi-compilers/2024.1.0
+      - aue/gcc/12.1.0
+      environment: {}
+      extra_rpaths:
+      - /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/lib64
+  - compiler:
+      spec: gcc@12.1.0
+      paths:
+        cc: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gcc
+        cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/g++
+        f77: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
+        fc: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
+      flags:
+        cflags: -fPIC
+        cxxflags: -fPIC
+        fflags: -fPIC -fallow-argument-mismatch
+        ldlibs: -lm -lz -ldl
+      operating_system: rhel8
+      target: x86_64
+      modules:
+      - aue/gcc/12.1.0
+      environment: {}
+      extra_rpaths: []
+
