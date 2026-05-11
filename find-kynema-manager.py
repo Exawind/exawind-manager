@@ -102,7 +102,6 @@ machine_list = {
 
 
 def detector(name):
-    print('Running detector')
     for machine_name, data in machine_list.items():
         """
         Since we don't expect uniform environments on all machines
