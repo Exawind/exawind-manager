@@ -36,6 +36,12 @@ def is_cts_1(hostname):
             return True
     return False
 
+def is_cts_2(hostname):
+    known_hosts = ("flight")
+    for k in known_hosts:
+        if k in hostname:
+            return True
+    return False
 
 def is_azure():
     if "CYCLECLOUD_HOME" in os.environ:
@@ -60,6 +66,7 @@ machine_list = {
     # SNL
     "cee": MachineData(lambda: is_cee(socket.gethostname()), "cee.snl.gov"),
     "cts-1": MachineData(lambda: is_cts_1(socket.gethostname()), "cts-1.snl.gov"),
+    "cts-2": MachineData(lambda: is_cts_2(socket.gethostname()), "cts-2.snl.gov"),
     # NREL
     "kestrel-cpu": MachineData(
         lambda: (os.environ["NREL_CLUSTER"] == "kestrel" and os.environ["CRAY_CPU_TARGET"] == "x86-spr"), "kestrel-cpu.hpc.nrel.gov"
@@ -95,6 +102,7 @@ machine_list = {
 
 
 def detector(name):
+    print('Running detector')
     for machine_name, data in machine_list.items():
         """
         Since we don't expect uniform environments on all machines
