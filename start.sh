@@ -40,7 +40,7 @@ function spack-start() {
 
   function install_spack_manager(){
     export SPACK_ROOT=${KYNEMA_MANAGER}/spack
-    (cd "${KYNEMA_MANAGER}" && git submodule update ${SPACK_ROOT}/../spack-manager)-
+    (cd "${KYNEMA_MANAGER}" && git submodule update ${SPACK_ROOT}/../spack-manager)
     spack -E config --scope site add "config:extensions:[${KYNEMA_MANAGER}/spack-manager]"
     spack -E manager add ${KYNEMA_MANAGER}
   }
