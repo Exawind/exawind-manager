@@ -13,5 +13,6 @@
 # of kynema-manager
 #---------------------------------------------------
 export KYNEMA_MANAGER=`pwd`
+export KYNEMA_PROJECT="${PWD##*/}"
 source ${KYNEMA_MANAGER}/start.sh
 spack-start

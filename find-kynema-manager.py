@@ -30,7 +30,7 @@ def is_cee(hostname):
 
 
 def is_cts_1(hostname):
-    known_hosts = ("skybridge", "ghost", "attaway", "chama")
+    known_hosts = ("eclipse", "ghost", "attaway")
     for k in known_hosts:
         if k in hostname:
             return True
