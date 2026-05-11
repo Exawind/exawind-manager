@@ -3,9 +3,9 @@
 set -e
 
 MYHOME=/data/ssd1/home/${USER}
-MYEW=${MYHOME}/kynema
-MYEWM=${MYEW}/kynema-manager
-MYGOLDS=${MYEW}/golds/current
+MYKW=${MYHOME}/kynema
+MYKWM=${MYKW}/kynema-manager
+MYGOLDS=${MYKW}/golds/current
 DATE=$(date -I)
 
 cmd() {
@@ -21,11 +21,12 @@ copy() {
   SPEC_DIR=$(spack location -i ${SPEC})
   echo ""
   echo "Copying ${SPEC} golds..."
+  cmd "mkdir -p ${GOLD_DIR}/${GOLD_SPEC_DIR}"
   cmd "rm -r ${GOLD_DIR}/${GOLD_SPEC_DIR}/*"
   cmd "cp -R ${SPEC_DIR}/golds/Linux ${GOLD_DIR}/${GOLD_SPEC_DIR}/"
 }
 
-cmd "cd ${MYEWM}"
+cmd "cd ${MYKWM}"
 cmd "source shortcut.sh" || true
 cmd "spack env activate ${DATE}"
 
