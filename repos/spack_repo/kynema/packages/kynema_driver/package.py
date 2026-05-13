@@ -8,7 +8,7 @@
 from spack.package import *
 from spack_repo.builtin.packages.kynema_driver.package import KynemaDriver as bKynemaDriver
 from spack_repo.kynema.packages.ctest_package.package import *
-find_machine = importlib.import_module("find-kynema-manager")
+find_machine = importlib.import_module("find-"+os.getenv("SM_PROJECT"))
 
 class KynemaDriver(bKynemaDriver, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")

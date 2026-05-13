@@ -1,7 +1,7 @@
 from spack.package import *
 from spack_repo.builtin.packages.kynema_sgf.package import KynemaSgf as bKynemaSgf
 from spack_repo.kynema.packages.ctest_package.package import *
-find_machine = importlib.import_module("find-kynema-manager")
+find_machine = importlib.import_module("find-"+os.getenv("SM_PROJECT"))
 
 class KynemaSgf(bKynemaSgf, CtestPackage):
     variant("asan", default=False, description="Turn on address sanitizer")

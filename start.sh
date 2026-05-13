@@ -33,9 +33,9 @@ function spack-start() {
   # for zsh we follow: https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
   export KYNEMA_MANAGER="$( cd -- "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" >/dev/null 2>&1 ; pwd -P )"
 
-  # Rename find script so it is usable by find-machine
+  # Rename find script so it is usable by find-machine/projects.py
   if [ -e "find-kynema-manager.py" ]; then 
-    mv find-kynema-manager.py "find-${KYNEMA_PROJECT}.py"
+    mv find-kynema-manager.py "find-${SM_PROJECT}.py"
   fi
 
   function install_spack_manager(){
