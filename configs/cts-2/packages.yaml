@@ -1,56 +1,106 @@
 packages:
-   all:
-     permissions:
-       read: group
-       group: wg-sierra-users
-     variants: +mpi build_type=Release cuda_arch=70
-     target: [x86_64]
-     providers:
-       mpi: [openmpi]
-   python:
-     externals:
-     - spec: python@3.13.2+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
-       prefix: /projects/aue/hpc/deploy/75321270/linux-rhel8-x86_64/gcc-14.2.0/python-3.13.2-s4pmxdg
-   cuda:
-     externals:
-     - spec: cuda@11.2.152
-       prefix: /projects/aue/cee/builds/x86_64/rhel7/ba17d7f2/cuda-11.2.2/install/linux-rhel7-x86_64/gcc-12.1.0/cuda-11.2.2-y3xhorr
-   ninja:
-     externals:
-     - spec: ninja@1.11.1
-       prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/tooling/install/linux-rhel8-x86_64/gcc-10.3.0/ninja-1.11.1-cjf3fb5
-   openmpi:
-     externals:
-     - spec: openmpi@4.1.6%gcc@12.1.0
-       prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/openmpi-4.1.6-gcc-12.1.0/install/linux-rhel8-x86_64/gcc-12.1.0/openmpi-4.1.6-7vf2ucr
-     - spec: openmpi@4.1.6%oneapi@2024.1.0
-       prefix: /projects/aue/hpc/deploy/b306e83c/linux-rhel8-x86_64/oneapi-2024.1.0/openmpi-4.1.6-a3dlzgm
-     buildable: false
-   cmake:
-     externals:
-     - spec: cmake@3.27.7
-       prefix: /projects/aue/hpc/builds/x86_64/rhel8/f6a36cb8/tooling-sprint-24.02/install/linux-rhel8-x86_64/gcc-10.3.0/cmake-3.27.7-f3bfcza
-     buildable: false
-   curl:
-     externals:
-     - spec: curl@7.29.0+ldap
-       prefix: /usr
-   openssl:
-     externals:
-     - spec: openssl@1.0.2k-fips
-       prefix: /usr
-   boost:
-     externals:
-     - spec: boost@1.83.0
-       prefix: /projects/aue/hpc/builds/x86_64/rhel8/c8f7ebb0/tpls-gcc-12.1.0-openmpi-4.1.6/install/linux-rhel8-x86_64/gcc-12.1.0/boost-1.83.0-em7p3wm
-     buildable: false
-   perl:
-     externals:
-     - spec: perl@5.16.3
-       prefix: /usr
-     buildable: false
-   m4:
-     externals:
-     - spec: m4@1.4.16
-       prefix: /usr
-     buildable: false
+  intel-oneapi-compilers:
+    externals:
+      - spec: intel-oneapi-compilers@2023.2.0
+        prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52
+        extra_attributes:
+          compilers:
+            cc: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/icx
+            cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/icpx
+            fortran: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/ifx
+          flags:
+            cflags: '-fp-model=precise -fPIC '
+            cxxflags: '-fp-model=precise -fPIC '
+            fflags: '-fPIC -cpp '
+            ldlibs: -lm -lz -ldl
+            ldflags: -Wl,--undefined-version
+        modules:
+        - aue/intel-oneapi-compilers/2023.2.0
+        - aue/gcc/12.1.0
+  gcc:
+    externals:
+      - spec: gcc@12.1.0
+        prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s
+        extra_attributes:
+          compilers:
+            cc: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gcc
+            cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/g++
+            fortran: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
+          flags:
+            cflags: -fPIC
+            cxxflags: -fPIC
+            fflags: -fPIC -fallow-argument-mismatch
+            ldlibs: -lm -lz -ldl
+        modules:
+        - aue/gcc/12.1.0
+  openmpi:
+    externals:
+    - spec: openmpi@4.1.6%oneapi@2023.2.0
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/ompiflux/openmpi-4.1.6-intel-2021.10.0/install/linux-rhel8-x86_64/intel-2021.10.0/openmpi-4.1.6-qdvgpqu
+    buildable: false
+    modules:
+    - aue/openmpi/4.1.6-oneapi-2023.2.0
+  boost:
+    externals:
+    - spec: boost@1.83.0
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/c8f7ebb0/tpls-gcc-12.1.0-openmpi-4.1.6/install/linux-rhel8-x86_64/gcc-12.1.0/boost-1.83.0-em7p3wm
+    buildable: false
+  perl:
+    externals:
+    - spec: perl@5.26.3
+      prefix: /usr
+    buildable: false
+  m4:
+    externals:
+    - spec: m4@1.4.18
+      prefix: /usr
+    buildable: false
+  curl:
+    externals:
+    - spec: curl@7.61.1+ldap
+      prefix: /usr
+  openssl:
+    externals:
+    - spec: openssl@1.1.1k-fips
+      prefix: /usr
+  python:
+    externals:
+    - spec: python@3.12.4
+      prefix: /projects/aue/hpc/deploy/f9a38d2c/linux-rhel8-x86_64/gcc-12.3.0/python-3.12.4-dln57gx
+    buildable: false
+    modules:
+    - aue/python/3.12.4
+  cmake: 
+    externals:
+    - spec: cmake@3.31.6
+      prefix: /projects/aue/hpc/deploy/75321270/linux-rhel8-x86_64/gcc-14.2.0/cmake-3.31.6-7jvewq7
+    buildable: false 
+    modules:
+    - aue/cmake/3.31.6
+  netcdf-c:
+    require: "+shared build_system=autotools"
+  libxml2:
+    require: "build_system=autotools"
+  mpi:
+    require: "cray-mpich"
+  blas:
+    require: "netlib-lapack"
+  lapack:
+    require: "netlib-lapack"
+  hdf5:
+    require: "~fortran"
+  kynema-sgf:
+    require: "target=x86_64"
+  all:
+    prefer:
+      - "%intel-oneapi-compilers@2023.2.0"
+      - "build_type=Release"
+      - "target=sapphirerapids"
+    conflict:
+      - "%gcc"
+    permissions:
+      write: group
+      group: wg-WindHFM
+    providers:
+      mpi:
+      - openmpi

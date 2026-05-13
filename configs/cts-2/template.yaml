@@ -1,16 +1,7 @@
 spack:
   concretizer:
     unify: false
-    reuse: false
+    reuse: false 
   view: false
   specs:
-  - kynema-driver@master+fsi%oneapi
-  - kynema-sgf@main+openfast
-  modules:
-    default:
-      arch_folder: true
-      roots:
-        tcl: /projects/wind/modules
-  packages:
-    all:
-      target: [x86_64]
+    - 'kynema'

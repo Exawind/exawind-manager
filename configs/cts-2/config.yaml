@@ -1,3 +1,2 @@
 config:
-  build_jobs: 8
-  source_cache: /pscratch/${user}/spack_downloads
+  build_jobs: 36
