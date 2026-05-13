@@ -1,3 +1,4 @@
+import os
 from spack.package import *
 from spack_repo.builtin.packages.kynema_ugf.package import KynemaUgf as bKynemaUgf
 from spack_repo.kynema.packages.ctest_package.package import *
