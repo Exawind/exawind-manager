@@ -1,37 +1,37 @@
 packages:
   intel-oneapi-compilers:
     externals:
-      - spec: intel-oneapi-compilers@2023.2.0
-        prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52
-        extra_attributes:
-          compilers:
-            c: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/icx
-            cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/icpx
-            fortran: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/ifx
-          flags:
-            cflags: '-fp-model=precise -fPIC '
-            cxxflags: '-fp-model=precise -fPIC '
-            fflags: '-fPIC -cpp '
-            ldlibs: -lm -lz -ldl
-            ldflags: -Wl,--undefined-version
-        modules:
-        - aue/intel-oneapi-compilers/2023.2.0
+    - spec: intel-oneapi-compilers@2023.2.0
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52
+      extra_attributes:
+        compilers:
+          c: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/icx
+          cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/icpx
+          fortran: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/intel-2023.2.0/install/linux-rhel8-x86_64/gcc-10.3.0/intel-oneapi-compilers-2023.2.0-v3dnk52/compiler/2023.2.0/linux/bin/ifx
+        flags:
+          cflags: '-fp-model=precise -fPIC '
+          cxxflags: '-fp-model=precise -fPIC '
+          fflags: '-fPIC -cpp '
+          ldlibs: -lm -lz -ldl
+          ldflags: -Wl,--undefined-version
+      modules:
+      - aue/intel-oneapi-compilers/2023.2.0
   gcc:
     externals:
-      - spec: gcc@12.1.0
-        prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s
-        extra_attributes:
-          compilers:
-            c: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gcc
-            cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/g++
-            fortran: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
-          flags:
-            cflags: -fPIC
-            cxxflags: -fPIC
-            fflags: -fPIC -fallow-argument-mismatch
-            ldlibs: -lm -lz -ldl
-        modules:
-        - aue/gcc/12.1.0
+    - spec: gcc@12.1.0
+      prefix: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s
+      extra_attributes:
+        compilers:
+          c: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gcc
+          cxx: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/g++
+          fortran: /projects/aue/hpc/builds/x86_64/rhel8/ba17d7f2/gcc-12.1.0/install/linux-rhel8-x86_64/gcc-10.3.0/gcc-12.1.0-xpyjv5s/bin/gfortran
+        flags:
+          cflags: -fPIC
+          cxxflags: -fPIC
+          fflags: -fPIC -fallow-argument-mismatch
+          ldlibs: -lm -lz -ldl
+      modules:
+      - aue/gcc/12.1.0
   openmpi:
     externals:
     - spec: openmpi@4.1.6+pmi+legacylaunchers+lustre~cuda fabrics=psm2,ofi,verbs schedulers=slurm %oneapi@2023.2.0
@@ -39,7 +39,6 @@ packages:
       modules:
       - aue/openmpi/4.1.6-oneapi-2023.2.0
     buildable: false
-
   boost:
     externals:
     - spec: boost@1.83.0
@@ -70,15 +69,13 @@ packages:
       modules:
       - aue/python/3.12.4
     buildable: false
-
-  cmake: 
+  cmake:
     externals:
     - spec: cmake@3.29.4
       prefix: /projects/aue/hpc/deploy/f9a38d2c/linux-rhel8-x86_64/gcc-12.3.0/cmake-3.29.4-fcknccz
       modules:
       - aue/cmake/3.29.4
     buildable: false 
-
   parallel-netcdf:
     require: "~fortran"
   netcdf-c:
@@ -94,23 +91,30 @@ packages:
   hdf5:
     require: "~fortran"
   kynema-sgf:
+    version: [346b1f0307d61e393b76fa503e73e573ee914a8e]
     require: "target=x86_64"
     variants: +tiny_profile
+  kynema-ugf:
+    version: [main]
+  kynema-driver:
+    version: [main]
+  gettext:
+    require: target=x86_64 %gcc
+  libidn2:
+    require: target=x86_64 %gcc
   c:
     prefer:
-    - "%oneapi"
+    - intel-oneapi-compilers
   cxx:
     prefer:
-    - "%oneapi"
+    - intel-oneapi-compilers
   fortran:
-    prefer: 
-    - "%oneapi"
+    prefer:
+    - intel-oneapi-compilers
   all:
     prefer:
       - "build_type=Release"
       - "target=sapphirerapids"
-    conflict:
-      - "%gcc"
     permissions:
       write: group
       group: wg-WindHFM
