@@ -98,13 +98,13 @@ packages:
     variants: +tiny_profile
   c:
     prefer:
-    - oneapi
+    - "%oneapi"
   cxx:
     prefer:
-    - oneapi
+    - "%oneapi"
   fortran:
     prefer: 
-    - oneapi
+    - "%oneapi"
   all:
     prefer:
       - "build_type=Release"
