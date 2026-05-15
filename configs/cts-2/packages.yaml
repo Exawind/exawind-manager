@@ -96,9 +96,17 @@ packages:
   kynema-sgf:
     require: "target=x86_64"
     variants: +tiny_profile
+  c:
+    prefer:
+    - oneapi
+  cxx:
+    prefer:
+    - oneapi
+  fortran:
+    prefer: 
+    - oneapi
   all:
     prefer:
-      - "%intel-oneapi-compilers@2023.2.0"
       - "build_type=Release"
       - "target=sapphirerapids"
     conflict:
