@@ -91,8 +91,7 @@ packages:
   hdf5:
     require: "~fortran"
   kynema-sgf:
-    version: [346b1f0307d61e393b76fa503e73e573ee914a8e]
-    require: "target=x86_64"
+    require: "@main commit=346b1f0307d61e393b76fa503e73e573ee914a8e target=x86_64"
     variants: +tiny_profile
   kynema-ugf:
     version: [main]
