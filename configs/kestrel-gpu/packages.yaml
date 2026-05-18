@@ -1,21 +1,21 @@
 packages:
   gcc:
     externals:
-      - spec: gcc@12.1.0
-        prefix: /opt/rh/gcc-toolset-12/root
+      - spec: gcc@13.1.0
+        prefix: /opt/rh/gcc-toolset-13/root
         extra_attributes:
           compilers:
-            c: /opt/rh/gcc-toolset-12/root/bin/gcc
-            cxx: /opt/rh/gcc-toolset-12/root/bin/g++
-            fortran: /opt/rh/gcc-toolset-12/root/bin/gfortran
+            c: /opt/rh/gcc-toolset-13/root/bin/gcc
+            cxx: /opt/rh/gcc-toolset-13/root/bin/g++
+            fortran: /opt/rh/gcc-toolset-13/root/bin/gfortran
   cray-mpich:
-    require: "@=8.1.28"
+    require: "@=8.1.32"
     buildable: false
     externals:
-      - spec: "cray-mpich@=8.1.28%gcc@12.1.0"
-        prefix: /opt/cray/pe/mpich/8.1.28/ofi/gnu/10.3
+      - spec: "cray-mpich@=8.1.32%gcc@13.1.0"
+        prefix: /opt/cray/pe/mpich/8.1.32/ofi/gnu/11.2
         modules:
-          - libfabric/1.15.2.0
+          - libfabric/1.22.0
   cuda:
     require: "@=12.4.1"
   boost:
@@ -27,11 +27,11 @@ packages:
   lapack:
     require: "netlib-lapack"
   c:
-    require: "gcc@12.1.0"
+    require: "gcc@13.1.0"
   cxx:
-    require: "gcc@12.1.0"
+    require: "gcc@13.1.0"
   fortran:
-    require: "gcc@12.1.0"
+    require: "gcc@13.1.0"
   all:
     prefer:
       - "build_type=Release"
