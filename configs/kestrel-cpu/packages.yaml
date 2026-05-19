@@ -48,9 +48,17 @@ packages:
     require: "~fortran"
   kynema-sgf:
     require: "target=x86_64"
+  c:
+    prefer:
+      - intel-oneapi-compilers@2023.2.0
+  cxx:
+    prefer:
+      - intel-oneapi-compilers@2023.2.0
+  fortran:
+    prefer:
+      - intel-oneapi-compilers@2023.2.0
   all:
     prefer:
-      - "%intel-oneapi-compilers@2023.2.0"
       - "build_type=Release"
       - "target=sapphirerapids"
     conflict:
