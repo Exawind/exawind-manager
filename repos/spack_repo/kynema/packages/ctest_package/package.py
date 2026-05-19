@@ -19,7 +19,7 @@ from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack_repo.builtin.build_systems.cmake import CMakeBuilder
 from spack.phase_callbacks import run_after
 from spack.directives import variant, requires
-find_machine = importlib.import_module("find-kynema-manager")
+find_machine = importlib.import_module("find-"+os.getenv("SM_PROJECT"))
 
 class CTestBuilder(CMakeBuilder):
     phases = ("cmake", "build", "install", "analysis")
